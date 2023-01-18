@@ -1,15 +1,14 @@
-package com.example.sejonggoodsmallproject.ui.view
+package com.example.sejonggoodsmallproject.ui.view.home.productdetail
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.sejonggoodsmallproject.databinding.ItemProductSomenailBinding
 
-class ProductSomenailViewPagerAdapter(private val context: Context, private val imageList: List<String>)
-    : RecyclerView.Adapter<ProductSomenailViewPagerAdapter.CustomViewHolder>() {
+class ProductImageViewPagerAdapter(private val context: Context, private val imageList: List<String>)
+    : RecyclerView.Adapter<ProductImageViewPagerAdapter.CustomViewHolder>() {
     inner class CustomViewHolder(private val binding: ItemProductSomenailBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: String) {
             Glide.with(context).load(item).into(binding.ivProductSomenail)
@@ -19,7 +18,7 @@ class ProductSomenailViewPagerAdapter(private val context: Context, private val 
         holder.bind(imageList[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductSomenailViewPagerAdapter.CustomViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = ItemProductSomenailBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return CustomViewHolder(view)
     }

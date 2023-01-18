@@ -8,6 +8,9 @@ import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.util.RetrofitInstance
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
+import com.example.sejonggoodsmallproject.ui.view.favorite.FavoriteFragment
+import com.example.sejonggoodsmallproject.ui.view.home.HomeFragment
+import com.example.sejonggoodsmallproject.ui.view.mypage.MypageFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
 import kotlinx.coroutines.CoroutineScope

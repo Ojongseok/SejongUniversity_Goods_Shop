@@ -1,4 +1,4 @@
-package com.example.sejonggoodsmallproject.ui.view
+package com.example.sejonggoodsmallproject.ui.view.home
 
 import android.content.Context
 import android.view.LayoutInflater

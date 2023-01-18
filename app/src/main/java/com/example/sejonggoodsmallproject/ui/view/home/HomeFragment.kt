@@ -1,4 +1,4 @@
-package com.example.sejonggoodsmallproject.ui.view
+package com.example.sejonggoodsmallproject.ui.view.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.ProductListData
 import com.example.sejonggoodsmallproject.databinding.FragmentHomeBinding
+import com.example.sejonggoodsmallproject.ui.view.MainActivity
+import com.example.sejonggoodsmallproject.ui.view.home.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.google.android.material.tabs.TabLayout
 
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 Toast.makeText(context, position.toString(),Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(context,ProductDetailActivity::class.java)
+                val intent = Intent(context, ProductDetailActivity::class.java)
                 context?.startActivity(intent)
             }
         })
@@ -72,13 +73,9 @@ class HomeFragment : Fragment() {
                 }
             }
             // tab이 선택되지 않았을 때
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
             // tab이 다시 선택되었을 때
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
     override fun onDestroy() {

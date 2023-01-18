@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.favorite.FavoriteFragment">
+    tools:context=".ui.view.home.productdetail.ProductQuestionFragment">
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="준비 중입니다."
+        android:text="문의하기도 준비 중이에용"
         android:textColor="@color/main_text"
         android:textSize="20sp"
         android:textStyle="bold"
