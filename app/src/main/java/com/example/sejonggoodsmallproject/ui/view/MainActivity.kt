@@ -31,6 +31,16 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this,factory) [MainViewModel::class.java]
 
         setTabLayout()
+
+        binding.btnSearch.setOnClickListener {
+
+        }
+        binding.btnCart.setOnClickListener {
+
+        }
+        binding.btnMypage.setOnClickListener {
+
+        }
     }
 
     private fun setRvProductList() {
@@ -54,8 +64,6 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         }
-
-
     }
 
     private fun setTabLayout() {
