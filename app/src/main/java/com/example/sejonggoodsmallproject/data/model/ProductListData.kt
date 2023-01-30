@@ -1,8 +1,9 @@
 package com.example.sejonggoodsmallproject.data.model
 
+
 data class ProductListData(
-    val name: String,
-    val tag: String,
+    val id: Long?,
+    val title: String,
     val price: Int,
-    val imgList: List<String>
+    val description: String
 )

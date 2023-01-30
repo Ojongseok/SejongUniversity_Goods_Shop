@@ -1,22 +1,19 @@
 package com.example.sejonggoodsmallproject.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.example.sejonggoodsmallproject.R
-import com.example.sejonggoodsmallproject.util.RetrofitInstance
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
-import com.example.sejonggoodsmallproject.ui.view.favorite.FavoriteFragment
-import com.example.sejonggoodsmallproject.ui.view.home.HomeFragment
-import com.example.sejonggoodsmallproject.ui.view.mypage.MypageFragment
+import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -25,59 +22,57 @@ class MainActivity : AppCompatActivity() {
     private val mainRepository = MainRepository()
     private val factory = MainViewModelFactory(mainRepository)
     lateinit var viewModel: MainViewModel
+    private lateinit var productListAdapter: ProductListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setBottomNavigationView()
-
-        // 앱 초기 실행 시 홈화면으로 설정
-        if (savedInstanceState == null) {
-            binding.bottomNavigation.selectedItemId = R.id.fragment_home
-        }
-
         viewModel = ViewModelProvider(this,factory) [MainViewModel::class.java]
-//        viewModel.getTestData()
+
+        setTabLayout()
     }
 
-    private fun retrofitWork() {
-        val service = RetrofitInstance.retrofitService
-        Log.d("태그","1")
-
+    private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
-            Log.d("태그","2")
-            val response = service.getTestData()
-            Log.d("태그","3")
+            val result = viewModel.getTestData()
+            productListAdapter = ProductListAdapter(applicationContext, result)
 
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    Log.d("태그",response.code().toString())
-                } else {
-                    Log.d("태그",response.code().toString())
+                binding.rvProductList.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(applicationContext)
+                    adapter = productListAdapter
+                    addItemDecoration(DividerItemDecoration(applicationContext, LinearLayoutManager(applicationContext).orientation))
                 }
+
+                productListAdapter.setItemClickListener(object : ProductListAdapter.OnItemClickListener {
+                    override fun onClick(v: View, position: Int) {
+                        val intent = Intent(applicationContext, ProductDetailActivity::class.java)
+                        startActivity(intent)
+                    }
+                })
             }
         }
+
+
     }
 
-    private fun setBottomNavigationView() {
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.fragment_home -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.main_fragment_container, HomeFragment()).commit()
-                    true
+    private fun setTabLayout() {
+        // 초기 tab 세팅
+        setRvProductList()
+
+        binding.storeFragmentTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            // tab이 선택되었을 때
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab!!.position) {
+                    // 0, 1, 2... 탭 구분하기
                 }
-                R.id.fragment_store -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.main_fragment_container, FavoriteFragment()).commit()
-                    true
-                }
-                R.id.fragment_mypage -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.main_fragment_container, MypageFragment()).commit()
-                    true
-                }
-                else -> false
             }
-        }
+            // tab이 선택되지 않았을 때
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            // tab이 다시 선택되었을 때
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 }

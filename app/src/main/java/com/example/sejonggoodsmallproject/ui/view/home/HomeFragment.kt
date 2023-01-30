@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.data.model.ProductListData
 import com.example.sejonggoodsmallproject.databinding.FragmentHomeBinding
 import com.example.sejonggoodsmallproject.ui.view.MainActivity
-import com.example.sejonggoodsmallproject.ui.view.home.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.view.ProductListAdapter
+import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.google.android.material.tabs.TabLayout
 
@@ -37,10 +38,7 @@ class HomeFragment : Fragment() {
 
     private fun setRvProductList() {
         val list = ArrayList<ProductListData>()
-        list.add(ProductListData("이름1","새내기1",15000, listOf("123","123")))
-        list.add(ProductListData("이름2","새내기2",3000, listOf("123","123")))
-        list.add(ProductListData("이름3","새내기3",42000, listOf("123","123")))
-        productListAdapter = ProductListAdapter(requireContext(), list)
+//        productListAdapter = ProductListAdapter(requireContext(), list)
 
         binding.rvProductList.apply {
             setHasFixedSize(true)
@@ -67,9 +65,7 @@ class HomeFragment : Fragment() {
             // tab이 선택되었을 때
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
-                    0 -> Toast.makeText(requireContext(),"전체상품 클릭",Toast.LENGTH_SHORT).show()
-                    1 -> Toast.makeText(requireContext(),"의류 클릭",Toast.LENGTH_SHORT).show()
-                    2 -> Toast.makeText(requireContext(),"문구 클릭",Toast.LENGTH_SHORT).show()
+                    // 0, 1, 2... 탭 구분하기
                 }
             }
             // tab이 선택되지 않았을 때

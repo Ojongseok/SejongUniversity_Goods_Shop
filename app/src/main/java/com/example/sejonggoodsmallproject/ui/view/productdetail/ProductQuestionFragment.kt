@@ -1,4 +1,4 @@
-package com.example.sejonggoodsmallproject.ui.view.home.productdetail
+package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
