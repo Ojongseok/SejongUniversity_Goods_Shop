@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this,factory) [MainViewModel::class.java]
 
+
         setTabLayout()
 
         binding.btnSearch.setOnClickListener {

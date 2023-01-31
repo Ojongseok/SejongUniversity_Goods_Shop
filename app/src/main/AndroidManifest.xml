@@ -17,13 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.view.search.SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.view.MainActivity"
+            android:name=".ui.view.login.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.view.productdetail.ProductDetailActivity" />
+        <activity android:name=".ui.view.MainActivity" />
+        <activity android:name=".ui.view.login.InitActivity"/>
+
     </application>
 
 </manifest>
