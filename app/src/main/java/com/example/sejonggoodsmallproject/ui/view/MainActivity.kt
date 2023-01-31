@@ -7,9 +7,11 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
 import com.google.android.material.tabs.TabLayout
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         setTabLayout()
 
         binding.btnSearch.setOnClickListener {
-
+            supportFragmentManager.beginTransaction().replace(R.id.main_container,SearchFragment()).commit()
         }
         binding.btnCart.setOnClickListener {
 

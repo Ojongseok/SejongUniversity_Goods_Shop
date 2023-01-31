@@ -10,8 +10,9 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/background_spinner_option.xml" value="0.12" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/bottom_navigation_color.xml" value="0.1265" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_down.xml" value="0.1235" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_main.xml" value="0.6" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_product_detail.xml" value="0.4" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_search.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_buy.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_home.xml" value="0.264" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_product_info.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_product_question.xml" value="0.2390625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_review.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_search.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_store.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_list.xml" value="0.2882882882882883" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_somenail.xml" value="0.2526041666666667" />
