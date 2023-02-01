@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.MutableLiveData
 import com.example.sejonggoodsmallproject.R
@@ -33,7 +34,6 @@ class SignupFragment : Fragment() {
 
         setBackPressed()
         setSignupTextWatcher()
-
 
 
     }
@@ -128,8 +128,10 @@ class SignupFragment : Fragment() {
         // 회원가입 버튼 활성화
         if (emailFlag && passFlag && nameFlag && birthFlag) {
             binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_red_stroke_red_soild)
+
             binding.btnSignupComplete.setOnClickListener {
-                startActivity(Intent(requireContext(), MainActivity()::class.java))
+                Toast.makeText(requireContext(),"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
             }
         } else {
             binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_grey_soild)
