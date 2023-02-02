@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sejonggoodsmallproject.data.model.ProductListData
 import com.example.sejonggoodsmallproject.databinding.ItemProductListBinding
 
-class ProductListAdapter(private val context: Context, private val list : List<ProductListData>)
+class ProductListAdapter(private val list : List<ProductListData>)
     : RecyclerView.Adapter<ProductListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
 

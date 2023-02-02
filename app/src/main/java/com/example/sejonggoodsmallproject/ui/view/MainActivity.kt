@@ -3,6 +3,7 @@ package com.example.sejonggoodsmallproject.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
+import com.example.sejonggoodsmallproject.ui.view.cart.CartFragment
+import com.example.sejonggoodsmallproject.ui.view.mypage.MypageFragment
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
@@ -36,20 +39,21 @@ class MainActivity : AppCompatActivity() {
         setTabLayout()
 
         binding.btnSearch.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.main_container,SearchFragment()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.main_container, SearchFragment()).commit()
         }
         binding.btnCart.setOnClickListener {
-
+            supportFragmentManager.beginTransaction().replace(R.id.main_container, CartFragment()).commit()
         }
         binding.btnMypage.setOnClickListener {
-
+            supportFragmentManager.beginTransaction().replace(R.id.main_container, MypageFragment()).commit()
         }
     }
+
 
     private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
             val result = viewModel.getAllProducts()
-            productListAdapter = ProductListAdapter(applicationContext, result)
+            productListAdapter = ProductListAdapter(result)
 
             withContext(Dispatchers.Main) {
                 binding.rvProductList.apply {
@@ -69,6 +73,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+//    fun onClickBtn(v: View) {
+//        when(v.id) {
+//            R.id.btn_search -> {
+//                supportFragmentManager.beginTransaction().replace(R.id.main_container, SearchFragment()).commit()
+//            }
+//            R.id.btn_cart -> {
+//                supportFragmentManager.beginTransaction().replace(R.id.main_container, CartFragment()).commit()
+//            }
+//            R.id.btn_mypage -> {
+//                supportFragmentManager.beginTransaction().replace(R.id.main_container, MypageFragment()).commit()
+//            }
+//        }
+//    }
 
     private fun setTabLayout() {
         // 초기 tab 세팅

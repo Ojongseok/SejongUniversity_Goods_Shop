@@ -29,7 +29,6 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container,false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,8 +36,6 @@ class SearchFragment : Fragment() {
 
         setBackPressed()
         setRecyclerViewRecentSearched()
-
-
 
         binding.btnSearchComplete.setOnClickListener {
             val title = binding.etSearchBar.text.toString()
@@ -51,20 +48,19 @@ class SearchFragment : Fragment() {
     private fun setRecyclerViewRecentSearched() {
         recentSearchAdapter = RecentSearchedAdapter(emptyList())
 
-        viewModel.getRecentSearchItemsList().observe(viewLifecycleOwner) {
-            recentSearchAdapter = RecentSearchedAdapter(it)
-            binding.rvRecentSearch.adapter = recentSearchAdapter
-        }
-
         binding.rvRecentSearch.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = recentSearchAdapter
         }
 
+        viewModel.getRecentSearchItemsList().observe(viewLifecycleOwner) {
+            recentSearchAdapter.setData(it)
+        }
+
         recentSearchAdapter.setItemClickListener(object : RecentSearchedAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                Toast.makeText(requireContext(),"$position 터치",Toast.LENGTH_SHORT).show()
+                viewModel.deleteRecentSearch(recentSearchAdapter.getItem(position))
             }
         })
 

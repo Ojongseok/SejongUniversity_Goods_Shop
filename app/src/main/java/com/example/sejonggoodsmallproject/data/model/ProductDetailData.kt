@@ -6,5 +6,5 @@ data class ProductDetailData(
     val price: Int,
     val description: String?,
     val color: String?,
-    val size: String,
+    val size: String
 )

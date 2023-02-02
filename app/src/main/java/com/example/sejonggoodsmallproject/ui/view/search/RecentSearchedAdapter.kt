@@ -9,8 +9,10 @@ import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.databinding.ItemProductListBinding
 import com.example.sejonggoodsmallproject.databinding.ItemRecentSearchBinding
 import com.example.sejonggoodsmallproject.ui.view.ProductListAdapter
+import kotlinx.android.synthetic.main.item_recent_search.view.*
 
-class RecentSearchedAdapter(private val list : List<RecentSearchModel>) : RecyclerView.Adapter<RecentSearchedAdapter.CustomViewHolder>() {
+class RecentSearchedAdapter(private var list : List<RecentSearchModel>)
+    : RecyclerView.Adapter<RecentSearchedAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
 
     inner class CustomViewHolder(private val binding: ItemRecentSearchBinding): RecyclerView.ViewHolder(binding.root) {
@@ -26,7 +28,7 @@ class RecentSearchedAdapter(private val list : List<RecentSearchModel>) : Recycl
     override fun onBindViewHolder(holder: RecentSearchedAdapter.CustomViewHolder, position: Int) {
         holder.bind(list[position])
 
-        holder.itemView.setOnClickListener {
+        holder.itemView.btn_recent_search_remove.setOnClickListener {
             itemClickListener.onClick(it,position)
         }
     }
@@ -40,4 +42,13 @@ class RecentSearchedAdapter(private val list : List<RecentSearchModel>) : Recycl
     }
 
     override fun getItemCount() = list.size
+
+    fun setData(newData: List<RecentSearchModel>) {
+        list = newData
+        notifyDataSetChanged()
+    }
+
+    fun getItem(position: Int): RecentSearchModel {
+        return list[position]
+    }
 }
