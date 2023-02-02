@@ -13,24 +13,24 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/top_search_bar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/top_search_bar"
         app:srcCompat="@drawable/ic_back" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/btn_search_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="취소"
+        android:text="검색"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/top_search_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+        app:layout_constraintStart_toEndOf="@+id/top_search_bar"
+        app:layout_constraintTop_toTopOf="@+id/top_search_bar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/top_search_bar"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/et_search_bar"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
         android:background="@color/shape_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/top_search_bar">
 
     </FrameLayout>
 
@@ -84,7 +84,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="최근 검색어"
+        android:textColor="@color/main_text"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/btn_search_back"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전체삭제"
+        android:textColor="@color/main_text"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="@+id/btn_search_complete" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recent_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView18"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 </androidx.constraintlayout.widget.ConstraintLayout>

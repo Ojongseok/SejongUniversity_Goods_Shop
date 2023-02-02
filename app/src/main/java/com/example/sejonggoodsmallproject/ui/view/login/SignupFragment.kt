@@ -39,7 +39,7 @@ class SignupFragment : Fragment() {
     }
 
     private fun setSignupTextWatcher() {
-        // 이메일 입력
+        // 이메일 입력 감지
         binding.etEmail.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 binding.tvWarnEmail.visibility = View.VISIBLE
@@ -59,9 +59,8 @@ class SignupFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 setSignupBtnFlag()
             }
-
         })
-        // 비밀번호 입력
+        // 비밀번호 입력 감지
         binding.etPassword.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 binding.tvWarnPassword.visibility = View.VISIBLE
@@ -80,7 +79,7 @@ class SignupFragment : Fragment() {
                 setSignupBtnFlag()
             }
         })
-        // 비밀번호 확인
+        // 비밀번호 확인 입력 감지
         binding.etPasswordConfirm.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 binding.tvWarnPasswordConfirm.visibility = View.VISIBLE
@@ -101,7 +100,7 @@ class SignupFragment : Fragment() {
                 setSignupBtnFlag()
             }
         })
-        // 이름 입력
+        // 이름 입력 감지
         binding.etName.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -112,7 +111,7 @@ class SignupFragment : Fragment() {
                 setSignupBtnFlag()
             }
         })
-        // 생년월일 입력
+        // 생년월일 입력 감지
         binding.etBirth.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -124,6 +123,7 @@ class SignupFragment : Fragment() {
             }
         })
     }
+
     private fun setSignupBtnFlag() {
         // 회원가입 버튼 활성화
         if (emailFlag && passFlag && nameFlag && birthFlag) {

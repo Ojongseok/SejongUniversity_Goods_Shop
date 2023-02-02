@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val mainRepository = MainRepository()
-    private val factory = MainViewModelFactory(mainRepository)
     lateinit var viewModel: MainViewModel
     private lateinit var productListAdapter: ProductListAdapter
 
@@ -30,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val mainRepository = MainRepository(application)
+        val factory = MainViewModelFactory(mainRepository)
         viewModel = ViewModelProvider(this,factory) [MainViewModel::class.java]
 
 
