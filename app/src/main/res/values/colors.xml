@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_red">#FF642225</color> // 메인강조색
+    <color name="main_red">#FFA31F36</color> // 메인강조색
     <color name="main_text">#FF444444</color> // 메인글자색
     <color name="sub_text">#FFC1C1C1</color>  // 보조글자색
     <color name="main_sub_text">#FFD9D9D9</color> // 메인보조색

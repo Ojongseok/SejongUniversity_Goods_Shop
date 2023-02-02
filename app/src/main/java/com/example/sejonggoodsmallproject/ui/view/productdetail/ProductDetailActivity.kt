@@ -2,28 +2,56 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.ProductDetailData
+import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityProductDetailBinding
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.BuyFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
+import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
+import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
+import com.example.sejonggoodsmallproject.ui.viewmodel.ProductViewModelViewModelFactory
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class ProductDetailActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityProductDetailBinding.inflate(layoutInflater)
     }
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: ProductDetailViewModel
     private lateinit var productImageViewPagerAdapter: ProductImageViewPagerAdapter
+    private var itemId = 0
+    lateinit var result : Response<ProductDetailData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        itemId = intent.getStringExtra("itemId")?.toInt()!!
+
+        val mainRepository = MainRepository(application)
+        val factory = ProductViewModelViewModelFactory(mainRepository, itemId)
+        viewModel = ViewModelProvider(this,factory) [ProductDetailViewModel::class.java]
+
         binding.activity = this@ProductDetailActivity
 
         setSomenailViewPager()
         setTabLayout()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            result = viewModel.getProductDetail(itemId)
+
+            if (result.isSuccessful) {
+                val data = result.body()
+                binding.model = data
+            }
+        }
+
 
     }
     private fun setTabLayout() {
