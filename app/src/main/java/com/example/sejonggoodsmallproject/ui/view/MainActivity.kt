@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
             val response = viewModel.getAllProducts()
-            productListAdapter = ProductListAdapter(response)
+            productListAdapter = ProductListAdapter(applicationContext, response)
 
             withContext(Dispatchers.Main) {
                 binding.rvProductList.apply {

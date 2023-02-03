@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
+import com.example.sejonggoodsmallproject.data.model.imgProductDetailResult
 import com.example.sejonggoodsmallproject.databinding.ItemProductSomenailBinding
 
-class ProductImageViewPagerAdapter(private val context: Context, private val imageList: List<String>)
+class ProductImageViewPagerAdapter(private val context: Context, private val imageList: List<imgProductDetailResult>)
     : RecyclerView.Adapter<ProductImageViewPagerAdapter.CustomViewHolder>() {
     inner class CustomViewHolder(private val binding: ItemProductSomenailBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
-            Glide.with(context).load(item).into(binding.ivProductSomenail)
+        fun bind(item: imgProductDetailResult) {
+            Glide.with(context).load(item.oriImgName).into(binding.ivProductSomenail)
         }
     }
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {

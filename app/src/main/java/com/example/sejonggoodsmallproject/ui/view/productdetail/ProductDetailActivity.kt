@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
+import com.example.sejonggoodsmallproject.data.model.imgProductDetailResult
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityProductDetailBinding
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.BuyFragment
@@ -15,6 +16,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -38,7 +40,6 @@ class ProductDetailActivity : AppCompatActivity() {
 
         binding.activity = this@ProductDetailActivity
 
-        setSomenailViewPager()
         setTabLayout()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -47,6 +48,10 @@ class ProductDetailActivity : AppCompatActivity() {
             if (response.isSuccessful) {
                 val data = response.body()
                 binding.model = data
+
+                withContext(Dispatchers.Main) {
+                    setSomenailViewPager(data?.img!!)
+                }
             }
         }
 
@@ -72,8 +77,8 @@ class ProductDetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun setSomenailViewPager() {
-        productImageViewPagerAdapter = ProductImageViewPagerAdapter(applicationContext, emptyList())
+    private fun setSomenailViewPager(imgList: List<imgProductDetailResult>) {
+        productImageViewPagerAdapter = ProductImageViewPagerAdapter(applicationContext, imgList)
 
         binding.vpProductSomenail.apply {
             adapter = productImageViewPagerAdapter
@@ -85,7 +90,7 @@ class ProductDetailActivity : AppCompatActivity() {
             })
         }
 
-//        binding.textView.text = item.imgList.size.toString()
+        binding.textView.text = imgList.size.toString()
 
     }
     fun buyButtonClick() {
