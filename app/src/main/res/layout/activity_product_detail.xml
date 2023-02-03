@@ -9,7 +9,7 @@
             type="com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity" />
         <variable
             name="model"
-            type="com.example.sejonggoodsmallproject.data.model.ProductDetailData" />
+            type="com.example.sejonggoodsmallproject.data.model.ProductDetailResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.example.sejonggoodsmallproject.data.model.ProductListData" />
+            type="com.example.sejonggoodsmallproject.data.model.ProductListResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

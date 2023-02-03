@@ -2,8 +2,8 @@ package com.example.sejonggoodsmallproject.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.example.sejonggoodsmallproject.data.model.ProductDetailData
-import com.example.sejonggoodsmallproject.data.model.ProductListData
+import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
+import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.data.room.RecentSearchDatabase
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.util.RetrofitInstance.retrofitService
@@ -14,11 +14,11 @@ import retrofit2.Response
 
 class MainRepository(application: Application) {
 
-    suspend fun getAllProducts() : List<ProductListData> {
+    suspend fun getAllProducts() : List<ProductListResponse> {
         return retrofitService.getAllProducts()
     }
 
-    suspend fun getProductDetail(itemId: Int) : Response<ProductDetailData> {
+    suspend fun getProductDetail(itemId: Int) : Response<ProductDetailResponse> {
         return retrofitService.getProductDetail(itemId)
     }
 

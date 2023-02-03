@@ -15,6 +15,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.databinding.FragmentSignupBinding
 import com.example.sejonggoodsmallproject.ui.view.MainActivity
+import com.example.sejonggoodsmallproject.util.RetrofitInstance.retrofitService
+import com.example.sejonggoodsmallproject.util.RetrofitService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SignupFragment : Fragment() {
     private var _binding : FragmentSignupBinding? = null
@@ -130,8 +135,21 @@ class SignupFragment : Fragment() {
             binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_red_stroke_red_soild)
 
             binding.btnSignupComplete.setOnClickListener {
-                Toast.makeText(requireContext(),"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
-                requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+                // 회원가입 서버로 보내기
+                val email = binding.etEmail.text.toString()
+                val password = binding.etPassword.text.toString()
+                val username = binding.etName.text.toString()
+                val birth = binding.etBirth.text.toString()
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = retrofitService.authSignup(email, password, username, birth)
+
+                    if (response.isSuccessful) {
+                        requireActivity().supportFragmentManager.beginTransaction().remove(this@SignupFragment).commit()
+                    } else {
+                        response.errorBody()
+                    }
+                }
             }
         } else {
             binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_grey_soild)

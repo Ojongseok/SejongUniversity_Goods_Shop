@@ -1,5 +1,6 @@
 package com.example.sejonggoodsmallproject.util
 
+import com.example.sejonggoodsmallproject.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-    const val BASE_URL = "http://sejonggoodsmall.shop:5763/"
+    const val BASE_URL = BuildConfig.BASE_URL
 
     private val okHttpClient: OkHttpClient by lazy {
         val httpLoggingInterceptor = HttpLoggingInterceptor()

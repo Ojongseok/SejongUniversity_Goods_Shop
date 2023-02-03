@@ -1,19 +1,18 @@
 package com.example.sejonggoodsmallproject.ui.view
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sejonggoodsmallproject.data.model.ProductListData
+import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.databinding.ItemProductListBinding
 
-class ProductListAdapter(private val list : List<ProductListData>)
+class ProductListAdapter(private val list : List<ProductListResponse>)
     : RecyclerView.Adapter<ProductListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
 
     inner class CustomViewHolder(private val binding: ItemProductListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ProductListData) {
+        fun bind(item: ProductListResponse) {
             binding.model = item
         }
     }

@@ -49,11 +49,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = viewModel.getAllProducts()
-            productListAdapter = ProductListAdapter(result)
+            val response = viewModel.getAllProducts()
+            productListAdapter = ProductListAdapter(response)
 
             withContext(Dispatchers.Main) {
                 binding.rvProductList.apply {
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 productListAdapter.setItemClickListener(object : ProductListAdapter.OnItemClickListener {
                     override fun onClick(v: View, position: Int) {
                         val intent = Intent(applicationContext, ProductDetailActivity::class.java)
-                        intent.putExtra("itemId", result[position].id.toString())
+                        intent.putExtra("itemId", response[position].id.toString())
                         startActivity(intent)
                     }
                 })

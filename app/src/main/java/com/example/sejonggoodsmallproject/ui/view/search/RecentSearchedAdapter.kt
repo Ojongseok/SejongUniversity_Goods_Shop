@@ -4,11 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sejonggoodsmallproject.data.model.ProductListData
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
-import com.example.sejonggoodsmallproject.databinding.ItemProductListBinding
 import com.example.sejonggoodsmallproject.databinding.ItemRecentSearchBinding
-import com.example.sejonggoodsmallproject.ui.view.ProductListAdapter
 import kotlinx.android.synthetic.main.item_recent_search.view.*
 
 class RecentSearchedAdapter(private var list : List<RecentSearchModel>)

@@ -5,12 +5,10 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sejonggoodsmallproject.R
-import com.example.sejonggoodsmallproject.data.model.ProductDetailData
+import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityProductDetailBinding
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.BuyFragment
-import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
-import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductViewModelViewModelFactory
 import com.google.android.material.tabs.TabLayout
@@ -26,7 +24,7 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var viewModel: ProductDetailViewModel
     private lateinit var productImageViewPagerAdapter: ProductImageViewPagerAdapter
     private var itemId = 0
-    lateinit var result : Response<ProductDetailData>
+    lateinit var response : Response<ProductDetailResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +42,10 @@ class ProductDetailActivity : AppCompatActivity() {
         setTabLayout()
 
         CoroutineScope(Dispatchers.IO).launch {
-            result = viewModel.getProductDetail(itemId)
+            response = viewModel.getProductDetail(itemId)
 
-            if (result.isSuccessful) {
-                val data = result.body()
+            if (response.isSuccessful) {
+                val data = response.body()
                 binding.model = data
             }
         }
