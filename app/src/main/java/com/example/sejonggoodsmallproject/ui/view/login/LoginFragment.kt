@@ -1,5 +1,6 @@
 package com.example.sejonggoodsmallproject.ui.view.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,12 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.LoginPost
 import com.example.sejonggoodsmallproject.databinding.FragmentLoginBinding
-import com.example.sejonggoodsmallproject.databinding.FragmentMypageBinding
+import com.example.sejonggoodsmallproject.ui.view.MainActivity
+import com.example.sejonggoodsmallproject.util.MyApplication
 import com.example.sejonggoodsmallproject.util.RetrofitInstance.retrofitService
-import com.example.sejonggoodsmallproject.util.RetrofitService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,9 +43,16 @@ class LoginFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         when(response.code()) {
                             200 -> {
+                                val accessToken = response.body()?.token!!
+                                MyApplication.prefs.setString("accessToken",accessToken)
+
                                 Toast.makeText(requireContext(),"로그인 성공",Toast.LENGTH_SHORT).show()
-                                Log.d("태그", response.body().toString())
+                                Log.d("태그", MyApplication.prefs.getString("accessToken",""))
+
+                                startActivity(Intent(requireContext(), MainActivity()::class.java))
+                                requireActivity().finish()
                             }
+
                             400 -> {
                                 Toast.makeText(requireContext(),"로그인 실패",Toast.LENGTH_SHORT).show()
                             }

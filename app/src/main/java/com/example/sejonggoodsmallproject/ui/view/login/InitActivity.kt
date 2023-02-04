@@ -3,11 +3,12 @@ package com.example.sejonggoodsmallproject.ui.view.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
+import android.view.View
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.databinding.ActivityInitBinding
-import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
 import com.example.sejonggoodsmallproject.ui.view.MainActivity
+import com.example.sejonggoodsmallproject.util.MyApplication
 
 class InitActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -17,16 +18,21 @@ class InitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.btnSignup.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.init_container,SignupFragment()).commit()
-        }
+        binding.activity = this
 
-        binding.btnLogin.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.init_container,LoginFragment()).commit()
+        Log.d("태그", MyApplication.prefs.getString("accessToken",""))
+    }
 
-//            Toast.makeText(applicationContext,"로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-//            startActivity(Intent(applicationContext, MainActivity()::class.java))
-//            finish()
+    fun onClick(view: View) {
+        when(view.id) {
+            R.id.btn_signup -> {
+                supportFragmentManager.beginTransaction().replace(R.id.init_container,SignupFragment()).commit()
+            }
+            R.id.btn_login -> {
+//                supportFragmentManager.beginTransaction().replace(R.id.init_container,LoginFragment()).commit()
+                startActivity(Intent(applicationContext, MainActivity()::class.java))
+                finish()
+            }
         }
     }
 }

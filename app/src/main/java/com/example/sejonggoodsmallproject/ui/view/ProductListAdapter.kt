@@ -18,7 +18,6 @@ class ProductListAdapter(private val context: Context, private val list : List<P
         fun bind(item: ProductListResponse) {
             binding.model = item
             Glide.with(context).load(item.img[0].oriImgName).into(binding.ivProduct)
-            Log.d("태그",item.img[0].oriImgName)
         }
     }
 

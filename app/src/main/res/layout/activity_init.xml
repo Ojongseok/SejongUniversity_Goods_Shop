@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="activity"
+            type="com.example.sejonggoodsmallproject.ui.view.login.InitActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,26 +29,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/btn_login"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="37dp"
-            android:background="@drawable/background_rec_10dp_red_stroke"
-            android:gravity="center"
-            android:text="기존 계정으로 로그인"
-            android:textColor="@color/main_red"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
             android:id="@+id/btn_signup"
             android:layout_width="0dp"
             android:layout_height="48dp"
+            android:onClick="@{(v)->activity.onClick(v)}"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="15dp"
@@ -60,5 +46,24 @@
             app:layout_constraintBottom_toTopOf="@+id/btn_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:onClick="@{(v)->activity.onClick(v)}"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="37dp"
+            android:background="@drawable/background_rec_10dp_red_stroke"
+            android:gravity="center"
+            android:text="기존 계정으로 로그인"
+            android:textColor="@color/main_red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

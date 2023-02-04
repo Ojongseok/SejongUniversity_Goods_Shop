@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    fun onClickBtn(v: View) {
-//        when(v.id) {
+//    fun onClick(view: View) {
+//        when(view.id) {
 //            R.id.btn_search -> {
 //                supportFragmentManager.beginTransaction().replace(R.id.main_container, SearchFragment()).commit()
 //            }
