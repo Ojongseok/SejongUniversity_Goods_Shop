@@ -1,7 +1,6 @@
 package com.example.sejonggoodsmallproject.util
 
-import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
-import com.example.sejonggoodsmallproject.data.model.ProductListResponse
+import com.example.sejonggoodsmallproject.data.model.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -19,9 +18,12 @@ interface RetrofitService {
     // 1.1 회원가입
     @POST("auth/signup")
     suspend fun authSignup(
-        @Field("email") email: String,
-        @Field("password") password: String,
-        @Field("username") username: String,
-        @Field("birth") birth: String
-    ) : Response<*>
+        @Body userInfo : SignupPost
+    ) : Response<SignupResponse>
+
+    // 1.2 로그인
+    @POST("auth/signin")
+    suspend fun authLogin(
+        @Body userInfo: LoginPost
+    ) : Response<LoginResponse>
 }

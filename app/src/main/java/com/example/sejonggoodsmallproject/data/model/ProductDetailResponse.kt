@@ -13,7 +13,7 @@ data class ProductDetailResponse(
 )
 
 data class imgProductDetailResult(
-    @SerializedName("id") val id: Int,
+    @SerializedName("id") val id: Long,
     @SerializedName("imgName") val imgName: String,
     @SerializedName("oriImgName") val oriImgName: String,
     @SerializedName("imgUrl") val imgUrl: String,

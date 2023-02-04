@@ -270,7 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/background_rec_10dp_grey_soild"
+                android:background="@drawable/background_rec_10dp_grey_solid"
                 android:gravity="center"
                 android:padding="13dp"
                 android:text="회원가입 완료"

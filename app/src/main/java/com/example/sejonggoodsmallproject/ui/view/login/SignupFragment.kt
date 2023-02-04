@@ -1,6 +1,5 @@
 package com.example.sejonggoodsmallproject.ui.view.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,14 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.MutableLiveData
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.SignupPost
 import com.example.sejonggoodsmallproject.databinding.FragmentSignupBinding
-import com.example.sejonggoodsmallproject.ui.view.MainActivity
 import com.example.sejonggoodsmallproject.util.RetrofitInstance.retrofitService
-import com.example.sejonggoodsmallproject.util.RetrofitService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -132,7 +128,7 @@ class SignupFragment : Fragment() {
     private fun setSignupBtnFlag() {
         // 회원가입 버튼 활성화
         if (emailFlag && passFlag && nameFlag && birthFlag) {
-            binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_red_stroke_red_soild)
+            binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_red_stroke_red_solid)
 
             binding.btnSignupComplete.setOnClickListener {
                 // 회원가입 서버로 보내기
@@ -142,17 +138,17 @@ class SignupFragment : Fragment() {
                 val birth = binding.etBirth.text.toString()
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    val response = retrofitService.authSignup(email, password, username, birth)
+                    val response = retrofitService.authSignup(SignupPost(email, password, username, birth))
 
                     if (response.isSuccessful) {
                         requireActivity().supportFragmentManager.beginTransaction().remove(this@SignupFragment).commit()
                     } else {
-                        response.errorBody()
+                        Log.d("태그",response.code().toString())
                     }
                 }
             }
         } else {
-            binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_grey_soild)
+            binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_grey_solid)
         }
     }
 

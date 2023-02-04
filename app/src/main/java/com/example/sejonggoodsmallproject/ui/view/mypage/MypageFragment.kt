@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.databinding.FragmentMypageBinding
 
 class MypageFragment : Fragment() {

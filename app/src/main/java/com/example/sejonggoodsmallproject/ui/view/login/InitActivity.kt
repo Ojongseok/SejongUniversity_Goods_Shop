@@ -22,9 +22,11 @@ class InitActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            Toast.makeText(applicationContext,"로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(applicationContext, MainActivity()::class.java))
-            finish()
+            supportFragmentManager.beginTransaction().replace(R.id.init_container,LoginFragment()).commit()
+
+//            Toast.makeText(applicationContext,"로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+//            startActivity(Intent(applicationContext, MainActivity()::class.java))
+//            finish()
         }
     }
 }
