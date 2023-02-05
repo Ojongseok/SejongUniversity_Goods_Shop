@@ -2,10 +2,12 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
+import com.example.sejonggoodsmallproject.data.model.imgProductDetailInfoResult
 import com.example.sejonggoodsmallproject.data.model.imgProductDetailResult
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityProductDetailBinding
@@ -13,10 +15,7 @@ import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.BuyFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductViewModelViewModelFactory
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import retrofit2.Response
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -40,9 +39,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         binding.activity = this@ProductDetailActivity
 
-        setTabLayout()
-
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).async {
             response = viewModel.getProductDetail(itemId)
 
             if (response.isSuccessful) {
@@ -51,21 +48,27 @@ class ProductDetailActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     setSomenailViewPager(data?.img!!)
+                    setTabLayout(response.body()?.detailImg!!)
                 }
             }
         }
 
 
     }
-    private fun setTabLayout() {
+    private fun setTabLayout(detailImg: List<imgProductDetailInfoResult>) {
         // 초기 탭 세팅
-        supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductInfoFragment()).commit()
+        val bundle = Bundle()
+        bundle.putSerializable("imgList",detailImg.toTypedArray())
+        val productInfoFragment = ProductInfoFragment()
+        productInfoFragment.arguments = bundle
+
+        supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,productInfoFragment).commit()
 
         binding.productDetailTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             // tab이 선택되었을 때
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
-                    0 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductInfoFragment()).commit()
+                    0 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,productInfoFragment).commit()
                     1 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductReviewFragment()).commit()
                     2 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductQuestionFragment()).commit()
                 }
