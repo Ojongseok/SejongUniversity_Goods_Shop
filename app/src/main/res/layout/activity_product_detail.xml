@@ -57,12 +57,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="wrap_content">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_product_somenail"
                     android:layout_width="0dp"
-                    android:layout_height="360dp"
+                    android:layout_height="400dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -127,15 +127,26 @@
                     app:layout_constraintStart_toStartOf="@+id/textView4"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(model.price)}"
+                    android:textColor="@color/main_text"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
                 <FrameLayout
                     android:id="@+id/frameLayout"
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
                     android:background="@color/shape_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/product_detail_tab_layout"
@@ -188,12 +199,14 @@
 
             <TextView
                 android:id="@+id/btn_product_buy"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
                 android:layout_marginEnd="12dp"
-                android:background="@drawable/background_home_search_bar"
+                android:background="@drawable/background_rec_8dp_stroke"
                 android:backgroundTint="@color/main_red"
                 android:gravity="center"
+                android:onClick="@{()->activity.buyButtonClick()}"
                 android:paddingLeft="40dp"
                 android:paddingTop="12dp"
                 android:paddingRight="40dp"
@@ -201,24 +214,42 @@
                 android:text="구매하기"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:onClick="@{()->activity.buyButtonClick()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_favorite"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_product_buy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_product_buy">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_favorite" />
+
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/textView23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:text="@{Integer.toString(model.price)}"
-                    android:textColor="@color/main_text"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="찜하기"
+                    android:textColor="@color/main_red"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:id="@+id/lt_product_detail_buy"

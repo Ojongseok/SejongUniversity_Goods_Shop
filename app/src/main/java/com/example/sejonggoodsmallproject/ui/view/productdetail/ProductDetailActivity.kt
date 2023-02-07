@@ -97,7 +97,17 @@ class ProductDetailActivity : AppCompatActivity() {
 
     }
     fun buyButtonClick() {
-        supportFragmentManager.beginTransaction().replace(R.id.lt_product_detail_buy, BuyFragment()).commit()
+        val colorList = response.body()?.color
+        val sizeList = response.body()?.size
+        val price = response.body()?.price
+        val bundle = Bundle()
+        bundle.putString("colorList",colorList)
+        bundle.putString("sizeList",sizeList)
+        bundle.putString("price",price.toString())
+        val buyFragment = BuyFragment()
+        buyFragment.arguments = bundle
+
+        supportFragmentManager.beginTransaction().replace(R.id.lt_product_detail_buy, buyFragment).commit()
     }
     fun backButtonClick() {
         finish()
