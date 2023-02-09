@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.SignupPost
@@ -16,6 +17,7 @@ import com.example.sejonggoodsmallproject.util.RetrofitInstance.retrofitService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignupFragment : Fragment() {
     private var _binding : FragmentSignupBinding? = null
@@ -75,9 +77,9 @@ class SignupFragment : Fragment() {
                     binding.tvWarnPassword.visibility = View.VISIBLE
                     binding.ivCheckPassword.visibility = View.INVISIBLE
                 }
+                setSignupBtnFlag()
             }
             override fun afterTextChanged(p0: Editable?) {
-                setSignupBtnFlag()
             }
         })
         // 비밀번호 확인 입력 감지
@@ -96,9 +98,9 @@ class SignupFragment : Fragment() {
                     binding.ivCheckPasswordConfirm.visibility = View.INVISIBLE
                     passFlag = false
                 }
+                setSignupBtnFlag()
             }
             override fun afterTextChanged(p0: Editable?) {
-                setSignupBtnFlag()
             }
         })
         // 이름 입력 감지
@@ -107,9 +109,9 @@ class SignupFragment : Fragment() {
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 nameFlag = binding.etName.text.isNotEmpty()
+                setSignupBtnFlag()
             }
             override fun afterTextChanged(p0: Editable?) {
-                setSignupBtnFlag()
             }
         })
         // 생년월일 입력 감지
@@ -118,9 +120,9 @@ class SignupFragment : Fragment() {
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 birthFlag = binding.etBirth.text.isNotEmpty()
+                setSignupBtnFlag()
             }
             override fun afterTextChanged(p0: Editable?) {
-                setSignupBtnFlag()
             }
         })
     }
@@ -140,10 +142,16 @@ class SignupFragment : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     val response = retrofitService.authSignup(SignupPost(email, password, username, birth))
 
-                    if (response.isSuccessful) {
-                        requireActivity().supportFragmentManager.beginTransaction().remove(this@SignupFragment).commit()
-                    } else {
-                        Log.d("태그",response.code().toString())
+                    withContext(Dispatchers.Main) {
+                        when(response.code()) {
+                            200 -> {
+                                requireActivity().supportFragmentManager.beginTransaction().remove(this@SignupFragment).commit()
+                                Toast.makeText(requireContext(), "회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                            }
+                            400 -> {
+                                Toast.makeText(requireContext(), "이미 가입된 이메일입니다.",Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
                 }
             }

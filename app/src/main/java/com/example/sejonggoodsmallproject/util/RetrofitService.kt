@@ -27,4 +27,11 @@ interface RetrofitService {
         @Path("itemId") itemId: Int
     ) : Response<ProductDetailResponse>
 
+    // 5.1 장바구니 담기
+    @POST("cart/{itemId}")
+    suspend fun postAddCart(
+        @Header("Authorization") BearerToken: String,
+        @Path("itemId") itemId: String,
+        @Body addCartPost: AddCartPost
+    ) : Response<AddCartResponse>
 }

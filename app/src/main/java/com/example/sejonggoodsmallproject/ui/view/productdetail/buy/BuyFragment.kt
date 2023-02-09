@@ -1,18 +1,26 @@
 package com.example.sejonggoodsmallproject.ui.view.productdetail.buy
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.AddCartPost
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
+import com.example.sejonggoodsmallproject.util.MyApplication
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BuyFragment : Fragment() {
     private var _binding : FragmentBuyBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: ProductDetailViewModel
     private var option1 = "옵션1 선택하기"
     private var option2 = "옵션2 선택하기"
 
@@ -25,15 +33,28 @@ class BuyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fragment = this
-
-        binding.ltDown.setOnClickListener {
-            (activity as ProductDetailActivity).supportFragmentManager.beginTransaction().remove(this).commit()
-        }
+        viewModel = (activity as ProductDetailActivity).viewModel
 
         setSpinner()
 
+        binding.btnAddCart.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val quantity = binding.tvBuyAmount.text.toString()
+                val color = if (option1 == "") {
+                    null
+                } else { option1 }
+                val size = if (option2 == "") {
+                    null
+                } else { option2 }
+
+                Log.d("태그","$quantity, $color, $size")
+                Log.d("태그",MyApplication.prefs.getString("accessToken",""))
 
 
+                val response = viewModel.addCart(AddCartPost(quantity, color, size))
+                Log.d("태그", response.body().toString())
+            }
+        }
     }
 
     private fun setSpinner() {
@@ -133,6 +154,9 @@ class BuyFragment : Fragment() {
                 binding.tvBuyAmount.text = (--cnt).toString()
 
                 binding.tvBuyPriceSum.text = (cnt * price.toInt()).toString()
+            }
+            R.id.lt_down -> {
+                (activity as ProductDetailActivity).supportFragmentManager.beginTransaction().remove(this).commit()
             }
         }
     }

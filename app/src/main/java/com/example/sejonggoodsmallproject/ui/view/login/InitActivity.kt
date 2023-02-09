@@ -29,8 +29,10 @@ class InitActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.init_container,SignupFragment()).commit()
             }
             R.id.btn_login -> {
-//                supportFragmentManager.beginTransaction().replace(R.id.init_container,LoginFragment()).commit()
-                startActivity(Intent(applicationContext, MainActivity()::class.java))
+                supportFragmentManager.beginTransaction().replace(R.id.init_container,LoginFragment()).commit()
+            }
+            R.id.btn_no_login_enter -> {
+                startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
         }

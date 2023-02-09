@@ -22,7 +22,7 @@ class ProductDetailActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityProductDetailBinding.inflate(layoutInflater)
     }
-    private lateinit var viewModel: ProductDetailViewModel
+    lateinit var viewModel: ProductDetailViewModel
     private lateinit var productImageViewPagerAdapter: ProductImageViewPagerAdapter
     private var itemId = 0
     lateinit var response : Response<ProductDetailResponse>
@@ -40,7 +40,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.activity = this@ProductDetailActivity
 
         CoroutineScope(Dispatchers.IO).async {
-            response = viewModel.getProductDetail(itemId)
+            response = viewModel.getProductDetail()
 
             if (response.isSuccessful) {
                 val data = response.body()
@@ -94,21 +94,25 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         binding.textView.text = imgList.size.toString()
-
     }
+
     fun buyButtonClick() {
         val colorList = response.body()?.color
         val sizeList = response.body()?.size
         val price = response.body()?.price
+
         val bundle = Bundle()
         bundle.putString("colorList",colorList)
         bundle.putString("sizeList",sizeList)
         bundle.putString("price",price.toString())
+        bundle.putString("itemId", itemId.toString())
+
         val buyFragment = BuyFragment()
         buyFragment.arguments = bundle
 
         supportFragmentManager.beginTransaction().replace(R.id.lt_product_detail_buy, buyFragment).commit()
     }
+
     fun backButtonClick() {
         finish()
     }

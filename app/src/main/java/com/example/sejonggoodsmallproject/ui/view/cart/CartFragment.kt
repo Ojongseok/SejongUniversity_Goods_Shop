@@ -21,15 +21,12 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setBackPressed()
-
-        
     }
 
-
     private fun setBackPressed() {
-//        binding.btnSearchBack.setOnClickListener {
-//            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-//        }
+        binding.btnCartBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        }
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
