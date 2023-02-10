@@ -10,6 +10,9 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
     // 전체상품 조회
     suspend fun getAllProducts() = mainRepository.getAllProducts()
 
+    // 장바구니 조회
+    suspend fun getCartList() = mainRepository.getCart()
+
     // Search 관련
     fun getRecentSearchItemsList() : LiveData<List<RecentSearchModel>> {
         return mainRepository.getRecentSearchItemsList()

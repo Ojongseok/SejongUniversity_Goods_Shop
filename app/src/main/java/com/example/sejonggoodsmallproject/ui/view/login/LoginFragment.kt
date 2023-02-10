@@ -47,7 +47,6 @@ class LoginFragment : Fragment() {
                                 MyApplication.prefs.setString("accessToken",accessToken)
 
                                 Toast.makeText(requireContext(),"로그인 성공",Toast.LENGTH_SHORT).show()
-                                Log.d("태그", MyApplication.prefs.getString("accessToken",""))
 
                                 startActivity(Intent(requireContext(), MainActivity()::class.java))
                                 requireActivity().finish()

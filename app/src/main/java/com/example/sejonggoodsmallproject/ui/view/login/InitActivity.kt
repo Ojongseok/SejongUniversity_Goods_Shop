@@ -19,8 +19,6 @@ class InitActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.activity = this
-
-        Log.d("태그", MyApplication.prefs.getString("accessToken",""))
     }
 
     fun onClick(view: View) {
@@ -32,6 +30,8 @@ class InitActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.init_container,LoginFragment()).commit()
             }
             R.id.btn_no_login_enter -> {
+                MyApplication.prefs.setString("accessToken", "Not Login State")
+
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }

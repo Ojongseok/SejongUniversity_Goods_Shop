@@ -34,4 +34,10 @@ interface RetrofitService {
         @Path("itemId") itemId: String,
         @Body addCartPost: AddCartPost
     ) : Response<AddCartResponse>
+
+    // 5.2 장바구니 조회
+    @GET("cart/all")
+    suspend fun getCartList(
+        @Header("Authorization") BearerToken: String,
+    ) : List<CartListResponse>
 }

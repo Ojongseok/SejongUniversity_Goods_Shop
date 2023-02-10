@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.AddCartPost
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
@@ -16,6 +17,7 @@ import com.example.sejonggoodsmallproject.util.MyApplication
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BuyFragment : Fragment() {
     private var _binding : FragmentBuyBinding? = null
@@ -47,12 +49,21 @@ class BuyFragment : Fragment() {
                     null
                 } else { option2 }
 
-                Log.d("태그","$quantity, $color, $size")
-                Log.d("태그",MyApplication.prefs.getString("accessToken",""))
-
+                Log.d("BuyFragment Log","$quantity, $color, $size")
 
                 val response = viewModel.addCart(AddCartPost(quantity, color, size))
-                Log.d("태그", response.body().toString())
+
+                withContext(Dispatchers.Main) {
+                    when (response.code()) {
+                        200 -> {
+                            Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
+                            requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
+                        }
+                        400 -> {
+                            Toast.makeText(requireContext(), "추가 실패",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sejonggoodsmallproject.R
@@ -14,6 +15,7 @@ import com.example.sejonggoodsmallproject.databinding.ActivityProductDetailBindi
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.BuyFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductViewModelViewModelFactory
+import com.example.sejonggoodsmallproject.util.MyApplication
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
 import retrofit2.Response
@@ -97,20 +99,24 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     fun buyButtonClick() {
-        val colorList = response.body()?.color
-        val sizeList = response.body()?.size
-        val price = response.body()?.price
+        if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+            Toast.makeText(applicationContext,"로그인 후 이용 가능합니다.",Toast.LENGTH_SHORT).show()
+        } else {
+            val colorList = response.body()?.color
+            val sizeList = response.body()?.size
+            val price = response.body()?.price
 
-        val bundle = Bundle()
-        bundle.putString("colorList",colorList)
-        bundle.putString("sizeList",sizeList)
-        bundle.putString("price",price.toString())
-        bundle.putString("itemId", itemId.toString())
+            val bundle = Bundle()
+            bundle.putString("colorList",colorList)
+            bundle.putString("sizeList",sizeList)
+            bundle.putString("price",price.toString())
+            bundle.putString("itemId", itemId.toString())
 
-        val buyFragment = BuyFragment()
-        buyFragment.arguments = bundle
+            val buyFragment = BuyFragment()
+            buyFragment.arguments = bundle
 
-        supportFragmentManager.beginTransaction().replace(R.id.lt_product_detail_buy, buyFragment).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.lt_product_detail_buy, buyFragment).commit()
+        }
     }
 
     fun backButtonClick() {

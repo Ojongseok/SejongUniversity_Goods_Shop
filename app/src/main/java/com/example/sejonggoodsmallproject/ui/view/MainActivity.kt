@@ -4,10 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
 import com.example.sejonggoodsmallproject.ui.view.cart.CartFragment
@@ -16,6 +19,7 @@ import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailAct
 import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
+import com.example.sejonggoodsmallproject.util.MyApplication
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
 
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
     lateinit var viewModel: MainViewModel
     private lateinit var productListAdapter: ProductListAdapter
+    private lateinit var response : List<ProductListResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +45,15 @@ class MainActivity : AppCompatActivity() {
         binding.btnSearch.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.main_container, SearchFragment()).commit()
         }
+
         binding.btnCart.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.main_container, CartFragment()).commit()
+            if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+                Toast.makeText(applicationContext,"로그인 후 이용 가능합니다.",Toast.LENGTH_SHORT).show()
+            } else {
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, CartFragment()).commit()
+            }
         }
+
         binding.btnMypage.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.main_container, MypageFragment()).commit()
         }
@@ -50,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = viewModel.getAllProducts()
+            response = viewModel.getAllProducts()
             productListAdapter = ProductListAdapter(applicationContext, response)
 
             withContext(Dispatchers.Main) {

@@ -2,10 +2,7 @@ package com.example.sejonggoodsmallproject.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.example.sejonggoodsmallproject.data.model.AddCartPost
-import com.example.sejonggoodsmallproject.data.model.AddCartResponse
-import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
-import com.example.sejonggoodsmallproject.data.model.ProductListResponse
+import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.data.room.RecentSearchDatabase
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.util.MyApplication
@@ -29,6 +26,11 @@ class MainRepository(application: Application) {
     // 카트 담기
     suspend fun addCart(itemId: String, addCartPost: AddCartPost) : Response<AddCartResponse> {
         return retrofitService.postAddCart("Bearer $myToken", itemId, addCartPost)
+    }
+
+    //카트 조회
+    suspend fun getCart() : List<CartListResponse> {
+        return retrofitService.getCartList("Bearer $myToken")
     }
 
 
