@@ -28,9 +28,11 @@ class MypageFragment : Fragment() {
 
 
     private fun setBackPressed() {
-//        binding.btnSearchBack.setOnClickListener {
-//            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-//        }
+        binding.btnMypageBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.horizon_exit_front)
+                .remove(this).commit()
+        }
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -44,6 +44,10 @@ class SearchFragment : Fragment() {
 
             viewModel.insertRecentSearch(RecentSearchModel(0, title, timestamp))
         }
+
+        binding.tvRecentSearchDeleteAll.setOnClickListener {
+            viewModel.deleteRecentSearchedAll()
+        }
     }
 
     private fun setRecyclerViewRecentSearched() {

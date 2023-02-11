@@ -51,6 +51,7 @@ class ProductListAdapter(private val context: Context, private var list : List<P
     }
     fun setData(newList: List<ProductListResponse>) {
         this.list = newList
+        notifyDataSetChanged()
     }
 
     override fun getItemCount()= list.size

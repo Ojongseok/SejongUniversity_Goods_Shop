@@ -28,6 +28,7 @@
                 android:text="이메일로 가입하기"
                 android:textColor="@color/main_text"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -245,7 +246,7 @@
                 android:layout_marginTop="14dp"
                 android:background="@drawable/background_rec_10dp_red_stroke"
                 android:ems="10"
-                android:hint="생년월일 (형식 필요)"
+                android:hint="생년월일 (YYYY-MM-DD)"
                 android:inputType="textEmailAddress"
                 android:padding="12dp"
                 app:layout_constraintEnd_toEndOf="@+id/et_name"

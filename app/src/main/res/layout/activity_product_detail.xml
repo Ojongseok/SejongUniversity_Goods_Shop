@@ -20,30 +20,49 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_back_button"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="20dp"
+                android:background="@drawable/ripple_oval"
                 android:onClick="@{()->activity.backButtonClick()}"
+                android:padding="4dp"
                 android:src="@drawable/ic_back"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/textView8" />
 
             <ImageView
                 android:id="@+id/iv_3dot_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="20dp"
+                android:background="@drawable/ripple_oval"
+                android:padding="4dp"
                 android:src="@drawable/ic_3dot"
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="상품 정보"
+                android:textColor="@color/main_text"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,7 +92,8 @@
                     android:id="@+id/lt_indicator"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingRight="16dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="4dp"
                     app:layout_constraintEnd_toEndOf="@+id/vp_product_somenail"
                     app:layout_constraintStart_toStartOf="@+id/vp_product_somenail"
                     app:layout_constraintTop_toBottomOf="@+id/vp_product_somenail">
@@ -83,6 +103,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
+                        android:textColor="@color/main_text"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,7 +112,10 @@
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
                         android:text="/"
+                        android:textColor="@color/main_text"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/textView"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -99,7 +124,11 @@
                         android:id="@+id/tv_indicator_now_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
                         android:text="1"
+                        android:textColor="@color/main_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/textView2"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -109,11 +138,11 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:text="@{model.title}"
                     android:textColor="@color/main_text"
-                    android:textSize="25sp"
+                    android:textSize="26sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lt_indicator" />
@@ -131,6 +160,7 @@
                     android:id="@+id/tv_product_detail_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:textColor="@color/main_text"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -204,6 +234,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/background_rec_8dp_stroke"
                 android:backgroundTint="@color/main_red"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:onClick="@{()->activity.buyButtonClick()}"
                 android:paddingLeft="40dp"

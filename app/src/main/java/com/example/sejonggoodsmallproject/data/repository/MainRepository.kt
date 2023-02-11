@@ -42,16 +42,19 @@ class MainRepository(application: Application) {
     fun getRecentSearchItemsList() : LiveData<List<RecentSearchModel>> {
         return mRecentSearchItems
     }
-
     fun insertRecentSearched(recentSearchModel: RecentSearchModel) {
         CoroutineScope(Dispatchers.IO).launch {
             mRecentSearchDAO.insertRecentSearched(recentSearchModel)
         }
     }
-
     fun deleteRecentSearched(recentSearchModel: RecentSearchModel) {
         CoroutineScope(Dispatchers.IO).launch {
             mRecentSearchDAO.deleteRecentSearched(recentSearchModel)
+        }
+    }
+    fun deleteRecentSearchedAll() {
+        CoroutineScope(Dispatchers.IO).launch {
+            mRecentSearchDAO.deleteRecentSearchedAll()
         }
     }
 }

@@ -23,4 +23,7 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
     fun deleteRecentSearch(recentSearchModel: RecentSearchModel) {
         mainRepository.deleteRecentSearched(recentSearchModel)
     }
+    fun deleteRecentSearchedAll() {
+        mainRepository.deleteRecentSearchedAll()
+    }
 }

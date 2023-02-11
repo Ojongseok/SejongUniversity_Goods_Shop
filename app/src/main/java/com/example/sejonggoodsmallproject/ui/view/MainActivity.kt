@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -109,17 +108,13 @@ class MainActivity : AppCompatActivity() {
     private fun updataRecyclerView(tabId : Int) {
         if (tabId == 0) {
             result = response
-            productListAdapter.apply {
-                setData(result)
-                notifyDataSetChanged()
-            }
+            productListAdapter.setData(result)
         } else {
             productListAdapter.apply {
                 result = response.filter {
                     it.categoryId.toInt() == tabId
                 }
                 setData(result)
-                binding.rvProductList.adapter?.notifyDataSetChanged()
             }
         }
     }
