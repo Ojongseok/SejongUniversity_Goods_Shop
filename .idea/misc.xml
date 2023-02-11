@@ -30,7 +30,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy_option_color_size.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy_option_null.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy_option_size.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_cart.xml" value="0.4" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_cart.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_login.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_mypage.xml" value="0.22407407407407406" />
@@ -42,6 +42,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_signup.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_store.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/imageview.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_cart_list.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_imageview.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_list.xml" value="0.2882882882882883" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_somenail.xml" value="0.2526041666666667" />

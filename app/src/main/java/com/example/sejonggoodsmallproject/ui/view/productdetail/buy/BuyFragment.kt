@@ -167,7 +167,9 @@ class BuyFragment : Fragment() {
                 binding.tvBuyPriceSum.text = (cnt * price.toInt()).toString()
             }
             R.id.lt_down -> {
-                (activity as ProductDetailActivity).supportFragmentManager.beginTransaction().remove(this).commit()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(0,R.anim.vertical_from_top)
+                    .remove(this).commit()
             }
         }
     }

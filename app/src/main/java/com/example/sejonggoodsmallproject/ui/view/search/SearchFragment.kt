@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.databinding.FragmentSearchBinding
 import com.example.sejonggoodsmallproject.ui.view.MainActivity
@@ -68,12 +69,16 @@ class SearchFragment : Fragment() {
 
     private fun setBackPressed() {
         binding.btnSearchBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.horizon_exit_front)
+                .remove(this).commit()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(object :OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction().remove(this@SearchFragment).commit()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.horizon_exit_front)
+                    .remove(this@SearchFragment).commit()
             }
         })
     }

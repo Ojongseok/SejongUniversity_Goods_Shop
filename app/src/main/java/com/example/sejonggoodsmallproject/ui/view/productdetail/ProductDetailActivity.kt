@@ -2,7 +2,6 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -115,7 +114,9 @@ class ProductDetailActivity : AppCompatActivity() {
             val buyFragment = BuyFragment()
             buyFragment.arguments = bundle
 
-            supportFragmentManager.beginTransaction().replace(R.id.lt_product_detail_buy, buyFragment).commit()
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.vertical_from_bottom,0)
+                .replace(R.id.lt_product_detail_buy, buyFragment).commit()
         }
     }
 

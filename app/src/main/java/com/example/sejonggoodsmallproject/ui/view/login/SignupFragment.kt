@@ -162,12 +162,16 @@ class SignupFragment : Fragment() {
 
     private fun setBackPressed() {
         binding.btnBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this@SignupFragment).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.horizon_exit_front)
+                .remove(this@SignupFragment).commit()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction().remove(this@SignupFragment).commit()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.horizon_exit_front)
+                    .remove(this@SignupFragment).commit()
             }
         })
     }

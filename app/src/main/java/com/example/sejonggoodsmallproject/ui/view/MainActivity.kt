@@ -43,19 +43,25 @@ class MainActivity : AppCompatActivity() {
         setTabLayout()
 
         binding.btnSearch.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.main_container, SearchFragment()).commit()
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.horizon_enter_front,0)
+                .replace(R.id.main_container, SearchFragment()).commit()
         }
 
         binding.btnCart.setOnClickListener {
             if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
                 Toast.makeText(applicationContext,"로그인 후 이용 가능합니다.",Toast.LENGTH_SHORT).show()
             } else {
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, CartFragment()).commit()
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                    .replace(R.id.main_container, CartFragment()).commit()
             }
         }
 
         binding.btnMypage.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.main_container, MypageFragment()).commit()
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.horizon_enter_front,0)
+                .replace(R.id.main_container, MypageFragment()).commit()
         }
     }
 
@@ -113,5 +119,15 @@ class MainActivity : AppCompatActivity() {
             // tab이 다시 선택되었을 때
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
+
+    var mBackWait:Long = 0
+    override fun onBackPressed() {
+        if(System.currentTimeMillis() - mBackWait >=2000 ) {
+            mBackWait = System.currentTimeMillis()
+            Toast.makeText(applicationContext,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        } else {
+            finish()
+        }
     }
 }

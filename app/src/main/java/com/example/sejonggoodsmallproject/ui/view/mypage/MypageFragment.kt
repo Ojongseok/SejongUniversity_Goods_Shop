@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.databinding.FragmentMypageBinding
 
 class MypageFragment : Fragment() {
@@ -33,7 +34,9 @@ class MypageFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction().remove(this@MypageFragment).commit()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.horizon_exit_front)
+                    .remove(this@MypageFragment).commit()
             }
         })
     }
