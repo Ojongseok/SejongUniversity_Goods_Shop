@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkbox_signup_terms"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="38dp"
@@ -49,9 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="전체 -개"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
-        app:layout_constraintTop_toTopOf="@+id/checkBox" />
+        app:layout_constraintBottom_toBottomOf="@+id/checkbox_signup_terms"
+        app:layout_constraintStart_toEndOf="@+id/checkbox_signup_terms"
+        app:layout_constraintTop_toTopOf="@+id/checkbox_signup_terms" />
 
     <FrameLayout
         android:id="@+id/frameLayout4"

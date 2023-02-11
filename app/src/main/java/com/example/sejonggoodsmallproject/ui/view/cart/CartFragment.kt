@@ -45,7 +45,12 @@ class CartFragment : Fragment() {
             responseList = viewModel.getCartList()
 
             withContext(Dispatchers.Main) {
-                setRvCartList()
+                if (responseList.isNotEmpty()) {
+                    setRvCartList()
+                    binding.ivEmptyCart.visibility = View.INVISIBLE
+                } else {
+                    binding.ivEmptyCart.visibility = View.VISIBLE
+                }
             }
         }
     }

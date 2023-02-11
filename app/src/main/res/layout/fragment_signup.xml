@@ -256,12 +256,39 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout8"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/background_rec_10dp_red_stroke"
                 app:layout_constraintEnd_toEndOf="@+id/et_birth"
                 app:layout_constraintStart_toStartOf="@+id/et_birth"
                 app:layout_constraintTop_toBottomOf="@+id/et_birth">
+
+                <CheckBox
+                    android:id="@+id/checkbox_signup_terms"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/background_checkbox_oval_red"
+                    android:button="@null"
+                    android:checked="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_show_terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="이용약관 (필수)"
+                    android:textColor="@color/main_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkbox_signup_terms"
+                    app:layout_constraintStart_toEndOf="@+id/checkbox_signup_terms"
+                    app:layout_constraintTop_toTopOf="@+id/checkbox_signup_terms" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
