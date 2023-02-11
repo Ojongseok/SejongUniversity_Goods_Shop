@@ -3,6 +3,7 @@ package com.example.sejonggoodsmallproject.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
     private lateinit var productListAdapter: ProductListAdapter
     private lateinit var response : List<ProductListResponse>
+    private lateinit var result : List<ProductListResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +70,8 @@ class MainActivity : AppCompatActivity() {
     private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
             response = viewModel.getAllProducts()
+            result = response
+
             productListAdapter = ProductListAdapter(applicationContext, response)
 
             withContext(Dispatchers.Main) {
@@ -81,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                 productListAdapter.setItemClickListener(object : ProductListAdapter.OnItemClickListener {
                     override fun onClick(v: View, position: Int) {
                         val intent = Intent(applicationContext, ProductDetailActivity::class.java)
-                        intent.putExtra("itemId", response[position].id.toString())
+                        intent.putExtra("itemId", result[position].id.toString())
                         startActivity(intent)
                     }
                 })
@@ -89,45 +93,44 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    fun onClick(view: View) {
-//        when(view.id) {
-//            R.id.btn_search -> {
-//                supportFragmentManager.beginTransaction().replace(R.id.main_container, SearchFragment()).commit()
-//            }
-//            R.id.btn_cart -> {
-//                supportFragmentManager.beginTransaction().replace(R.id.main_container, CartFragment()).commit()
-//            }
-//            R.id.btn_mypage -> {
-//                supportFragmentManager.beginTransaction().replace(R.id.main_container, MypageFragment()).commit()
-//            }
-//        }
-//    }
-
     private fun setTabLayout() {
         // 초기 tab 세팅
         setRvProductList()
 
         binding.storeFragmentTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            // tab이 선택되었을 때
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab!!.position) {
-                    // 0, 1, 2... 탭 구분하기
-                }
+                updataRecyclerView(tab!!.position)
             }
-            // tab이 선택되지 않았을 때
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            // tab이 다시 선택되었을 때
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 
-    var mBackWait:Long = 0
-    override fun onBackPressed() {
-        if(System.currentTimeMillis() - mBackWait >=2000 ) {
-            mBackWait = System.currentTimeMillis()
-            Toast.makeText(applicationContext,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+    private fun updataRecyclerView(tabId : Int) {
+        if (tabId == 0) {
+            result = response
+            productListAdapter.apply {
+                setData(result)
+                notifyDataSetChanged()
+            }
         } else {
-            finish()
+            productListAdapter.apply {
+                result = response.filter {
+                    it.categoryId.toInt() == tabId
+                }
+                setData(result)
+                binding.rvProductList.adapter?.notifyDataSetChanged()
+            }
         }
     }
+
+//    var mBackWait:Long = 0
+//    override fun onBackPressed() {
+//        if(System.currentTimeMillis() - mBackWait >=2000 ) {
+//            mBackWait = System.currentTimeMillis()
+//            Toast.makeText(applicationContext,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+//        } else {
+//            finish()
+//        }
+//    }
 }

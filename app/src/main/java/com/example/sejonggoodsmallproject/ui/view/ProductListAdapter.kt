@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.databinding.ItemProductListBinding
 
-class ProductListAdapter(private val context: Context, private val list : List<ProductListResponse>)
+class ProductListAdapter(private val context: Context, private var list : List<ProductListResponse>)
     : RecyclerView.Adapter<ProductListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
 
@@ -18,6 +18,14 @@ class ProductListAdapter(private val context: Context, private val list : List<P
         fun bind(item: ProductListResponse) {
             binding.model = item
             Glide.with(context).load(item.img[0].oriImgName).into(binding.ivProduct)
+            
+            binding.tvProductPrice.text = if (item.price in 1000..999999) {
+                val priceList = item.price.toString().toCharArray().toMutableList()
+                priceList.add(priceList.size-3,',')
+                priceList.joinToString("") + "원"
+            } else {
+                item.price.toString() + "원"
+            }
         }
     }
 
@@ -40,6 +48,9 @@ class ProductListAdapter(private val context: Context, private val list : List<P
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = ItemProductListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return CustomViewHolder(view)
+    }
+    fun setData(newList: List<ProductListResponse>) {
+        this.list = newList
     }
 
     override fun getItemCount()= list.size

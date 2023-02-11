@@ -97,9 +97,11 @@
 
             <ImageView
                 android:id="@+id/btn_search"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/ripple_oval"
+                android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_mypage"
                 app:layout_constraintEnd_toStartOf="@+id/btn_cart"
                 app:layout_constraintTop_toTopOf="@+id/btn_mypage"
@@ -107,9 +109,11 @@
 
             <ImageView
                 android:id="@+id/btn_cart"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/ripple_oval"
+                android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_mypage"
                 app:layout_constraintEnd_toStartOf="@+id/btn_mypage"
                 app:layout_constraintTop_toTopOf="@+id/btn_mypage"
@@ -117,8 +121,10 @@
 
             <ImageView
                 android:id="@+id/btn_mypage"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_oval"
+                android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

@@ -50,6 +50,14 @@ class ProductDetailActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     setSomenailViewPager(data?.img!!)
                     setTabLayout(response.body()?.detailImg!!)
+
+                    binding.tvProductDetailPrice.text = if (response.body()?.price in 1000..999999) {
+                        val priceList = response.body()?.price.toString().toCharArray().toMutableList()
+                        priceList.add(priceList.size-3,',')
+                        priceList.joinToString("") + "원"
+                    } else {
+                        response.body()?.price.toString() + "원"
+                    }
                 }
             }
         }
@@ -105,11 +113,12 @@ class ProductDetailActivity : AppCompatActivity() {
             val sizeList = response.body()?.size
             val price = response.body()?.price
 
-            val bundle = Bundle()
-            bundle.putString("colorList",colorList)
-            bundle.putString("sizeList",sizeList)
-            bundle.putString("price",price.toString())
-            bundle.putString("itemId", itemId.toString())
+            val bundle = Bundle().apply {
+                putString("colorList",colorList)
+                putString("sizeList",sizeList)
+                putString("price",price.toString())
+                putString("itemId", itemId.toString())
+            }
 
             val buyFragment = BuyFragment()
             buyFragment.arguments = bundle

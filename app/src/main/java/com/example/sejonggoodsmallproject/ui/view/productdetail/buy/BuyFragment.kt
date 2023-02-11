@@ -139,6 +139,7 @@ class BuyFragment : Fragment() {
         val price = arguments?.getString("price")!!
 
         binding.tvBuyPickedOption.text = "$option1, $option2"
+
         if (option1 != "옵션1 선택하기" && option2 != "옵션2 선택하기") {
             binding.ltBuyOptionPicked.visibility = View.VISIBLE
 

@@ -59,7 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{Integer.toString(model.price)}"
             android:textColor="@color/main_text"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/tv_product_name"
