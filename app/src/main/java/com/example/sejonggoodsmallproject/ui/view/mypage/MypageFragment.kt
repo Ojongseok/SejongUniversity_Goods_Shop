@@ -1,5 +1,6 @@
 package com.example.sejonggoodsmallproject.ui.view.mypage
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.example.sejonggoodsmallproject.databinding.FragmentMypageBinding
 class MypageFragment : Fragment() {
     private var _binding : FragmentMypageBinding? = null
     private val binding get() = _binding!!
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMypageBinding.inflate(inflater, container,false)
@@ -21,26 +23,26 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBackPressed()
-
-
-    }
-
-
-    private fun setBackPressed() {
         binding.btnMypageBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this).commit()
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@MypageFragment).commit()
+                    .remove(this@MypageFragment)
+                    .commit()
             }
-        })
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onDestroy() {

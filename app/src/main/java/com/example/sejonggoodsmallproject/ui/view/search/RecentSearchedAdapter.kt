@@ -26,12 +26,16 @@ class RecentSearchedAdapter(private var list : List<RecentSearchModel>)
         holder.bind(list[position])
 
         holder.itemView.btn_recent_search_remove.setOnClickListener {
-            itemClickListener.onClick(it,position)
+            itemClickListener.onClickRemove(it,position)
+        }
+        holder.itemView.tv_recent_search_title.setOnClickListener {
+            itemClickListener.onClickTitle(it, position)
         }
     }
 
     interface OnItemClickListener {
-        fun onClick(v: View, position: Int)
+        fun onClickRemove(v: View, position: Int)
+        fun onClickTitle(v: View, position: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -47,5 +51,8 @@ class RecentSearchedAdapter(private var list : List<RecentSearchModel>)
 
     fun getItem(position: Int): RecentSearchModel {
         return list[position]
+    }
+    fun getTitle(position: Int) : String {
+        return list[position].title
     }
 }

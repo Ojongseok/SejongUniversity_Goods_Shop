@@ -3,12 +3,11 @@ package com.example.sejonggoodsmallproject.ui.view.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.databinding.ActivityInitBinding
-import com.example.sejonggoodsmallproject.ui.view.MainActivity
+import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.util.MyApplication
 
 class InitActivity : AppCompatActivity() {

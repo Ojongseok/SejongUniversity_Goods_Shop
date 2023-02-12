@@ -2,7 +2,6 @@ package com.example.sejonggoodsmallproject.ui.view.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.LoginPost
 import com.example.sejonggoodsmallproject.databinding.FragmentLoginBinding
-import com.example.sejonggoodsmallproject.ui.view.MainActivity
+import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.util.MyApplication
 import com.example.sejonggoodsmallproject.util.RetrofitInstance.retrofitService
 import kotlinx.coroutines.CoroutineScope

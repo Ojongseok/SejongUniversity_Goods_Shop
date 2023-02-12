@@ -1,21 +1,19 @@
 package com.example.sejonggoodsmallproject.ui.view.search
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.databinding.FragmentSearchBinding
-import com.example.sejonggoodsmallproject.ui.view.MainActivity
-import com.example.sejonggoodsmallproject.ui.view.ProductListAdapter
-import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,6 +21,7 @@ import java.util.*
 class SearchFragment : Fragment() {
     private var _binding : FragmentSearchBinding? = null
     private val binding get() = _binding!!
+    private lateinit var callback: OnBackPressedCallback
     private lateinit var viewModel : MainViewModel
     private lateinit var recentSearchAdapter : RecentSearchedAdapter
 
@@ -34,23 +33,27 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as MainActivity).viewModel
+        binding.fragment = this
 
-        setBackPressed()
-        setRecyclerViewRecentSearched()
+        setRvRecentSearched()
 
-        binding.btnSearchComplete.setOnClickListener {
-            val title = binding.etSearchBar.text.toString()
-            val timestamp = SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(System.currentTimeMillis()))
-
-            viewModel.insertRecentSearch(RecentSearchModel(0, title, timestamp))
-        }
-
-        binding.tvRecentSearchDeleteAll.setOnClickListener {
-            viewModel.deleteRecentSearchedAll()
-        }
     }
 
-    private fun setRecyclerViewRecentSearched() {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.horizon_exit_front)
+                    .remove(this@SearchFragment)
+                    .commit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    private fun setRvRecentSearched() {
         recentSearchAdapter = RecentSearchedAdapter(emptyList())
 
         binding.rvRecentSearch.apply {
@@ -64,27 +67,70 @@ class SearchFragment : Fragment() {
         }
 
         recentSearchAdapter.setItemClickListener(object : RecentSearchedAdapter.OnItemClickListener {
-            override fun onClick(v: View, position: Int) {
+            override fun onClickRemove(v: View, position: Int) {
                 viewModel.deleteRecentSearch(recentSearchAdapter.getItem(position))
             }
-        })
+            override fun onClickTitle(v: View, position: Int) {
+                val bundle = Bundle().apply {
+                    putString("searchKeyWord", recentSearchAdapter.getTitle(position))
+                }
+                val searchResultFragment = SearchResultFragment()
+                searchResultFragment.arguments = bundle
 
-    }
-
-    private fun setBackPressed() {
-        binding.btnSearchBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.horizon_exit_front)
-                .remove(this).commit()
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(object :OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@SearchFragment).commit()
+                    .add(R.id.main_container, searchResultFragment)
+                    .commit()
+
+                binding.etSearchBar.setText("")
             }
         })
+    }
+
+    fun onClick(view:View) {
+        when (view.id) {
+            R.id.btn_search_complete -> {
+                val searchKeyWord = binding.etSearchBar.text.toString()
+                val timestamp = SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(System.currentTimeMillis()))
+
+                if (searchKeyWord.isEmpty()) {
+                    Toast.makeText(requireContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.insertRecentSearch(RecentSearchModel(0, searchKeyWord, timestamp))
+
+                    val bundle = Bundle().apply {
+                        putString("searchKeyWord", searchKeyWord)
+                    }
+
+                    val searchResultFragment = SearchResultFragment()
+                    searchResultFragment.arguments = bundle
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .add(R.id.main_container, searchResultFragment)
+                        .commit()
+
+                    binding.etSearchBar.setText("")
+                }
+            }
+            R.id.tv_recent_search_delete_all -> {
+                viewModel.deleteRecentSearchedAll()
+            }
+            R.id.btn_search_back -> {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.horizon_exit_front)
+                    .remove(this).commit()
+            }
+            R.id.lt_search_fragment -> {
+                hideKeyboard()
+            }
+        }
+    }
+
+    private fun hideKeyboard() {
+        if (requireActivity().currentFocus != null) {
+            // 프래그먼트기 때문에 getActivity() 사용
+            val inputManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(requireActivity().currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        }
     }
 
     override fun onDestroy() {

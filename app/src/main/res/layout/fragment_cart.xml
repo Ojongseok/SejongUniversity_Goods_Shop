@@ -8,6 +8,18 @@
     android:clickable="true"
     tools:context=".ui.view.cart.CartFragment">
 
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/shape_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_cart_back">
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
@@ -36,12 +48,12 @@
         android:id="@+id/checkbox_signup_terms"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/background_checkbox_oval_red"
         android:button="@null"
         android:checked="false"
         app:layout_constraintStart_toStartOf="@+id/btn_cart_back"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cart_back" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
     <TextView
         android:id="@+id/textView21"

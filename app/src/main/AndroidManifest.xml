@@ -28,7 +28,7 @@
         </activity>
 
         <activity android:name=".ui.view.productdetail.ProductDetailActivity" />
-        <activity android:name=".ui.view.MainActivity" />
+        <activity android:name=".ui.view.home.MainActivity" />
         <activity android:name=".ui.view.login.InitActivity"/>
 
     </application>
