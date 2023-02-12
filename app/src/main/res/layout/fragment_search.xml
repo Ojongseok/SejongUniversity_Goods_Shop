@@ -38,6 +38,7 @@
             android:layout_marginEnd="16dp"
             android:onClick="@{(v)->fragment.onClick(v)}"
             android:text="검색"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:textColor="@color/main_red"
             android:textSize="18sp"
             android:textStyle="bold"

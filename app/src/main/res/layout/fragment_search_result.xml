@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.view.search.SearchResultFragment">
+    tools:context=".ui.view.search.SearchResultFragment"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/btn_search_result_back"
@@ -20,20 +21,6 @@
         app:layout_constraintTop_toTopOf="@+id/top_search_bar"
         app:srcCompat="@drawable/ic_back" />
 
-    <TextView
-        android:id="@+id/btn_search_result_complete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:onClick="@{(v)->fragment.onClick(v)}"
-        android:text="검색"
-        android:textColor="@color/main_red"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/top_search_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/top_search_bar" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_search_bar"
         android:layout_width="0dp"
@@ -43,7 +30,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/background_home_search_bar"
         android:padding="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_search_result_complete"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_search_result_back"
         app:layout_constraintTop_toTopOf="parent">
 

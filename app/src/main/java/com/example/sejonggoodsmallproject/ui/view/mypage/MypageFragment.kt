@@ -1,6 +1,7 @@
 package com.example.sejonggoodsmallproject.ui.view.mypage
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.databinding.FragmentMypageBinding
+import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 
 class MypageFragment : Fragment() {
     private var _binding : FragmentMypageBinding? = null
@@ -29,6 +31,11 @@ class MypageFragment : Fragment() {
                 .remove(this).commit()
         }
 
+        binding.btnMypageLogin.setOnClickListener {
+            startActivity(Intent(requireContext(), InitActivity::class.java))
+            requireActivity().finish()
+        }
+
     }
 
     override fun onAttach(context: Context) {
@@ -43,6 +50,12 @@ class MypageFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    fun onClick(view: View) {
+        when (view.id) {
+
+        }
     }
 
     override fun onDestroy() {
