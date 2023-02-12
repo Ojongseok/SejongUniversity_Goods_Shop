@@ -15,23 +15,32 @@ import retrofit2.Response
 class MainRepository(application: Application) {
     val myToken = MyApplication.prefs.getString("accessToken","")
 
+    // 메인화면, 상품 목록
     suspend fun getAllProducts() : List<ProductListResponse> {
         return retrofitService.getAllProducts()
     }
 
+    // 상품 상세 정보
     suspend fun getProductDetail(itemId: Int) : Response<ProductDetailResponse> {
         return retrofitService.getProductDetail(itemId)
     }
 
-    // 카트 담기
+    // 장바구니 담기
     suspend fun addCart(itemId: String, addCartPost: AddCartPost) : Response<AddCartResponse> {
         return retrofitService.postAddCart("Bearer $myToken", itemId, addCartPost)
     }
 
-    //카트 조회
+    // 장바구니 조회
     suspend fun getCart() : List<CartListResponse> {
         return retrofitService.getCartList("Bearer $myToken")
     }
+
+    // 장바구니 삭제
+    suspend fun deleteCart(cartId: Long) : List<CartListResponse> {
+        return retrofitService.deleteCart("Bearer $myToken", cartId)
+    }
+
+
 
 
     // Room, 최근검색어

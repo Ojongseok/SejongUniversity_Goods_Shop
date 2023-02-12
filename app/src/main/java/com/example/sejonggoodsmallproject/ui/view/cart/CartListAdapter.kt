@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
+import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.databinding.ItemCartListBinding
+import kotlinx.android.synthetic.main.item_cart_list.view.*
 
-class CartListAdapter(private val context: Context, private val list : List<CartListResponse>)
+class CartListAdapter(private val context: Context, private var list : List<CartListResponse>)
     : RecyclerView.Adapter<CartListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
 
@@ -17,6 +19,7 @@ class CartListAdapter(private val context: Context, private val list : List<Cart
         fun bind(item: CartListResponse) {
 //            Glide.with(context).load(item.)
 //            binding.tvItemCartTitle.text = item.
+            binding.tvId.text = item.id.toString()
         }
     }
 
@@ -26,10 +29,14 @@ class CartListAdapter(private val context: Context, private val list : List<Cart
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it,position)
         }
+        holder.itemView.btn_cart_list_remove.setOnClickListener {
+            itemClickListener.onClickRemoveBtn(it, position)
+        }
     }
 
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
+        fun onClickRemoveBtn(v: View, position: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -39,6 +46,15 @@ class CartListAdapter(private val context: Context, private val list : List<Cart
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = ItemCartListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return CustomViewHolder(view)
+    }
+
+    fun setData(newData: List<CartListResponse>) {
+        list = newData
+        notifyDataSetChanged()
+    }
+
+    fun getCartId(position: Int) : Long {
+        return list[position].id.toLong()
     }
 
     override fun getItemCount()= list.size

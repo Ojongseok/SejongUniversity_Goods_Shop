@@ -40,4 +40,12 @@ interface RetrofitService {
     suspend fun getCartList(
         @Header("Authorization") BearerToken: String,
     ) : List<CartListResponse>
+
+    // 5.3 장바구니 삭제
+    @DELETE("cart/delete/{cartId}")
+    suspend fun deleteCart(
+        @Header("Authorization") BearerToken: String,
+        @Path("cartId") cartId: Long
+    ) : List<CartListResponse>
+
 }

@@ -2,8 +2,11 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
@@ -104,6 +107,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         binding.textView.text = imgList.size.toString()
     }
+
 
     fun buyButtonClick() {
         if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
