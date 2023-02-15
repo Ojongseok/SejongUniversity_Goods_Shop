@@ -271,13 +271,13 @@
 
                 <TextView
                     android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="찜하기"
                     android:textColor="@color/main_red"
                     android:textSize="10sp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView5"
-                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_favorite" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

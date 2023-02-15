@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnSearch.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.main_container, SearchFragment()).commit()
+                .add(R.id.main_container, SearchFragment())
+                .commit()
         }
 
         binding.btnCart.setOnClickListener {
@@ -57,14 +58,16 @@ class MainActivity : AppCompatActivity() {
             } else {
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.horizon_enter_front,0)
-                    .add(R.id.main_container, CartFragment()).commit()
+                    .add(R.id.main_container, CartFragment())
+                    .commit()
             }
         }
 
         binding.btnMypage.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.main_container, MypageFragment()).commit()
+                .add(R.id.main_container, MypageFragment())
+                .commit()
         }
     }
 

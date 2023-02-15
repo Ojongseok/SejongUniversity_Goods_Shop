@@ -74,7 +74,6 @@ class CartFragment : Fragment() {
         cartRemoveDialog.dialog.btn_cart_dialog_remove.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 responseList = viewModel.deleteCart(cartListAdapter.getCartId(position))
-                Log.d("태그",responseList.toString())
 
                 withContext(Dispatchers.Main) {
                     cartListAdapter.setData(responseList)

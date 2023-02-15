@@ -23,8 +23,8 @@ class BuyFragment : Fragment() {
     private var _binding : FragmentBuyBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ProductDetailViewModel
-    private var option1 = "옵션1 선택하기"
-    private var option2 = "옵션2 선택하기"
+    private var option1 : String? = "옵션1 선택하기"
+    private var option2 : String? = "옵션2 선택하기"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentBuyBinding.inflate(inflater, container,false)
@@ -40,28 +40,26 @@ class BuyFragment : Fragment() {
         setSpinner()
 
         binding.btnAddCart.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val quantity = binding.tvBuyAmount.text.toString()
-                val color = if (option1 == "") {
-                    null
-                } else { option1 }
-                val size = if (option2 == "") {
-                    null
-                } else { option2 }
-                val itemId = arguments?.getString("itemId","")?.toInt()!!
+            if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
+                Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
+            } else {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val quantity = binding.tvBuyAmount.text.toString()
+                    val color = option1
+                    val size = option2
+                    val itemId = arguments?.getString("itemId","")?.toInt()!!
 
+                    val response = viewModel.addCart(AddCartPost(quantity, color, size), itemId)
 
-
-                val response = viewModel.addCart(AddCartPost(quantity, color, size), itemId)
-
-                withContext(Dispatchers.Main) {
-                    when (response.code()) {
-                        200 -> {
-                            Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
-                            requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
-                        }
-                        400 -> {
-                            Toast.makeText(requireContext(), "추가 실패",Toast.LENGTH_SHORT).show()
+                    withContext(Dispatchers.Main) {
+                        when (response.code()) {
+                            200 -> {
+                                Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
+                                requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
+                            }
+                            400 -> {
+                                Toast.makeText(requireContext(), "추가에 실패했습니다.",Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
@@ -102,44 +100,47 @@ class BuyFragment : Fragment() {
             binding.spinner2.visibility = View.GONE
         }
 
+        // 색상 선택
         if (colorList != null) {
-            // 색상 선택
             binding.spinner.adapter = OptionSpinnerAdapter(requireContext(), R.layout.item_spinner_buy_option,colorList)
             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     option1 = binding.spinner.getItemAtPosition(p2).toString()
-
                     optionPicked()
                 }
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    // 선택되지 않은 경우
-                }
+                override fun onNothingSelected(p0: AdapterView<*>?) { }
             }
         } else {
-            option1 = ""
+            option1 = null
         }
+
+        // 사이즈 선택
         if (sizeList != null) {
-            // 사이즈 선택
             binding.spinner2.adapter = OptionSpinnerAdapter(requireContext(), R.layout.item_spinner_buy_option,sizeList)
             binding.spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     option2 = binding.spinner2.getItemAtPosition(p2).toString()
-
                     optionPicked()
                 }
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                }
+                override fun onNothingSelected(p0: AdapterView<*>?) { }
             }
         } else {
-            option2 = ""
+            option2 = null
         }
     }
 
     private fun optionPicked() {
         val price = arguments?.getString("price")!!
 
-        binding.tvBuyPickedOption.text = "$option1, $option2"
+        binding.tvBuyPickedOption.text = if (option1 != null && option2 != null) {
+            "$option1, $option2"
+        } else if (option1 != null && option2 == null) {
+            "$option1"
+        } else if (option1 == null && option2 != null) {
+            "$option2"
+        } else if (option1 == null && option2 == null) {
+            "선택사항 없음"
+        } else { "" }
 
         if (option1 != "옵션1 선택하기" && option2 != "옵션2 선택하기") {
             binding.ltBuyOptionPicked.visibility = View.VISIBLE

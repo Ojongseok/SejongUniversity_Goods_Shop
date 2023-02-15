@@ -31,6 +31,13 @@ class TermsFragment : Fragment() {
                 .remove(this@TermsFragment)
                 .commit()
         }
+
+        binding.btnSignupTermsAgree.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.horizon_exit_front)
+                .remove(this@TermsFragment)
+                .commit()
+        }
     }
 
     override fun onAttach(context: Context) {

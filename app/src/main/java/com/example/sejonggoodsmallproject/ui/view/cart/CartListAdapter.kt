@@ -18,7 +18,7 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
 
     inner class CustomViewHolder(private val binding: ItemCartListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartListResponse) {
-//            Glide.with(context).load(item.repImage.oriImgName).into(binding.ivItemCart)
+            Glide.with(context).load(item.repImage.oriImgName).into(binding.ivItemCart)
             binding.tvItemCartTitle.text = item.title
             binding.tvItemCartAmount.text = item.quantity.toString()
             binding.tvItemCartOption.text = item.color + ", " + item.size

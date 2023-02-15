@@ -62,6 +62,18 @@ class SignupFragment : Fragment() {
             }
         }
 
+        binding.tvShowTerms.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.horizon_enter_front, 0)
+                .add(R.id.init_container,TermsFragment())
+                .commit()
+        }
+        binding.btnBackSignup.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.horizon_exit_front)
+                .remove(this@SignupFragment)
+                .commit()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -197,26 +209,6 @@ class SignupFragment : Fragment() {
                 } else if (!passFlag) {
                     Toast.makeText(requireContext(), "비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                 }
-            }
-        }
-    }
-
-    fun onClick(view: View) {
-        when(view.id) {
-            R.id.btn_signup_complete -> {
-
-            }
-            R.id.tv_terms_contents -> {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.horizon_enter_front, 0)
-                    .add(R.id.init_container,TermsFragment())
-                    .commit()
-            }
-            R.id.btn_back_signup -> {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@SignupFragment)
-                    .commit()
             }
         }
     }
