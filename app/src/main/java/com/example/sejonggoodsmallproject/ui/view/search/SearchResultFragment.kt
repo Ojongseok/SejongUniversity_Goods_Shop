@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentSearchBinding
 import com.example.sejonggoodsmallproject.databinding.FragmentSearchResultBinding
 import com.example.sejonggoodsmallproject.ui.view.home.ProductListAdapter
@@ -45,11 +48,19 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun setRvSearchResult() {
-        searchResultListAdapter = ProductListAdapter(requireContext(), emptyList())
+        val list = mutableListOf<ProductListResponse>()
+        searchResultListAdapter = ProductListAdapter(requireContext(), list)
 
-        CoroutineScope(Dispatchers.IO).launch {
-
+        binding.rvSearchResultList.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = searchResultListAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
         }
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//
+//        }
     }
 
     override fun onAttach(context: Context) {

@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.SignupPost
 import com.example.sejonggoodsmallproject.databinding.FragmentSignupBinding
@@ -23,12 +25,14 @@ import kotlinx.coroutines.withContext
 class SignupFragment : Fragment() {
     private var _binding : FragmentSignupBinding? = null
     private val binding get() = _binding!!
+    private lateinit var callback: OnBackPressedCallback
     private var emailFlag = false
     private var passFlag = false
     private var nameFlag = false
     private var birthFlag = false
     private var checkBoxFlag = false
-    private lateinit var callback: OnBackPressedCallback
+    private var passFlagLiveData : MutableLiveData<Int> = MutableLiveData()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSignupBinding.inflate(inflater, container,false)
@@ -40,6 +44,14 @@ class SignupFragment : Fragment() {
 
         setSignupTextWatcher()
 
+        passFlagLiveData.observe(viewLifecycleOwner) {
+            if (it == 1) {
+                passFlag = true
+            } else if (it == 0) {
+                passFlag = false
+            }
+        }
+
         binding.checkboxSignupTerms.setOnCheckedChangeListener { compoundButton, isCheckedd ->
             if (isCheckedd) {
                 checkBoxFlag = true
@@ -50,19 +62,6 @@ class SignupFragment : Fragment() {
             }
         }
 
-        binding.tvShowTerms.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.horizon_enter_front, 0)
-                .add(R.id.init_container,TermsFragment())
-                .commit()
-        }
-
-        binding.btnBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.horizon_exit_front)
-                .remove(this@SignupFragment)
-                .commit()
-        }
     }
 
     override fun onAttach(context: Context) {
@@ -82,10 +81,7 @@ class SignupFragment : Fragment() {
     private fun setSignupTextWatcher() {
         // 이메일 입력 감지
         binding.etEmail.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.tvWarnEmail.visibility = View.VISIBLE
-                binding.ivCheckEmail.visibility = View.INVISIBLE
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.etEmail.text.contains('@')) {
                     binding.tvWarnEmail.visibility = View.INVISIBLE
@@ -98,24 +94,21 @@ class SignupFragment : Fragment() {
                 }
                 setSignupBtnFlag()
             }
-            override fun afterTextChanged(p0: Editable?) {
-            }
+            override fun afterTextChanged(p0: Editable?) { }
         })
         // 비밀번호 입력 감지
         binding.etPassword.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.tvWarnPassword.visibility = View.VISIBLE
-                binding.ivCheckPassword.visibility = View.INVISIBLE
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (binding.etPassword.text.length >=8) {
+                if (binding.etPassword.text.length >= 8
+                    && binding.etPassword.text.toString() == binding.etPasswordConfirm.text.toString()) {
                     binding.tvWarnPassword.visibility = View.INVISIBLE
                     binding.ivCheckPassword.visibility = View.VISIBLE
-                    passFlag = true
+                    passFlagLiveData.value = 1
                 } else {
                     binding.tvWarnPassword.visibility = View.VISIBLE
                     binding.ivCheckPassword.visibility = View.INVISIBLE
-                    passFlag = false
+                    passFlagLiveData.value = 0
                 }
                 setSignupBtnFlag()
             }
@@ -123,24 +116,20 @@ class SignupFragment : Fragment() {
         })
         // 비밀번호 확인 입력 감지
         binding.etPasswordConfirm.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.tvWarnPasswordConfirm.visibility = View.VISIBLE
-                binding.ivCheckPasswordConfirm.visibility = View.INVISIBLE
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun afterTextChanged(p0: Editable?) {
                 if (binding.etPassword.text.toString() == binding.etPasswordConfirm.text.toString()) {
                     binding.tvWarnPasswordConfirm.visibility = View.INVISIBLE
                     binding.ivCheckPasswordConfirm.visibility = View.VISIBLE
-                    passFlag = true
+                    passFlagLiveData.value = 1
                 } else {
                     binding.tvWarnPasswordConfirm.visibility = View.VISIBLE
                     binding.ivCheckPasswordConfirm.visibility = View.INVISIBLE
-                    passFlag = false
+                    passFlagLiveData.value = 0
                 }
                 setSignupBtnFlag()
             }
+            override fun afterTextChanged(p0: Editable?) { }
         })
         // 이름 입력 감지
         binding.etName.addTextChangedListener(object : TextWatcher{
@@ -155,20 +144,26 @@ class SignupFragment : Fragment() {
         })
         // 생년월일 입력 감지
         binding.etBirth.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun afterTextChanged(p0: Editable?) {
-                birthFlag = binding.etBirth.text.isNotEmpty()
+                val birthArray = binding.etBirth.text.toString().split("-")
+                if (birthArray.size == 3 && binding.etBirth.text.toString().length == 10) {
+                    if (birthArray[0].length == 4 && birthArray[1].length == 2 && birthArray[2].length == 2) {
+                        birthFlag = true
+                    }
+                } else {
+                    birthFlag = false
+                }
                 setSignupBtnFlag()
             }
+            override fun afterTextChanged(p0: Editable?) { }
         })
     }
 
     private fun setSignupBtnFlag() {
         // 회원가입 버튼 활성화
-        if (emailFlag && passFlag && nameFlag && birthFlag && checkBoxFlag) {
+        if (emailFlag && passFlag && nameFlag && birthFlag && checkBoxFlag
+            && binding.etPassword.text.toString() == binding.etPasswordConfirm.text.toString()) {
             binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_red_stroke_red_solid)
 
             binding.btnSignupComplete.setOnClickListener {
@@ -195,10 +190,34 @@ class SignupFragment : Fragment() {
                 }
             }
         } else {
-            binding.btnSignupComplete.setOnClickListener {
-                Toast.makeText(requireContext(), "회원정보가 일치하지 않습니다.",Toast.LENGTH_SHORT).show()
-            }
             binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_grey_solid)
+            binding.btnSignupComplete.setOnClickListener {
+                if (!birthFlag) {
+                    Toast.makeText(requireContext(), "생년월일 형식은 YYYY-MM-DD 입니다.",Toast.LENGTH_SHORT).show()
+                } else if (!passFlag) {
+                    Toast.makeText(requireContext(), "비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    fun onClick(view: View) {
+        when(view.id) {
+            R.id.btn_signup_complete -> {
+
+            }
+            R.id.tv_terms_contents -> {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.horizon_enter_front, 0)
+                    .add(R.id.init_container,TermsFragment())
+                    .commit()
+            }
+            R.id.btn_back_signup -> {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.horizon_exit_front)
+                    .remove(this@SignupFragment)
+                    .commit()
+            }
         }
     }
 

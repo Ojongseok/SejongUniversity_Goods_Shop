@@ -18,4 +18,5 @@ class LoginDialog(context: Context) {
         dialog.show()
 
     }
+
 }

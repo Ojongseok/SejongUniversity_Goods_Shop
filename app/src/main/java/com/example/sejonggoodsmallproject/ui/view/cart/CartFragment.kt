@@ -16,7 +16,6 @@ import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentCartBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
-import com.example.sejonggoodsmallproject.util.MyApplication
 import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -63,17 +62,27 @@ class CartFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private fun setDialog() {
+    private fun setDialog(position: Int) {
         val cartRemoveDialog = CartRemoveDialog(requireContext())
 
         cartRemoveDialog.showDialog()
 
         cartRemoveDialog.dialog.btn_cart_dialog_favorite.setOnClickListener {
-            Toast.makeText(context,"1",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"찜하기 보관",Toast.LENGTH_SHORT).show()
         }
+
         cartRemoveDialog.dialog.btn_cart_dialog_remove.setOnClickListener {
-            Toast.makeText(context,"2",Toast.LENGTH_SHORT).show()
+            CoroutineScope(Dispatchers.IO).launch {
+                responseList = viewModel.deleteCart(cartListAdapter.getCartId(position))
+                Log.d("태그",responseList.toString())
+
+                withContext(Dispatchers.Main) {
+                    cartListAdapter.setData(responseList)
+                    cartRemoveDialog.dialog.dismiss()
+                }
+            }
         }
+
         cartRemoveDialog.dialog.btn_cart_dialog_close.setOnClickListener {
             cartRemoveDialog.dialog.dismiss()
         }
@@ -108,20 +117,9 @@ class CartFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 Toast.makeText(requireContext(), "$position 번 아이템 눌림", Toast.LENGTH_SHORT).show()
             }
-
             override fun onClickRemoveBtn(v: View, position: Int) {
-                setDialog()
-
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    val cartId = cartListAdapter.getCartId(position)
-//                    responseList = viewModel.deleteCart(cartId)
-//
-//                    withContext(Dispatchers.Main) {
-//                        cartListAdapter.setData(responseList)
-//                    }
-//                }
+                setDialog(position)
             }
-
         })
     }
 
