@@ -35,9 +35,11 @@
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
                 android:layout_marginStart="16dp"
+                android:background="@drawable/ripple_oval"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="@+id/textView16"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +60,7 @@
                 android:id="@+id/frameLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/shape_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -286,9 +288,9 @@
                     android:textColor="@color/main_text"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/checkbox_signup_terms"
-                    app:layout_constraintStart_toEndOf="@+id/checkbox_signup_terms"
-                    app:layout_constraintTop_toTopOf="@+id/checkbox_signup_terms" />
+                    app:layout_constraintBottom_toBottomOf="@+id/checkbox_item_cart"
+                    app:layout_constraintStart_toEndOf="@+id/checkbox_item_cart"
+                    app:layout_constraintTop_toTopOf="@+id/checkbox_item_cart" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

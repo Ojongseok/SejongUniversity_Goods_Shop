@@ -14,6 +14,7 @@ import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
 import com.example.sejonggoodsmallproject.ui.view.cart.CartFragment
+import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.mypage.MypageFragment
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
@@ -21,6 +22,7 @@ import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
 import com.example.sejonggoodsmallproject.util.MyApplication
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.dialog_login_confirm.*
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnCart.setOnClickListener {
             if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
-                Toast.makeText(applicationContext,"로그인 후 이용 가능합니다.",Toast.LENGTH_SHORT).show()
+                setLoginDialog()
             } else {
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.horizon_enter_front,0)
@@ -63,6 +65,21 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front,0)
                 .add(R.id.main_container, MypageFragment()).commit()
+        }
+    }
+
+    private fun setLoginDialog() {
+        val loginDialog = LoginDialog(this)
+
+        loginDialog.showDialog()
+
+        loginDialog.dialog.btn_dialog_login.setOnClickListener {
+            startActivity(Intent(this, InitActivity::class.java))
+            finish()
+        }
+
+        loginDialog.dialog.btn_dialog_login_close.setOnClickListener {
+            loginDialog.dialog.dismiss()
         }
     }
 

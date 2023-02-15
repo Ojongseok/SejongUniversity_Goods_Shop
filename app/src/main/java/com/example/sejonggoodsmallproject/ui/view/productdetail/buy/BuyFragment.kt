@@ -48,10 +48,11 @@ class BuyFragment : Fragment() {
                 val size = if (option2 == "") {
                     null
                 } else { option2 }
+                val itemId = arguments?.getString("itemId","")?.toInt()!!
 
-                Log.d("BuyFragment Log","$quantity, $color, $size")
 
-                val response = viewModel.addCart(AddCartPost(quantity, color, size))
+
+                val response = viewModel.addCart(AddCartPost(quantity, color, size), itemId)
 
                 withContext(Dispatchers.Main) {
                     when (response.code()) {

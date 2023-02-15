@@ -16,6 +16,8 @@ import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentCartBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
+import com.example.sejonggoodsmallproject.util.MyApplication
+import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +29,7 @@ class CartFragment : Fragment() {
     private lateinit var callback: OnBackPressedCallback
     private lateinit var viewModel : MainViewModel
     private lateinit var cartListAdapter: CartListAdapter
-    private lateinit var responseList : MutableList<CartListResponse>
+    private lateinit var responseList : List<CartListResponse>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCartBinding.inflate(inflater, container,false)
@@ -61,9 +63,25 @@ class CartFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
+    private fun setDialog() {
+        val cartRemoveDialog = CartRemoveDialog(requireContext())
+
+        cartRemoveDialog.showDialog()
+
+        cartRemoveDialog.dialog.btn_cart_dialog_favorite.setOnClickListener {
+            Toast.makeText(context,"1",Toast.LENGTH_SHORT).show()
+        }
+        cartRemoveDialog.dialog.btn_cart_dialog_remove.setOnClickListener {
+            Toast.makeText(context,"2",Toast.LENGTH_SHORT).show()
+        }
+        cartRemoveDialog.dialog.btn_cart_dialog_close.setOnClickListener {
+            cartRemoveDialog.dialog.dismiss()
+        }
+    }
+
     private fun setCartList() {
         CoroutineScope(Dispatchers.IO).launch {
-            responseList = viewModel.getCartList().toMutableList()
+            responseList = viewModel.getCartList()
 
             withContext(Dispatchers.Main) {
                 if (responseList.isNotEmpty()) {
@@ -92,13 +110,16 @@ class CartFragment : Fragment() {
             }
 
             override fun onClickRemoveBtn(v: View, position: Int) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    Log.d("태그",cartListAdapter.getCartId(position).toString())
-                    viewModel.deleteCart(cartListAdapter.getCartId(position))
+                setDialog()
 
-                    responseList.removeAt(position)
-                    cartListAdapter.setData(responseList)
-                }
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    val cartId = cartListAdapter.getCartId(position)
+//                    responseList = viewModel.deleteCart(cartId)
+//
+//                    withContext(Dispatchers.Main) {
+//                        cartListAdapter.setData(responseList)
+//                    }
+//                }
             }
 
         })

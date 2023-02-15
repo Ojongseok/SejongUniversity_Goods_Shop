@@ -1,6 +1,7 @@
 package com.example.sejonggoodsmallproject.ui.view.cart
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +18,12 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
 
     inner class CustomViewHolder(private val binding: ItemCartListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartListResponse) {
-//            Glide.with(context).load(item.)
-//            binding.tvItemCartTitle.text = item.
-            binding.tvId.text = item.id.toString()
+            Glide.with(context).load(item.repImage.oriImgName).into(binding.ivItemCart)
+            binding.tvItemCartTitle.text = item.title
+            binding.tvItemCartAmount.text = item.quantity.toString()
+            binding.tvItemCartOption.text = item.color + ", " + item.size
+
+            binding.tvItemCartPrice.text = item.price.toString()
         }
     }
 

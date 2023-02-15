@@ -1,6 +1,7 @@
 package com.example.sejonggoodsmallproject.data.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.data.room.RecentSearchDatabase

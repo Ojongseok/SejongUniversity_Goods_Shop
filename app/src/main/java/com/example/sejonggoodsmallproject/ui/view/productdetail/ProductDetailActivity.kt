@@ -1,5 +1,6 @@
 package com.example.sejonggoodsmallproject.ui.view.productdetail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,11 +15,14 @@ import com.example.sejonggoodsmallproject.data.model.imgProductDetailInfoResult
 import com.example.sejonggoodsmallproject.data.model.imgProductDetailResult
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityProductDetailBinding
+import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
+import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.BuyFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductViewModelViewModelFactory
 import com.example.sejonggoodsmallproject.util.MyApplication
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.dialog_login_confirm.*
 import kotlinx.coroutines.*
 import retrofit2.Response
 
@@ -38,13 +42,13 @@ class ProductDetailActivity : AppCompatActivity() {
         itemId = intent.getStringExtra("itemId")?.toInt()!!
 
         val mainRepository = MainRepository(application)
-        val factory = ProductViewModelViewModelFactory(mainRepository, itemId)
+        val factory = ProductViewModelViewModelFactory(mainRepository)
         viewModel = ViewModelProvider(this,factory) [ProductDetailViewModel::class.java]
 
         binding.activity = this@ProductDetailActivity
 
         CoroutineScope(Dispatchers.IO).async {
-            response = viewModel.getProductDetail()
+            response = viewModel.getProductDetail(itemId)
 
             if (response.isSuccessful) {
                 val data = response.body()
@@ -111,7 +115,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     fun buyButtonClick() {
         if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
-            Toast.makeText(applicationContext,"로그인 후 이용 가능합니다.",Toast.LENGTH_SHORT).show()
+            setLoginDialog()
         } else {
             val colorList = response.body()?.color
             val sizeList = response.body()?.size
@@ -130,6 +134,22 @@ class ProductDetailActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.vertical_from_bottom,0)
                 .replace(R.id.lt_product_detail_buy, buyFragment).commit()
+        }
+    }
+
+    private fun setLoginDialog() {
+        val loginDialog = LoginDialog(this)
+
+        loginDialog.showDialog()
+
+        loginDialog.dialog.btn_dialog_login.setOnClickListener {
+            //액티비티 다 날려야함
+            startActivity(Intent(this, InitActivity::class.java))
+            finish()
+        }
+
+        loginDialog.dialog.btn_dialog_login_close.setOnClickListener {
+            loginDialog.dialog.dismiss()
         }
     }
 

@@ -108,19 +108,18 @@ class SignupFragment : Fragment() {
                 binding.ivCheckPassword.visibility = View.INVISIBLE
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun afterTextChanged(p0: Editable?) {
-                if (binding.etPassword.text.toString() == binding.etPasswordConfirm.text.toString()) {
-                    binding.tvWarnPasswordConfirm.visibility = View.INVISIBLE
-                    binding.ivCheckPasswordConfirm.visibility = View.VISIBLE
+                if (binding.etPassword.text.length >=8) {
+                    binding.tvWarnPassword.visibility = View.INVISIBLE
+                    binding.ivCheckPassword.visibility = View.VISIBLE
                     passFlag = true
                 } else {
-                    binding.tvWarnPasswordConfirm.visibility = View.VISIBLE
-                    binding.ivCheckPasswordConfirm.visibility = View.INVISIBLE
+                    binding.tvWarnPassword.visibility = View.VISIBLE
+                    binding.ivCheckPassword.visibility = View.INVISIBLE
                     passFlag = false
                 }
                 setSignupBtnFlag()
             }
+            override fun afterTextChanged(p0: Editable?) { }
         })
         // 비밀번호 확인 입력 감지
         binding.etPasswordConfirm.addTextChangedListener(object : TextWatcher{

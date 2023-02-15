@@ -78,6 +78,7 @@ class SearchFragment : Fragment() {
                 searchResultFragment.arguments = bundle
 
                 requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.horizon_enter_front,0)
                     .add(R.id.main_container, searchResultFragment)
                     .commit()
 
@@ -105,6 +106,7 @@ class SearchFragment : Fragment() {
                     searchResultFragment.arguments = bundle
 
                     requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.horizon_enter_front,0)
                         .add(R.id.main_container, searchResultFragment)
                         .commit()
 
