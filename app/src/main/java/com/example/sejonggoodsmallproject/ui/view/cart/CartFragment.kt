@@ -126,6 +126,19 @@ class CartFragment : Fragment() {
             }
 
             override fun onClickMinusBtn(v: View, position: Int) {
+                if(cartListAdapter.getNowQuantity(position) != 1) {
+                    Toast.makeText(requireContext(), "수량이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                    
+                    CoroutineScope(Dispatchers.IO).launch {
+                        var nowQuantity = cartListAdapter.getNowQuantity(position)
+                        val response = viewModel.updateCart(cartListAdapter.getCartId(position),--nowQuantity)
+                        responseList[position] = response
+
+                        withContext(Dispatchers.Main) {
+                            cartListAdapter.setData(responseList)
+                        }
+                    }
+                }
             }
         })
     }

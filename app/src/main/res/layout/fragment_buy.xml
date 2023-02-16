@@ -50,17 +50,6 @@
             app:layout_constraintTop_toBottomOf="@+id/spinner2">
 
             <TextView
-                android:id="@+id/tv_buy_product_cnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="상품 0개"
-                android:textColor="@color/main_text"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/tv_buy_price_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +75,7 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_buy_product_cnt">
+                app:layout_constraintTop_toBottomOf="@+id/tv_buy_price_sum">
 
                 <TextView
                     android:id="@+id/tv_buy_picked_option"
@@ -101,8 +90,8 @@
                     android:id="@+id/btn_buy_amout_plus"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:onClick="@{(v)->fragment.onClick(v)}"
                     android:background="@drawable/background_oval"
+                    android:onClick="@{(v)->fragment.onClick(v)}"
                     android:padding="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -129,9 +118,9 @@
                     android:id="@+id/btn_buy_amount_minus"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:onClick="@{(v)->fragment.onClick(v)}"
                     android:layout_marginEnd="6dp"
                     android:background="@drawable/background_oval"
+                    android:onClick="@{(v)->fragment.onClick(v)}"
                     android:padding="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_buy_amount"

@@ -177,7 +177,7 @@ class BuyFragment : Fragment() {
             binding.ltBuyOptionPicked.visibility = View.VISIBLE
 
             binding.tvBuyAmount.text = "1"
-            binding.tvBuyPriceSum.text = price
+            binding.tvBuyPriceSum.text = priceUpdate(price.toInt())
 
 
         } else {
@@ -193,18 +193,30 @@ class BuyFragment : Fragment() {
             R.id.btn_buy_amout_plus -> {
                 binding.tvBuyAmount.text = (++cnt).toString()
 
-                binding.tvBuyPriceSum.text = (cnt * price.toInt()).toString()
+                binding.tvBuyPriceSum.text = priceUpdate((cnt * price.toInt()))
             }
             R.id.btn_buy_amount_minus -> {
-                binding.tvBuyAmount.text = (--cnt).toString()
+                if(binding.tvBuyAmount.text.toString() != "1") {
+                    binding.tvBuyAmount.text = (--cnt).toString()
 
-                binding.tvBuyPriceSum.text = (cnt * price.toInt()).toString()
+                    binding.tvBuyPriceSum.text = priceUpdate((cnt * price.toInt()))
+                }
             }
             R.id.lt_down -> {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .setCustomAnimations(0,R.anim.vertical_from_top)
                     .remove(this).commit()
             }
+        }
+    }
+
+    private fun priceUpdate(price: Int) : String {
+        if (price in 1000..999999) {
+            val priceList = price.toString().toCharArray().toMutableList()
+            priceList.add(priceList.size-3,',')
+            return priceList.joinToString("") + "원"
+        } else {
+            return price.toString() + "원"
         }
     }
 

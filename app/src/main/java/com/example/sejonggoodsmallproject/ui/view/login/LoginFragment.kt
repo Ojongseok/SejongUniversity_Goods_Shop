@@ -46,14 +46,14 @@ class LoginFragment : Fragment() {
                                 val accessToken = response.body()?.token!!
                                 MyApplication.prefs.setString("accessToken",accessToken)
 
-                                Toast.makeText(requireContext(),"로그인 성공",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(),"환영합니다 :)",Toast.LENGTH_SHORT).show()
 
                                 startActivity(Intent(requireContext(), MainActivity()::class.java))
                                 requireActivity().finish()
                             }
 
                             400 -> {
-                                Toast.makeText(requireContext(),"로그인 실패",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(),"이메일 및 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
