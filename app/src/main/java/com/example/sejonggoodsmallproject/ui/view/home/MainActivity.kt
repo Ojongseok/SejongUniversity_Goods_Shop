@@ -3,6 +3,7 @@ package com.example.sejonggoodsmallproject.ui.view.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -47,8 +48,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnSearch.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.main_container, SearchFragment())
-                .commit()
+                .add(R.id.main_container, SearchFragment(),"backStack")
+                .addToBackStack("backStack")
+                .commitAllowingStateLoss()
         }
 
         binding.btnCart.setOnClickListener {
@@ -57,16 +59,18 @@ class MainActivity : AppCompatActivity() {
             } else {
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.horizon_enter_front,0)
-                    .add(R.id.main_container, CartFragment())
-                    .commit()
+                    .add(R.id.main_container, CartFragment(), "backStack")
+                    .addToBackStack("backStack")
+                    .commitAllowingStateLoss()
             }
         }
 
         binding.btnMypage.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.main_container, MypageFragment())
-                .commit()
+                .add(R.id.main_container, MypageFragment(), "backStack")
+                .addToBackStack("backStack")
+                .commitAllowingStateLoss()
         }
     }
 
@@ -141,19 +145,14 @@ class MainActivity : AppCompatActivity() {
 
     var mBackWait:Long = 0
     override fun onBackPressed() {
-        var fgList = supportFragmentManager.fragments
-
-        if (fgList.isEmpty()) {
+        if (supportFragmentManager.backStackEntryCount == 0) {
             if(System.currentTimeMillis() - mBackWait >=2000 ) {
                 mBackWait = System.currentTimeMillis()
                 Toast.makeText(applicationContext,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
             } else {
                 finish()
             }
-        } else {
-            fgList.last().requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.horizon_exit_front)
-                .remove(fgList.last()).commit()
         }
+        super.onBackPressed()
     }
 }

@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 class SearchResultFragment : Fragment() {
     private var _binding : FragmentSearchResultBinding? = null
     private val binding get() = _binding!!
-    private lateinit var callback: OnBackPressedCallback
     private lateinit var searchResultListAdapter : ProductListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,20 +60,6 @@ class SearchResultFragment : Fragment() {
 //        CoroutineScope(Dispatchers.IO).launch {
 //
 //        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@SearchResultFragment)
-                    .commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun hideKeyboard() {

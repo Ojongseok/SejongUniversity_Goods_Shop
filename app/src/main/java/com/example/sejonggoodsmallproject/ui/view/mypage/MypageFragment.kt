@@ -15,7 +15,6 @@ import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 class MypageFragment : Fragment() {
     private var _binding : FragmentMypageBinding? = null
     private val binding get() = _binding!!
-    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMypageBinding.inflate(inflater, container,false)
@@ -36,20 +35,6 @@ class MypageFragment : Fragment() {
             requireActivity().finish()
         }
 
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@MypageFragment)
-                    .commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     fun onClick(view: View) {

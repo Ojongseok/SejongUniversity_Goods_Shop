@@ -27,7 +27,6 @@ import kotlinx.coroutines.withContext
 class CartFragment : Fragment() {
     private var _binding : FragmentCartBinding? = null
     private val binding get() = _binding!!
-    private lateinit var callback: OnBackPressedCallback
     private lateinit var viewModel : MainViewModel
     private lateinit var cartListAdapter: CartListAdapter
     private lateinit var responseList : MutableList<CartListResponse>
@@ -48,20 +47,6 @@ class CartFragment : Fragment() {
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this).commit()
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@CartFragment)
-                    .commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun setDialog(position: Int) {
@@ -144,7 +129,6 @@ class CartFragment : Fragment() {
             }
         })
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

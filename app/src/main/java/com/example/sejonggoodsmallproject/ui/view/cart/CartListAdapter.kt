@@ -33,7 +33,14 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
                 "${item.size}"
             } else { "" }
 
-            binding.tvItemCartPrice.text = item.price.toString()
+            binding.tvItemCartPrice.text = if (item.price in 1000..999999) {
+                val priceList = item.price.toString().toCharArray().toMutableList()
+                priceList.add(priceList.size-3,',')
+                priceList.joinToString("") + "원"
+            } else {
+                item.price.toString() + "원"
+            }
+
         }
     }
 

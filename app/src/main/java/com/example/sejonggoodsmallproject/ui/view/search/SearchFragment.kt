@@ -21,7 +21,6 @@ import java.util.*
 class SearchFragment : Fragment() {
     private var _binding : FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var callback: OnBackPressedCallback
     private lateinit var viewModel : MainViewModel
     private lateinit var recentSearchAdapter : RecentSearchedAdapter
 
@@ -37,20 +36,6 @@ class SearchFragment : Fragment() {
 
         setRvRecentSearched()
 
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@SearchFragment)
-                    .commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun setRvRecentSearched() {
@@ -79,8 +64,9 @@ class SearchFragment : Fragment() {
 
                 requireActivity().supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.horizon_enter_front,0)
-                    .add(R.id.main_container, searchResultFragment)
-                    .commit()
+                    .add(R.id.main_container, searchResultFragment,"tag")
+                    .addToBackStack("tag")
+                    .commitAllowingStateLoss()
 
                 binding.etSearchBar.setText("")
             }
@@ -107,8 +93,9 @@ class SearchFragment : Fragment() {
 
                     requireActivity().supportFragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.horizon_enter_front,0)
-                        .add(R.id.main_container, searchResultFragment)
-                        .commit()
+                        .add(R.id.main_container, searchResultFragment, "backStack")
+                        .addToBackStack("backStack")
+                        .commitAllowingStateLoss()
 
                     binding.etSearchBar.setText("")
                 }
