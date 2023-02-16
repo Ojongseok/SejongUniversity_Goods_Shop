@@ -1,13 +1,10 @@
 package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
@@ -19,7 +16,7 @@ import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
 import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.BuyFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
-import com.example.sejonggoodsmallproject.ui.viewmodel.ProductViewModelViewModelFactory
+import com.example.sejonggoodsmallproject.ui.viewmodel.factory.ProductViewModelViewModelFactory
 import com.example.sejonggoodsmallproject.util.MyApplication
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.dialog_login_confirm.*
@@ -46,6 +43,14 @@ class ProductDetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this,factory) [ProductDetailViewModel::class.java]
 
         binding.activity = this@ProductDetailActivity
+
+        binding.ivFavorite.setOnClickListener {
+            if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+                setLoginDialog()
+            } else {
+                Toast.makeText(this, "찜하기", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         CoroutineScope(Dispatchers.IO).async {
             response = viewModel.getProductDetail(itemId)
@@ -86,7 +91,6 @@ class ProductDetailActivity : AppCompatActivity() {
                 when (tab!!.position) {
                     0 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,productInfoFragment).commit()
                     1 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductReviewFragment()).commit()
-                    2 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductQuestionFragment()).commit()
                 }
             }
             // tab이 선택되지 않았을 때
@@ -114,27 +118,23 @@ class ProductDetailActivity : AppCompatActivity() {
 
 
     fun buyButtonClick() {
-        if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
-            setLoginDialog()
-        } else {
-            val colorList = response.body()?.color
-            val sizeList = response.body()?.size
-            val price = response.body()?.price
+        val colorList = response.body()?.color
+        val sizeList = response.body()?.size
+        val price = response.body()?.price
 
-            val bundle = Bundle().apply {
-                putString("colorList",colorList)
-                putString("sizeList",sizeList)
-                putString("price",price.toString())
-                putString("itemId", itemId.toString())
-            }
-
-            val buyFragment = BuyFragment()
-            buyFragment.arguments = bundle
-
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.vertical_from_bottom,0)
-                .replace(R.id.lt_product_detail_buy, buyFragment).commit()
+        val bundle = Bundle().apply {
+            putString("colorList",colorList)
+            putString("sizeList",sizeList)
+            putString("price",price.toString())
+            putString("itemId", itemId.toString())
         }
+
+        val buyFragment = BuyFragment()
+        buyFragment.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.vertical_from_bottom,0)
+            .replace(R.id.lt_product_detail_buy, buyFragment).commit()
     }
 
     private fun setLoginDialog() {
@@ -143,9 +143,9 @@ class ProductDetailActivity : AppCompatActivity() {
         loginDialog.showDialog()
 
         loginDialog.dialog.btn_dialog_login.setOnClickListener {
-            //액티비티 다 날려야함
-            startActivity(Intent(this, InitActivity::class.java))
-            finish()
+            val intent = Intent(this, InitActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
         loginDialog.dialog.btn_dialog_login_close.setOnClickListener {

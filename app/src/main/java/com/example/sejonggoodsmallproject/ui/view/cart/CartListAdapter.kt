@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.databinding.ItemCartListBinding
@@ -19,9 +21,17 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
     inner class CustomViewHolder(private val binding: ItemCartListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartListResponse) {
             Glide.with(context).load(item.repImage.oriImgName).into(binding.ivItemCart)
+
             binding.tvItemCartTitle.text = item.title
             binding.tvItemCartAmount.text = item.quantity.toString()
-            binding.tvItemCartOption.text = item.color + ", " + item.size
+
+            binding.tvItemCartOption.text = if (item.color != null && item.size != null) {
+                "${item.color}, ${item.size}"
+            } else if (item.color != null && item.size == null) {
+                "${item.color}"
+            } else if (item.color == null && item.size != null) {
+                "${item.size}"
+            } else { "" }
 
             binding.tvItemCartPrice.text = item.price.toString()
         }
@@ -36,11 +46,23 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
         holder.itemView.btn_cart_list_remove.setOnClickListener {
             itemClickListener.onClickRemoveBtn(it, position)
         }
+        holder.itemView.iv_item_cart_cardview.setOnClickListener {
+            itemClickListener.onClickImage(it, position)
+        }
+        holder.itemView.btn_item_cart_amount_plus.setOnClickListener {
+            itemClickListener.onClickPlusBtn(it, position)
+        }
+        holder.itemView.btn_item_cart_amount_minus.setOnClickListener {
+            itemClickListener.onClickMinusBtn(it, position)
+        }
     }
 
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
         fun onClickRemoveBtn(v: View, position: Int)
+        fun onClickImage(v: View, position: Int)
+        fun onClickPlusBtn(v: View, position: Int)
+        fun onClickMinusBtn(v: View, position: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -60,6 +82,11 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
     fun getCartId(position: Int) : Long {
         return list[position].id.toLong()
     }
-
+    fun getCartListItemId(position: Int) : Long {
+        return list[position].itemId
+    }
+    fun getNowQuantity(position: Int) : Int {
+        return list[position].quantity
+    }
     override fun getItemCount()= list.size
 }

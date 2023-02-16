@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/iv_item_cart_cardview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -55,8 +55,8 @@
             android:text="TextView"
             android:textColor="@color/main_text"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
+            app:layout_constraintStart_toEndOf="@+id/iv_item_cart_cardview"
+            app:layout_constraintTop_toTopOf="@+id/iv_item_cart_cardview" />
 
         <TextView
             android:id="@+id/tv_item_cart_option"
@@ -81,12 +81,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_cart_cardview"
             app:layout_constraintEnd_toEndOf="@+id/btn_cart_list_remove"
             app:layout_constraintStart_toStartOf="@+id/tv_item_cart_option">
 
             <FrameLayout
-                android:id="@+id/btn_item_cart_amount_plus"
+                android:id="@+id/btn_item_cart_amount_minus"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/background_oval"
@@ -109,12 +109,12 @@
                 android:layout_marginStart="7dp"
                 android:text="1"
                 android:textColor="@color/main_text"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_item_cart_amount_plus"
-                app:layout_constraintStart_toEndOf="@+id/btn_item_cart_amount_plus"
-                app:layout_constraintTop_toTopOf="@+id/btn_item_cart_amount_plus" />
+                app:layout_constraintBottom_toBottomOf="@+id/btn_item_cart_amount_minus"
+                app:layout_constraintStart_toEndOf="@+id/btn_item_cart_amount_minus"
+                app:layout_constraintTop_toTopOf="@+id/btn_item_cart_amount_minus" />
 
             <FrameLayout
-                android:id="@+id/btn_item_cart_amount_minus"
+                android:id="@+id/btn_item_cart_amount_plus"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="7dp"

@@ -16,6 +16,9 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
     // 장바구니 삭제
     suspend fun deleteCart(cartId: Long) = mainRepository.deleteCart(cartId)
 
+    // 장바구니 수정
+    suspend fun updateCart(cartId: Long, quantity: Int) = mainRepository.updateCart(cartId, quantity)
+
     // Search 관련
     fun getRecentSearchItemsList() : LiveData<List<RecentSearchModel>> {
         return mainRepository.getRecentSearchItemsList()

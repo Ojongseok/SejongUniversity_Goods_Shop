@@ -41,8 +41,10 @@ class MainRepository(application: Application) {
         return retrofitService.deleteCart("Bearer $myToken", cartId)
     }
 
-
-
+    // 장바구니 수정
+    suspend fun updateCart(cartId: Long, quantity: Int) : CartListResponse {
+        return retrofitService.updateCart("Bearer $myToken", UpdateCartPost(cartId, quantity))
+    }
 
     // Room, 최근검색어
     private val mRecentSearchDatabase = RecentSearchDatabase.getInstance(application)

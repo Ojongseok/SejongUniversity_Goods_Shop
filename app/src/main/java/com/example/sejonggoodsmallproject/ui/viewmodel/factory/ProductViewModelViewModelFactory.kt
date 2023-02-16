@@ -1,8 +1,9 @@
-package com.example.sejonggoodsmallproject.ui.viewmodel
+package com.example.sejonggoodsmallproject.ui.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
+import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import java.lang.IllegalArgumentException
 
 class ProductViewModelViewModelFactory(private val mainRepository: MainRepository) : ViewModelProvider.Factory {

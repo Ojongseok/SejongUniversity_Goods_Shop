@@ -3,7 +3,6 @@ package com.example.sejonggoodsmallproject.ui.view.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,7 @@ import com.example.sejonggoodsmallproject.ui.view.mypage.MypageFragment
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
-import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModelFactory
+import com.example.sejonggoodsmallproject.ui.viewmodel.factory.MainViewModelFactory
 import com.example.sejonggoodsmallproject.util.MyApplication
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.dialog_login_confirm.*

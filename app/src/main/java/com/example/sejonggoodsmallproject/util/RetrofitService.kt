@@ -48,4 +48,11 @@ interface RetrofitService {
         @Path("cartId") cartId: Long
     ) : List<CartListResponse>
 
+    // 5.4 장바구니 수정
+    @PATCH("cart/update")
+    suspend fun updateCart(
+        @Header("Authorization") BearerToken: String,
+        @Body updateCartPost: UpdateCartPost
+    ) : CartListResponse
+
 }

@@ -1,5 +1,6 @@
 package com.example.sejonggoodsmallproject.ui.view.productdetail.buy
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,9 +12,12 @@ import android.widget.Toast
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.AddCartPost
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
+import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
+import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.util.MyApplication
+import kotlinx.android.synthetic.main.dialog_login_confirm.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,30 +44,57 @@ class BuyFragment : Fragment() {
         setSpinner()
 
         binding.btnAddCart.setOnClickListener {
-            if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
-                Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
+            if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+                setLoginDialog()
             } else {
-                CoroutineScope(Dispatchers.IO).launch {
-                    val quantity = binding.tvBuyAmount.text.toString()
-                    val color = option1
-                    val size = option2
-                    val itemId = arguments?.getString("itemId","")?.toInt()!!
+                if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
+                    Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
+                } else {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val quantity = binding.tvBuyAmount.text.toString()
+                        val color = option1
+                        val size = option2
+                        val itemId = arguments?.getString("itemId","")?.toInt()!!
 
-                    val response = viewModel.addCart(AddCartPost(quantity, color, size), itemId)
+                        val response = viewModel.addCart(AddCartPost(quantity, color, size), itemId)
 
-                    withContext(Dispatchers.Main) {
-                        when (response.code()) {
-                            200 -> {
-                                Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
-                                requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
-                            }
-                            400 -> {
-                                Toast.makeText(requireContext(), "추가에 실패했습니다.",Toast.LENGTH_SHORT).show()
+                        withContext(Dispatchers.Main) {
+                            when (response.code()) {
+                                200 -> {
+                                    Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
+                                    requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
+                                }
+                                400 -> {
+                                    Toast.makeText(requireContext(), "추가에 실패했습니다.",Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+        binding.btnProductBuy.setOnClickListener {
+            if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+                setLoginDialog()
+            } else {
+
+            }
+        }
+    }
+
+    private fun setLoginDialog() {
+        val loginDialog = LoginDialog(requireContext())
+
+        loginDialog.showDialog()
+
+        loginDialog.dialog.btn_dialog_login.setOnClickListener {
+            val intent = Intent(requireContext(), InitActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        loginDialog.dialog.btn_dialog_login_close.setOnClickListener {
+            loginDialog.dialog.dismiss()
         }
     }
 

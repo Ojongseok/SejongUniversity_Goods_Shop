@@ -16,7 +16,7 @@
         android:layout_marginBottom="8dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/iv_item_cart_cardview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
@@ -41,8 +41,8 @@
             android:textColor="@color/main_text"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
+            app:layout_constraintStart_toEndOf="@+id/iv_item_cart_cardview"
+            app:layout_constraintTop_toTopOf="@+id/iv_item_cart_cardview" />
 
         <TextView
             android:id="@+id/tv_product_tag"

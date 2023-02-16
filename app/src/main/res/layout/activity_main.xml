@@ -87,7 +87,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="앱 이름(?)"
+                android:text="세종이의 집"
                 android:textColor="@color/main_text"
                 android:textSize="28sp"
                 android:textStyle="bold"
