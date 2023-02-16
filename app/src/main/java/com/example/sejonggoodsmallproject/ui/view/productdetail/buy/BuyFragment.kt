@@ -129,6 +129,9 @@ class BuyFragment : Fragment() {
 
             binding.spinner.visibility = View.GONE
             binding.spinner2.visibility = View.GONE
+
+            binding.tvBuyPriceSum.text = priceUpdate(arguments?.getString("price")!!.toInt())
+            binding.ltBuyOptionPicked.visibility = View.VISIBLE
         }
 
         // 색상 선택
@@ -178,8 +181,6 @@ class BuyFragment : Fragment() {
 
             binding.tvBuyAmount.text = "1"
             binding.tvBuyPriceSum.text = priceUpdate(price.toInt())
-
-
         } else {
             binding.ltBuyOptionPicked.visibility = View.GONE
         }

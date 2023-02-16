@@ -90,7 +90,7 @@ class ProductDetailActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,productInfoFragment).commit()
-                    1 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductReviewFragment()).commit()
+                    1 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductSellerFragment()).commit()
                 }
             }
             // tab이 선택되지 않았을 때
