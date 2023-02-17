@@ -47,6 +47,7 @@ class CartFragment : Fragment() {
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this).commit()
         }
+
     }
 
     private fun setDialog(position: Int) {
@@ -92,6 +93,8 @@ class CartFragment : Fragment() {
     private fun setRvCartList() {
         cartListAdapter = CartListAdapter(requireContext(), responseList)
 
+        binding.btnBuyComplete.text = cartListAdapter.getCheckedItemPrice().toString()
+
         binding.rvCartList.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
@@ -121,6 +124,7 @@ class CartFragment : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         cartListAdapter.setData(responseList)
+
                     }
                 }
             }
@@ -128,7 +132,7 @@ class CartFragment : Fragment() {
             override fun onClickMinusBtn(v: View, position: Int) {
                 if(cartListAdapter.getNowQuantity(position) != 1) {
                     Toast.makeText(requireContext(), "수량이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-                    
+
                     CoroutineScope(Dispatchers.IO).launch {
                         var nowQuantity = cartListAdapter.getNowQuantity(position)
                         val response = viewModel.updateCart(cartListAdapter.getCartId(position),--nowQuantity)
@@ -139,6 +143,11 @@ class CartFragment : Fragment() {
                         }
                     }
                 }
+            }
+
+            override fun onClickCheckBoxBtn(priceSum: Int) {
+                Log.d("태그", priceSum.toString())
+                binding.btnBuyComplete.text = cartListAdapter.getCheckedItemPrice().toString()
             }
         })
     }

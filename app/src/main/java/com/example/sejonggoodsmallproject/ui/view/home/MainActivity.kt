@@ -152,7 +152,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 finish()
             }
+        } else {
+            super.onBackPressed()
         }
-        super.onBackPressed()
     }
 }

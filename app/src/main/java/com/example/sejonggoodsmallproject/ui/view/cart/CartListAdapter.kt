@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -17,6 +19,7 @@ import kotlinx.android.synthetic.main.item_cart_list.view.*
 class CartListAdapter(private val context: Context, private var list : List<CartListResponse>)
     : RecyclerView.Adapter<CartListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
+    private var priceSum = 0
 
     inner class CustomViewHolder(private val binding: ItemCartListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartListResponse) {
@@ -24,7 +27,6 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
 
             binding.tvItemCartTitle.text = item.title
             binding.tvItemCartAmount.text = item.quantity.toString()
-
             binding.tvItemCartOption.text = if (item.color != null && item.size != null) {
                 "${item.color}, ${item.size}"
             } else if (item.color != null && item.size == null) {
@@ -40,6 +42,15 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
             } else {
                 item.price.toString() + "원"
             }
+
+            priceSum += item.price
+//            binding.checkboxItemCart.setOnCheckedChangeListener { _, isChecked ->
+//                if (isChecked) {
+//                    priceSum += item.price
+//                } else {
+//                    priceSum -= item.price
+//                }
+//            }
 
         }
     }
@@ -62,6 +73,15 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
         holder.itemView.btn_item_cart_amount_minus.setOnClickListener {
             itemClickListener.onClickMinusBtn(it, position)
         }
+        holder.itemView.checkbox_item_cart.setOnCheckedChangeListener { _, isChecked ->
+            if (holder.itemView.checkbox_item_cart.isChecked) {
+                priceSum += list[position].price
+                itemClickListener.onClickCheckBoxBtn(priceSum)
+            } else {
+                priceSum -= list[position].price
+                itemClickListener.onClickCheckBoxBtn(priceSum)
+            }
+        }
     }
 
     interface OnItemClickListener {
@@ -70,6 +90,7 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
         fun onClickImage(v: View, position: Int)
         fun onClickPlusBtn(v: View, position: Int)
         fun onClickMinusBtn(v: View, position: Int)
+        fun onClickCheckBoxBtn(priceSum: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -86,14 +107,21 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
         notifyDataSetChanged()
     }
 
+    fun getCheckedItemPrice() : Int {
+        return priceSum
+    }
+
     fun getCartId(position: Int) : Long {
         return list[position].id.toLong()
     }
+
     fun getCartListItemId(position: Int) : Long {
         return list[position].itemId
     }
+
     fun getNowQuantity(position: Int) : Int {
         return list[position].quantity
     }
+
     override fun getItemCount()= list.size
 }
