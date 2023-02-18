@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginRight="8dp"
-        android:text="@string/order_type_description"
+        android:text="주문 전"
         android:textColor="@color/main_text"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,30 +50,8 @@
             android:background="@drawable/background_rec_8dp"
             android:backgroundTint="@color/main_red"
             android:gravity="center"
-            android:text="현장 수령하기"
+            android:text="네, 확인했습니다."
             android:textColor="@color/white"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btn_dialog_order_prev2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/background_rec_8dp"
-            android:backgroundTint="@color/shape_background"
-            android:gravity="center"
-            android:text="배송 신청하기"
-            android:textColor="@color/main_text"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btn_dialog_order_prev3"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="닫기"
-            android:textColor="@color/sub_text"
             android:textStyle="bold" />
 
     </LinearLayout>

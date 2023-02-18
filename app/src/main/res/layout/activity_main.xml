@@ -27,7 +27,8 @@
             app:tabIndicatorColor="@color/main_red"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main_red"
-            app:tabTextColor="@color/sub_text">
+            app:tabTextColor="@color/sub_text"
+            app:tabTextAppearance="@style/tabTextSizeBold">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
@@ -99,6 +100,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:onClick="@{(v)->activity.onClick(v)}"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ripple_oval"
                 android:padding="4dp"
@@ -111,6 +113,7 @@
                 android:id="@+id/btn_cart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:onClick="@{(v)->activity.onClick(v)}"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ripple_oval"
                 android:padding="4dp"
@@ -123,6 +126,7 @@
                 android:id="@+id/btn_mypage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:onClick="@{(v)->activity.onClick(v)}"
                 android:background="@drawable/ripple_oval"
                 android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"

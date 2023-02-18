@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:onClick="@{(v)->fragment.onClick(v)}"
             android:text="전체삭제"
-            android:textColor="@color/main_text"
+            android:textColor="@color/main_red"
             app:layout_constraintBottom_toBottomOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/btn_search_complete" />
 

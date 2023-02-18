@@ -1,24 +1,23 @@
 package com.example.sejonggoodsmallproject.ui.view.cart
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentCartBinding
+import com.example.sejonggoodsmallproject.ui.view.OrderPrevDialog
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
+import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +30,6 @@ class CartFragment : Fragment() {
     private lateinit var cartListAdapter: CartListAdapter
     private lateinit var responseList : MutableList<CartListResponse>
     private lateinit var checkedList : MutableList<Boolean>
-    var priceSum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCartBinding.inflate(inflater, container,false)
@@ -48,42 +46,36 @@ class CartFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this).commit()
+
+            requireActivity().onBackPressed()
+        }
+
+        binding.btnBuyComplete.setOnClickListener {
+            setDialogOrderPrev()
         }
 
         binding.checkboxItemCartAll.setOnClickListener {
-            if (binding.checkboxItemCartAll.isChecked) {
-                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-                    cartListAdapter.checkStatusList[index] = true
-                    checkedList[index] = true
+            if (responseList.isNotEmpty()) {
+                if (binding.checkboxItemCartAll.isChecked) {
+                    if (responseList.isNotEmpty()) {
+                        cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+                            cartListAdapter.checkStatusList[index] = true
+                            checkedList[index] = true
+                        }
+                    }
+                } else {
+                    cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+                        cartListAdapter.checkStatusList[index] = false
+                        checkedList[index] = false
+                    }
                 }
-            } else {
-                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-                    cartListAdapter.checkStatusList[index] = false
-                    checkedList[index] = false
-                }
+                cartListAdapter.rvRefresh()
             }
-            cartListAdapter.rvRefresh()
         }
-
-//        binding.checkboxItemCartAll.setOnCheckedChangeListener { compoundButton, isChecked ->
-//            if (isChecked) {
-//                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-//                    cartListAdapter.checkStatusList[index] = true
-//                    checkedList[index] = true
-//                }
-//            } else {
-//                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-//                    cartListAdapter.checkStatusList[index] = false
-//                    checkedList[index] = false
-//                }
-//            }
-//            cartListAdapter.rvRefresh()
-//        }
     }
 
-    private fun setDialog(position: Int) {
+    private fun setDialogRemove(position: Int) {
         val cartRemoveDialog = CartRemoveDialog(requireContext())
-
         cartRemoveDialog.showDialog()
 
         cartRemoveDialog.dialog.btn_cart_dialog_favorite.setOnClickListener {
@@ -101,6 +93,7 @@ class CartFragment : Fragment() {
                     cartRemoveDialog.dialog.dismiss()
 
                     binding.btnBuyComplete.text = calcPriceSum()
+                    binding.tvCartListAll.text = "전체 " + responseList.size.toString() +"개"
                 }
             }
         }
@@ -122,6 +115,7 @@ class CartFragment : Fragment() {
                 } else {
                     binding.ivEmptyCart.visibility = View.VISIBLE
                 }
+                binding.tvCartListAll.text = "전체 " + responseList.size.toString() +"개"
             }
         }
     }
@@ -139,11 +133,12 @@ class CartFragment : Fragment() {
         binding.btnBuyComplete.text = calcPriceSum()
 
         cartListAdapter.setItemClickListener(object : CartListAdapter.OnItemClickListener {
-            override fun onClick(v: View, position: Int) {
-            }
+            override fun onClick(v: View, position: Int) { }
+
             override fun onClickRemoveBtn(v: View, position: Int) {
-                setDialog(position)
+                setDialogRemove(position)
             }
+
             override fun onClickImage(v: View, position: Int) {
                 val intent = Intent(requireContext(), ProductDetailActivity::class.java)
                 intent.putExtra("itemId",cartListAdapter.getCartListItemId(position).toString())
@@ -209,6 +204,20 @@ class CartFragment : Fragment() {
         } else {
             return sum.toString() + "원 주문하기"
         }
+    }
+
+    private fun setDialogOrderPrev() {
+        if (responseList.isNotEmpty()) {
+            val cartOrderPrevDialog = OrderPrevDialog(requireContext())
+            cartOrderPrevDialog.showDialog()
+
+            cartOrderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
+                cartOrderPrevDialog.dialog.dismiss()
+            }
+        } else {
+            Toast.makeText(context,"장바구니가 비어있습니다.",Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onDestroy() {

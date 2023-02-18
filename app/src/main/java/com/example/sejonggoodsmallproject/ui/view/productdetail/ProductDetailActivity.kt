@@ -2,6 +2,7 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -36,21 +37,12 @@ class ProductDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.activity = this@ProductDetailActivity
         itemId = intent.getStringExtra("itemId")?.toInt()!!
 
         val mainRepository = MainRepository(application)
         val factory = ProductViewModelViewModelFactory(mainRepository)
         viewModel = ViewModelProvider(this,factory) [ProductDetailViewModel::class.java]
-
-        binding.activity = this@ProductDetailActivity
-
-        binding.ivFavorite.setOnClickListener {
-            if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
-                setLoginDialog()
-            } else {
-                Toast.makeText(this, "찜하기", Toast.LENGTH_SHORT).show()
-            }
-        }
 
         CoroutineScope(Dispatchers.IO).async {
             response = viewModel.getProductDetail(itemId)
@@ -74,10 +66,8 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         }
 
-
     }
     private fun setTabLayout(detailImg: List<imgProductDetailInfoResult>) {
-        // 초기 탭 세팅
         val bundle = Bundle()
         bundle.putSerializable("imgList",detailImg.toTypedArray())
         val productInfoFragment = ProductInfoFragment()
@@ -86,17 +76,14 @@ class ProductDetailActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,productInfoFragment).commit()
 
         binding.productDetailTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            // tab이 선택되었을 때
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,productInfoFragment).commit()
                     1 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductSellerFragment()).commit()
                 }
             }
-            // tab이 선택되지 않았을 때
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            // tab이 다시 선택되었을 때
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabUnselected(tab: TabLayout.Tab?) { }
+            override fun onTabReselected(tab: TabLayout.Tab?) { }
         })
     }
 
@@ -116,27 +103,6 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.textView.text = imgList.size.toString()
     }
 
-
-    fun buyButtonClick() {
-        val colorList = response.body()?.color
-        val sizeList = response.body()?.size
-        val price = response.body()?.price
-
-        val bundle = Bundle().apply {
-            putString("colorList",colorList)
-            putString("sizeList",sizeList)
-            putString("price",price.toString())
-            putString("itemId", itemId.toString())
-        }
-
-        val buyFragment = BuyFragment()
-        buyFragment.arguments = bundle
-
-        supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.vertical_from_bottom,0)
-            .replace(R.id.lt_product_detail_buy, buyFragment).commit()
-    }
-
     private fun setLoginDialog() {
         val loginDialog = LoginDialog(this)
 
@@ -153,7 +119,42 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun backButtonClick() {
-        finish()
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.iv_back_button -> {
+                finish()
+            }
+
+            R.id.btn_favorite -> {
+                if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+                    setLoginDialog()
+
+                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
+                } else {
+
+                }
+            }
+
+            R.id.btn_product_buy -> {
+                val colorList = response.body()?.color
+                val sizeList = response.body()?.size
+                val price = response.body()?.price
+
+                val bundle = Bundle().apply {
+                    putString("colorList",colorList)
+                    putString("sizeList",sizeList)
+                    putString("price",price.toString())
+                    putString("itemId", itemId.toString())
+                }
+
+                val buyFragment = BuyFragment()
+                buyFragment.arguments = bundle
+
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.vertical_from_bottom,0)
+                    .replace(R.id.lt_product_detail_buy, buyFragment)
+                    .commit()
+            }
+        }
     }
 }

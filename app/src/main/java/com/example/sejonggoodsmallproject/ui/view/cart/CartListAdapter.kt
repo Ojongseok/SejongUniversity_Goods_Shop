@@ -28,7 +28,7 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
                 "${item.color}"
             } else if (item.color == null && item.size != null) {
                 "${item.size}"
-            } else { "" }
+            } else { "선택사항 없음" }
 
             binding.tvItemCartPrice.text = if (item.price in 1000..999999) {
                 val priceList = item.price.toString().toCharArray().toMutableList()

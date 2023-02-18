@@ -25,11 +25,13 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_check_white.xml" value="0.1125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_down.xml" value="0.1235" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_favorite.xml" value="0.1195" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_favorite_on.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_home.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_person.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_right.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_search.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ic_store.xml" value="0.1195" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/product_list_rv_divider.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ripple_oval.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_init.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -39,17 +41,18 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_buy.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_cart_remove_confirm.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_login_confirm.xml" value="0.536" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_order_previous_alert.xml" value="0.4" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_order_previous_alert.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_order_type.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy_option_color.xml" value="0.152" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy_option_color_size.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy_option_null.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_buy_option_size.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_cart.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_cart.xml" value="0.33384853168469864" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_favorite.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_login.xml" value="0.4" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_mypage.xml" value="0.5410677618069816" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_mypage.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_product_detail.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_product_info.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_product_question.xml" value="0.2390625" />
@@ -61,6 +64,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_terms.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/imageview.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_cart_list.xml" value="0.4" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_favorite_product.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_imageview.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_list.xml" value="0.2882882882882883" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_somenail.xml" value="0.2526041666666667" />

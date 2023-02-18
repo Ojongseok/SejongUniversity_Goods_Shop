@@ -42,36 +42,9 @@ class MainActivity : AppCompatActivity() {
         val factory = MainViewModelFactory(mainRepository)
         viewModel = ViewModelProvider(this,factory) [MainViewModel::class.java]
 
+        binding.activity = this
 
         setTabLayout()
-
-        binding.btnSearch.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.main_container, SearchFragment(),"backStack")
-                .addToBackStack("backStack")
-                .commitAllowingStateLoss()
-        }
-
-        binding.btnCart.setOnClickListener {
-            if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
-                setLoginDialog()
-            } else {
-                supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.horizon_enter_front,0)
-                    .add(R.id.main_container, CartFragment(), "backStack")
-                    .addToBackStack("backStack")
-                    .commitAllowingStateLoss()
-            }
-        }
-
-        binding.btnMypage.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.main_container, MypageFragment(), "backStack")
-                .addToBackStack("backStack")
-                .commitAllowingStateLoss()
-        }
     }
 
     private fun setLoginDialog() {
@@ -89,6 +62,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setTabLayout() {
+        setRvProductList()
+
+        binding.storeFragmentTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                updateRecyclerView(tab!!.position)
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) { }
+            override fun onTabReselected(tab: TabLayout.Tab?) { }
+        })
+    }
+
     private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
             response = viewModel.getAllProducts()
@@ -101,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(applicationContext)
                     adapter = productListAdapter
-                    addItemDecoration(DividerItemDecoration(applicationContext, LinearLayoutManager(applicationContext).orientation))
+                    addItemDecoration(DividerItemDecoration(applicationContext,LinearLayoutManager(applicationContext).orientation))
                 }
 
                 productListAdapter.setItemClickListener(object :
@@ -116,19 +101,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setTabLayout() {
-        // 초기 tab 세팅
-        setRvProductList()
-
-        binding.storeFragmentTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                updateRecyclerView(tab!!.position)
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
-    }
-
     private fun updateRecyclerView(tabId : Int) {
         if (tabId == 0) {
             result = response
@@ -139,6 +111,38 @@ class MainActivity : AppCompatActivity() {
                     it.categoryId.toInt() == tabId
                 }
                 setData(result)
+            }
+        }
+    }
+
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.btn_search -> {
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                    .add(R.id.main_container, SearchFragment(),"backStack")
+                    .addToBackStack("backStack")
+                    .commitAllowingStateLoss()
+            }
+
+            R.id.btn_cart -> {
+                if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+                    setLoginDialog()
+                } else {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.horizon_enter_front,0)
+                        .add(R.id.main_container, CartFragment(), "backStack")
+                        .addToBackStack("backStack")
+                        .commitAllowingStateLoss()
+                }
+            }
+
+            R.id.btn_mypage -> {
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                    .add(R.id.main_container, MypageFragment(), "backStack")
+                    .addToBackStack("backStack")
+                    .commitAllowingStateLoss()
             }
         }
     }

@@ -12,12 +12,14 @@ import android.widget.Toast
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.AddCartPost
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
+import com.example.sejonggoodsmallproject.ui.view.OrderPrevDialog
 import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
 import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.util.MyApplication
 import kotlinx.android.synthetic.main.dialog_login_confirm.*
+import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -77,8 +79,21 @@ class BuyFragment : Fragment() {
             if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
                 setLoginDialog()
             } else {
-
+                if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
+                    Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
+                } else {
+                    setDialogOrderPrev()
+                }
             }
+        }
+    }
+
+    private fun setDialogOrderPrev() {
+        val orderPrevDialog = OrderPrevDialog(requireContext())
+        orderPrevDialog.showDialog()
+
+        orderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
+            orderPrevDialog.dialog.dismiss()
         }
     }
 

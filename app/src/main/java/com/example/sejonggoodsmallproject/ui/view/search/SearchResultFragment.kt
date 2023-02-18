@@ -49,6 +49,8 @@ class SearchResultFragment : Fragment() {
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this@SearchResultFragment)
                 .commit()
+
+            requireActivity().onBackPressed()
         }
         setRvSearchResult()
     }

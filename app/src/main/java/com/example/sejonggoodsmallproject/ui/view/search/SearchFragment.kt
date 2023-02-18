@@ -35,7 +35,6 @@ class SearchFragment : Fragment() {
         binding.fragment = this
 
         setRvRecentSearched()
-
     }
 
     private fun setRvRecentSearched() {
@@ -107,6 +106,8 @@ class SearchFragment : Fragment() {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .setCustomAnimations(0, R.anim.horizon_exit_front)
                     .remove(this).commit()
+
+                requireActivity().onBackPressed()
             }
             R.id.lt_search_fragment -> {
                 hideKeyboard()
