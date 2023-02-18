@@ -1,27 +1,22 @@
 package com.example.sejonggoodsmallproject.ui.view.cart
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
-import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import com.example.sejonggoodsmallproject.databinding.ItemCartListBinding
 import kotlinx.android.synthetic.main.item_cart_list.view.*
 
 class CartListAdapter(private val context: Context, private var list : List<CartListResponse>)
     : RecyclerView.Adapter<CartListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
+    var checkStatusList = MutableList(list.size) { true }
 
     inner class CustomViewHolder(private val binding: ItemCartListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CartListResponse) {
+        fun bind(item: CartListResponse, status: Boolean) {
             Glide.with(context).load(item.repImage.oriImgName).into(binding.ivItemCart)
 
             binding.tvItemCartTitle.text = item.title
@@ -43,11 +38,12 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
                 item.price.toString() + "원"
             }
 
+            binding.checkboxItemCart.isChecked = status
         }
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], checkStatusList[position])
 
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it,position)
@@ -59,20 +55,18 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
             itemClickListener.onClickImage(it, position)
         }
         holder.itemView.btn_item_cart_amount_plus.setOnClickListener {
-            if (holder.itemView.checkbox_item_cart.isChecked) {
-                itemClickListener.onClickPlusBtn(it, position)
-            }
+            itemClickListener.onClickPlusBtn(it, position)
         }
         holder.itemView.btn_item_cart_amount_minus.setOnClickListener {
-            if (holder.itemView.checkbox_item_cart.isChecked) {
-                itemClickListener.onClickMinusBtn(it, position)
-            }
+            itemClickListener.onClickMinusBtn(it, position)
         }
         holder.itemView.checkbox_item_cart.setOnCheckedChangeListener { _, isChecked ->
             if (holder.itemView.checkbox_item_cart.isChecked) {
                 itemClickListener.onClickCheckBoxBtn(position, true)
+                checkStatusList[position] = true
             } else {
                 itemClickListener.onClickCheckBoxBtn(position, false)
+                checkStatusList[position] = false
             }
         }
     }
@@ -97,6 +91,10 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
 
     fun setData(newData: List<CartListResponse>) {
         list = newData
+        notifyDataSetChanged()
+    }
+
+    fun rvRefresh() {
         notifyDataSetChanged()
     }
 

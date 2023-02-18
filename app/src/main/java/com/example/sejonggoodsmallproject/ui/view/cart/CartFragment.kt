@@ -30,6 +30,7 @@ class CartFragment : Fragment() {
     private lateinit var viewModel : MainViewModel
     private lateinit var cartListAdapter: CartListAdapter
     private lateinit var responseList : MutableList<CartListResponse>
+    private lateinit var checkedList : MutableList<Boolean>
     var priceSum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,6 +50,35 @@ class CartFragment : Fragment() {
                 .remove(this).commit()
         }
 
+        binding.checkboxItemCartAll.setOnClickListener {
+            if (binding.checkboxItemCartAll.isChecked) {
+                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+                    cartListAdapter.checkStatusList[index] = true
+                    checkedList[index] = true
+                }
+            } else {
+                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+                    cartListAdapter.checkStatusList[index] = false
+                    checkedList[index] = false
+                }
+            }
+            cartListAdapter.rvRefresh()
+        }
+
+//        binding.checkboxItemCartAll.setOnCheckedChangeListener { compoundButton, isChecked ->
+//            if (isChecked) {
+//                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+//                    cartListAdapter.checkStatusList[index] = true
+//                    checkedList[index] = true
+//                }
+//            } else {
+//                cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+//                    cartListAdapter.checkStatusList[index] = false
+//                    checkedList[index] = false
+//                }
+//            }
+//            cartListAdapter.rvRefresh()
+//        }
     }
 
     private fun setDialog(position: Int) {
@@ -63,10 +93,14 @@ class CartFragment : Fragment() {
         cartRemoveDialog.dialog.btn_cart_dialog_remove.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 responseList = viewModel.deleteCart(cartListAdapter.getCartId(position)).toMutableList()
+                checkedList.removeAt(position)
+                cartListAdapter.checkStatusList.removeAt(position)
 
                 withContext(Dispatchers.Main) {
                     cartListAdapter.setData(responseList)
                     cartRemoveDialog.dialog.dismiss()
+
+                    binding.btnBuyComplete.text = calcPriceSum()
                 }
             }
         }
@@ -79,6 +113,7 @@ class CartFragment : Fragment() {
     private fun setCartList() {
         CoroutineScope(Dispatchers.IO).launch {
             responseList = viewModel.getCartList().toMutableList()
+            checkedList = MutableList(responseList.size) { true }
 
             withContext(Dispatchers.Main) {
                 if (responseList.isNotEmpty()) {
@@ -100,11 +135,8 @@ class CartFragment : Fragment() {
             adapter = cartListAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
         }
-        responseList.forEach {
-            priceSum += it.price
-        }
-        binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"
 
+        binding.btnBuyComplete.text = calcPriceSum()
 
         cartListAdapter.setItemClickListener(object : CartListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
@@ -119,9 +151,6 @@ class CartFragment : Fragment() {
             }
 
             override fun onClickPlusBtn(v: View, position: Int) {
-                Toast.makeText(requireContext(), "수량이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-                priceSum -= responseList[position].price
-
                 CoroutineScope(Dispatchers.IO).launch {
                     var nowQuantity = cartListAdapter.getNowQuantity(position)
                     val response = viewModel.updateCart(cartListAdapter.getCartId(position),++nowQuantity)
@@ -130,17 +159,13 @@ class CartFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         cartListAdapter.setData(responseList)
 
-                        priceSum += responseList[position].price
-                        binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"
+                        binding.btnBuyComplete.text = calcPriceSum()
                     }
                 }
             }
 
             override fun onClickMinusBtn(v: View, position: Int) {
                 if(cartListAdapter.getNowQuantity(position) != 1) {
-                    Toast.makeText(requireContext(), "수량이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-                    priceSum += responseList[position].price
-
                     CoroutineScope(Dispatchers.IO).launch {
                         var nowQuantity = cartListAdapter.getNowQuantity(position)
                         val response = viewModel.updateCart(cartListAdapter.getCartId(position),--nowQuantity)
@@ -149,24 +174,42 @@ class CartFragment : Fragment() {
                         withContext(Dispatchers.Main) {
                             cartListAdapter.setData(responseList)
 
-                            priceSum -= responseList[position].price
-                            binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"                         }
+                            binding.btnBuyComplete.text = calcPriceSum()
+                        }
                     }
                 }
             }
 
             override fun onClickCheckBoxBtn(position: Int, checkedStatus: Boolean) {
-                if (checkedStatus) {
-                    priceSum += responseList[position].price
-                } else {
-                    priceSum -=responseList[position].price
-                }
-                binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"
+                checkedList[position] = checkedStatus
+
+                binding.btnBuyComplete.text = calcPriceSum()
+
+                binding.checkboxItemCartAll.isChecked = !isCheckedAll()
             }
         })
     }
 
+    private fun isCheckedAll() : Boolean {
+        return checkedList.contains(false)
+    }
 
+    private fun calcPriceSum() : String {
+        var sum = 0
+        for (i in checkedList.indices) {
+            if (checkedList[i]) {
+                sum += responseList[i].price
+            }
+        }
+
+        if (sum in 1000..999999) {
+            val priceList = sum.toString().toCharArray().toMutableList()
+            priceList.add(priceList.size-3,',')
+            return priceList.joinToString("") + "원 주문하기"
+        } else {
+            return sum.toString() + "원 주문하기"
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
