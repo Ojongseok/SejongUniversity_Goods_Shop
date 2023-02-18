@@ -30,6 +30,7 @@ class CartFragment : Fragment() {
     private lateinit var viewModel : MainViewModel
     private lateinit var cartListAdapter: CartListAdapter
     private lateinit var responseList : MutableList<CartListResponse>
+    var priceSum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCartBinding.inflate(inflater, container,false)
@@ -93,14 +94,17 @@ class CartFragment : Fragment() {
     private fun setRvCartList() {
         cartListAdapter = CartListAdapter(requireContext(), responseList)
 
-        binding.btnBuyComplete.text = cartListAdapter.getCheckedItemPrice().toString()
-
         binding.rvCartList.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = cartListAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
         }
+        responseList.forEach {
+            priceSum += it.price
+        }
+        binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"
+
 
         cartListAdapter.setItemClickListener(object : CartListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
@@ -116,6 +120,7 @@ class CartFragment : Fragment() {
 
             override fun onClickPlusBtn(v: View, position: Int) {
                 Toast.makeText(requireContext(), "수량이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                priceSum -= responseList[position].price
 
                 CoroutineScope(Dispatchers.IO).launch {
                     var nowQuantity = cartListAdapter.getNowQuantity(position)
@@ -125,6 +130,8 @@ class CartFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         cartListAdapter.setData(responseList)
 
+                        priceSum += responseList[position].price
+                        binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"
                     }
                 }
             }
@@ -132,6 +139,7 @@ class CartFragment : Fragment() {
             override fun onClickMinusBtn(v: View, position: Int) {
                 if(cartListAdapter.getNowQuantity(position) != 1) {
                     Toast.makeText(requireContext(), "수량이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                    priceSum += responseList[position].price
 
                     CoroutineScope(Dispatchers.IO).launch {
                         var nowQuantity = cartListAdapter.getNowQuantity(position)
@@ -140,17 +148,25 @@ class CartFragment : Fragment() {
 
                         withContext(Dispatchers.Main) {
                             cartListAdapter.setData(responseList)
-                        }
+
+                            priceSum -= responseList[position].price
+                            binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"                         }
                     }
                 }
             }
 
-            override fun onClickCheckBoxBtn(priceSum: Int) {
-                Log.d("태그", priceSum.toString())
-                binding.btnBuyComplete.text = cartListAdapter.getCheckedItemPrice().toString()
+            override fun onClickCheckBoxBtn(position: Int, checkedStatus: Boolean) {
+                if (checkedStatus) {
+                    priceSum += responseList[position].price
+                } else {
+                    priceSum -=responseList[position].price
+                }
+                binding.btnBuyComplete.text = priceSum.toString() + "원 주문하기"
             }
         })
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">세종대학교 굿즈샵</string>
+    <string name="app_name">세종이의 집</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="order_type_description">현장 수령 선택 시 결제는 현장에서만 가능하고, 배송 신청 선택 시 결제는 무통장 입금만 가능합니다.</string>
+
 </resources>

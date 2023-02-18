@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.item_cart_list.view.*
 class CartListAdapter(private val context: Context, private var list : List<CartListResponse>)
     : RecyclerView.Adapter<CartListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
-    private var priceSum = 0
 
     inner class CustomViewHolder(private val binding: ItemCartListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartListResponse) {
@@ -27,6 +26,7 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
 
             binding.tvItemCartTitle.text = item.title
             binding.tvItemCartAmount.text = item.quantity.toString()
+
             binding.tvItemCartOption.text = if (item.color != null && item.size != null) {
                 "${item.color}, ${item.size}"
             } else if (item.color != null && item.size == null) {
@@ -42,15 +42,6 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
             } else {
                 item.price.toString() + "원"
             }
-
-            priceSum += item.price
-//            binding.checkboxItemCart.setOnCheckedChangeListener { _, isChecked ->
-//                if (isChecked) {
-//                    priceSum += item.price
-//                } else {
-//                    priceSum -= item.price
-//                }
-//            }
 
         }
     }
@@ -68,18 +59,20 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
             itemClickListener.onClickImage(it, position)
         }
         holder.itemView.btn_item_cart_amount_plus.setOnClickListener {
-            itemClickListener.onClickPlusBtn(it, position)
+            if (holder.itemView.checkbox_item_cart.isChecked) {
+                itemClickListener.onClickPlusBtn(it, position)
+            }
         }
         holder.itemView.btn_item_cart_amount_minus.setOnClickListener {
-            itemClickListener.onClickMinusBtn(it, position)
+            if (holder.itemView.checkbox_item_cart.isChecked) {
+                itemClickListener.onClickMinusBtn(it, position)
+            }
         }
         holder.itemView.checkbox_item_cart.setOnCheckedChangeListener { _, isChecked ->
             if (holder.itemView.checkbox_item_cart.isChecked) {
-                priceSum += list[position].price
-                itemClickListener.onClickCheckBoxBtn(priceSum)
+                itemClickListener.onClickCheckBoxBtn(position, true)
             } else {
-                priceSum -= list[position].price
-                itemClickListener.onClickCheckBoxBtn(priceSum)
+                itemClickListener.onClickCheckBoxBtn(position, false)
             }
         }
     }
@@ -90,7 +83,7 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
         fun onClickImage(v: View, position: Int)
         fun onClickPlusBtn(v: View, position: Int)
         fun onClickMinusBtn(v: View, position: Int)
-        fun onClickCheckBoxBtn(priceSum: Int)
+        fun onClickCheckBoxBtn(position: Int, checkedStatus: Boolean)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -105,10 +98,6 @@ class CartListAdapter(private val context: Context, private var list : List<Cart
     fun setData(newData: List<CartListResponse>) {
         list = newData
         notifyDataSetChanged()
-    }
-
-    fun getCheckedItemPrice() : Int {
-        return priceSum
     }
 
     fun getCartId(position: Int) : Long {
