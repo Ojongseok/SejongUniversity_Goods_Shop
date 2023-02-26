@@ -1,4 +1,4 @@
-package com.example.sejonggoodsmallproject.ui.view
+package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import android.app.Dialog
 import android.content.Context
@@ -7,14 +7,15 @@ import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import com.example.sejonggoodsmallproject.R
 
-class OrderPrevDialog(context: Context) {
+class HelpDialog(context: Context) {
     val dialog = Dialog(context)
 
     fun showDialog() {
-        dialog.setContentView(R.layout.dialog_order_previous_alert)
+        dialog.setContentView(R.layout.dialog_product_detail_help)
         dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
+
 }

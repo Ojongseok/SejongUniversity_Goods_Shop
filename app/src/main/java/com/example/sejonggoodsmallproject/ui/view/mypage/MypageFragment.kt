@@ -45,14 +45,6 @@ class MypageFragment : Fragment() {
             requireActivity().finish()
         }
 
-        binding.btnFavoriteList.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.main_container, FavoriteFragment(),"backStack")
-                .addToBackStack("backStack")
-                .commitAllowingStateLoss()
-        }
-
         setRvFavoriteThumbnail()
 
     }

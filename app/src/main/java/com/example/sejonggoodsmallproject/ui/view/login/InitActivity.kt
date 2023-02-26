@@ -39,7 +39,9 @@ class InitActivity : AppCompatActivity() {
 
                 Toast.makeText(applicationContext, "환영합니다 :)", Toast.LENGTH_SHORT).show()
 
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                intent.putExtra("memberId", "0")
+                startActivity(intent)
                 finish()
             }
         }

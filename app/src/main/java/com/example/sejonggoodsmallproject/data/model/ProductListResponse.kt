@@ -9,7 +9,8 @@ data class ProductListResponse(
     @SerializedName("price") val price: Int,
     @SerializedName("categoryId") val categoryId: Long,
     @SerializedName("description") val description: String,
-    @SerializedName("itemImages") val img: List<imgProductListResult>
+    @SerializedName("itemImages") val img: List<imgProductListResult>,
+    @SerializedName("cartItemCount") val cartItemCount: Int
 )
 
 data class imgProductListResult(

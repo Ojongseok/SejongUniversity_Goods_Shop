@@ -2,13 +2,14 @@ package com.example.sejonggoodsmallproject.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.sejonggoodsmallproject.data.model.MemberIdPost
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 
 class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
 
     // 전체상품 조회
-    suspend fun getAllProducts() = mainRepository.getAllProducts()
+    suspend fun getAllProducts(memberId: MemberIdPost) = mainRepository.getAllProducts(memberId)
 
     // 장바구니 조회
     suspend fun getCartList() = mainRepository.getCart()

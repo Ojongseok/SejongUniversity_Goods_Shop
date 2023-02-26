@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.MemberIdPost
 import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.databinding.ActivityMainBinding
@@ -63,7 +64,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTabLayout() {
-        setRvProductList()
+        if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+            setRvProductList(0)
+        } else {
+            setRvProductList(intent.getStringExtra("memberId")!!.toLong())
+        }
 
         binding.storeFragmentTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -74,9 +79,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setRvProductList() {
+    private fun setRvProductList(memberId : Long) {
         CoroutineScope(Dispatchers.IO).launch {
-            response = viewModel.getAllProducts()
+            response = viewModel.getAllProducts(MemberIdPost(memberId))
             result = response
 
             productListAdapter = ProductListAdapter(applicationContext, response)
@@ -97,6 +102,8 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                 })
+
+                binding.tvHomeCartCount.text = response[0].cartItemCount.toString()
             }
         }
     }

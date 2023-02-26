@@ -15,6 +15,82 @@
         android:layout_height="match_parent"
         tools:context=".ui.view.home.MainActivity">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="세종이의 집"
+                android:textColor="@color/main_red"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btn_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ripple_oval"
+                android:onClick="@{(v)->activity.onClick(v)}"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_mypage"
+                app:layout_constraintEnd_toStartOf="@+id/btn_cart"
+                app:layout_constraintTop_toTopOf="@+id/btn_mypage"
+                app:srcCompat="@drawable/ic_search" />
+
+            <ImageView
+                android:id="@+id/btn_cart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ripple_oval"
+                android:onClick="@{(v)->activity.onClick(v)}"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_mypage"
+                app:layout_constraintEnd_toStartOf="@+id/btn_mypage"
+                app:layout_constraintTop_toTopOf="@+id/btn_mypage"
+                app:srcCompat="@drawable/ic_cart" />
+
+            <ImageView
+                android:id="@+id/btn_mypage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_oval"
+                android:onClick="@{(v)->activity.onClick(v)}"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_person" />
+
+            <TextView
+                android:id="@+id/tv_home_cart_count"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="-4dp"
+                android:background="@drawable/background_oval"
+                android:backgroundTint="@color/main_red"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/btn_cart"
+                app:layout_constraintTop_toTopOf="@+id/btn_cart" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/store_fragment_tablayout"
             android:layout_width="match_parent"
@@ -55,11 +131,6 @@
                 android:layout_height="match_parent"
                 android:text="선물용" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="준비중" />
-
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -72,68 +143,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/store_fragment_tablayout" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout4"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="세종이의 집"
-                android:textColor="@color/main_text"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/btn_search"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:onClick="@{(v)->activity.onClick(v)}"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/ripple_oval"
-                android:padding="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_mypage"
-                app:layout_constraintEnd_toStartOf="@+id/btn_cart"
-                app:layout_constraintTop_toTopOf="@+id/btn_mypage"
-                app:srcCompat="@drawable/ic_search" />
-
-            <ImageView
-                android:id="@+id/btn_cart"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:onClick="@{(v)->activity.onClick(v)}"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/ripple_oval"
-                android:padding="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_mypage"
-                app:layout_constraintEnd_toStartOf="@+id/btn_mypage"
-                app:layout_constraintTop_toTopOf="@+id/btn_mypage"
-                app:srcCompat="@drawable/ic_cart" />
-
-            <ImageView
-                android:id="@+id/btn_mypage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:onClick="@{(v)->activity.onClick(v)}"
-                android:background="@drawable/ripple_oval"
-                android:padding="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_person" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

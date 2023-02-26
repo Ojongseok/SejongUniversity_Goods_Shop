@@ -2,6 +2,7 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import com.example.sejonggoodsmallproject.ui.viewmodel.factory.ProductViewModelV
 import com.example.sejonggoodsmallproject.util.MyApplication
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.dialog_login_confirm.*
+import kotlinx.android.synthetic.main.dialog_product_detail_help.*
 import kotlinx.coroutines.*
 import retrofit2.Response
 
@@ -78,8 +80,22 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.productDetailTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
-                    0 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,productInfoFragment).commit()
-                    1 -> supportFragmentManager.beginTransaction().replace(R.id.product_detail_info_container,ProductSellerFragment()).commit()
+                    0 -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.product_detail_info_container,productInfoFragment)
+                            .commit()
+                    }
+
+                    1 -> {
+                        val bundle = Bundle()
+                        bundle.putSerializable("sellerInfo", response.body()?.seller)
+                        val productSellerFragment = ProductSellerFragment()
+                        productSellerFragment.arguments = bundle
+
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.product_detail_info_container, productSellerFragment)
+                            .commit()
+                    }
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) { }
@@ -119,6 +135,16 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun setPdHelp() {
+        val pdHelpDialog = HelpDialog(this)
+
+        pdHelpDialog.showDialog()
+
+        pdHelpDialog.dialog.btn_dialog_pd_help_complete.setOnClickListener {
+            pdHelpDialog.dialog.dismiss()
+        }
+    }
+
     fun onClick(view: View) {
         when (view.id) {
             R.id.iv_back_button -> {
@@ -129,9 +155,8 @@ class ProductDetailActivity : AppCompatActivity() {
                 if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
                     setLoginDialog()
 
-                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
                 } else {
-
+                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
                 }
             }
 
@@ -145,6 +170,7 @@ class ProductDetailActivity : AppCompatActivity() {
                     putString("sizeList",sizeList)
                     putString("price",price.toString())
                     putString("itemId", itemId.toString())
+                    putSerializable("response", response.body()!!)
                 }
 
                 val buyFragment = BuyFragment()
@@ -154,6 +180,9 @@ class ProductDetailActivity : AppCompatActivity() {
                     .setCustomAnimations(R.anim.vertical_from_bottom,0)
                     .replace(R.id.lt_product_detail_buy, buyFragment)
                     .commit()
+            }
+            R.id.btn_pd_help -> {
+                setPdHelp()
             }
         }
     }

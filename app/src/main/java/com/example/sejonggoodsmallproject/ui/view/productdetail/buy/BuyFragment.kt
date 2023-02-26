@@ -11,15 +11,17 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.AddCartPost
+import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
-import com.example.sejonggoodsmallproject.ui.view.OrderPrevDialog
 import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
 import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.util.MyApplication
 import kotlinx.android.synthetic.main.dialog_login_confirm.*
 import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
+import kotlinx.android.synthetic.main.dialog_order_type.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,6 +33,11 @@ class BuyFragment : Fragment() {
     private lateinit var viewModel: ProductDetailViewModel
     private var option1 : String? = "옵션1 선택하기"
     private var option2 : String? = "옵션2 선택하기"
+    private var quantity = "1"
+    private var color: String? = null
+    private var size: String? = null
+    private var itemId = 0
+    private lateinit var response: ProductDetailResponse
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentBuyBinding.inflate(inflater, container,false)
@@ -43,6 +50,9 @@ class BuyFragment : Fragment() {
         binding.fragment = this
         viewModel = (activity as ProductDetailActivity).viewModel
 
+        itemId = arguments?.getString("itemId","")?.toInt()!!
+        response = arguments?.getSerializable("response") as ProductDetailResponse
+
         setSpinner()
 
         binding.btnAddCart.setOnClickListener {
@@ -53,10 +63,9 @@ class BuyFragment : Fragment() {
                     Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
                 } else {
                     CoroutineScope(Dispatchers.IO).launch {
-                        val quantity = binding.tvBuyAmount.text.toString()
-                        val color = option1
-                        val size = option2
-                        val itemId = arguments?.getString("itemId","")?.toInt()!!
+                        quantity = binding.tvBuyAmount.text.toString()
+                        color = option1
+                        size = option2
 
                         val response = viewModel.addCart(AddCartPost(quantity, color, size), itemId)
 
@@ -75,6 +84,7 @@ class BuyFragment : Fragment() {
                 }
             }
         }
+
         binding.btnProductBuy.setOnClickListener {
             if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
                 setLoginDialog()
@@ -82,18 +92,45 @@ class BuyFragment : Fragment() {
                 if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
                     Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
                 } else {
-                    setDialogOrderPrev()
+                    setDialogOrderType()
                 }
             }
         }
     }
 
-    private fun setDialogOrderPrev() {
-        val orderPrevDialog = OrderPrevDialog(requireContext())
-        orderPrevDialog.showDialog()
+    private fun setDialogOrderType() {
+        val orderTypeDialog = OrderTypeDialog(requireContext())
+        orderTypeDialog.showDialog()
 
-        orderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
-            orderPrevDialog.dialog.dismiss()
+        orderTypeDialog.dialog.btn_dialog_order_type_visit.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
+
+            orderTypeDialog.dialog.dismiss()
+
+            val bundle = Bundle()
+            bundle.apply {
+                putString("quantity", quantity)
+                putString("color", color)
+                putString("size", size)
+                putString("itemId", itemId.toString())
+                putSerializable("response", response)
+            }
+            val orderWriteFragment = OrderWriteFragment()
+            orderWriteFragment.arguments = bundle
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.horizon_enter_front,0)
+                .add(R.id.pd_main_container, orderWriteFragment,"backStack")
+                .addToBackStack("backStack")
+                .commitAllowingStateLoss()
+        }
+
+        orderTypeDialog.dialog.btn_dialog_order_type_delivery.setOnClickListener {
+            orderTypeDialog.dialog.dismiss()
+        }
+
+        orderTypeDialog.dialog.btn_dialog_order_type_close.setOnClickListener {
+            orderTypeDialog.dialog.dismiss()
         }
     }
 
@@ -211,6 +248,7 @@ class BuyFragment : Fragment() {
 
                 binding.tvBuyPriceSum.text = priceUpdate((cnt * price.toInt()))
             }
+
             R.id.btn_buy_amount_minus -> {
                 if(binding.tvBuyAmount.text.toString() != "1") {
                     binding.tvBuyAmount.text = (--cnt).toString()
@@ -218,6 +256,7 @@ class BuyFragment : Fragment() {
                     binding.tvBuyPriceSum.text = priceUpdate((cnt * price.toInt()))
                 }
             }
+
             R.id.lt_down -> {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .setCustomAnimations(0,R.anim.vertical_from_top)

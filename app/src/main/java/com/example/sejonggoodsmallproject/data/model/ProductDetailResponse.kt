@@ -11,8 +11,16 @@ data class ProductDetailResponse(
     @SerializedName("color") val color: String?,
     @SerializedName("size") val size: String,
     @SerializedName("itemInfos") val detailImg : List<imgProductDetailInfoResult>,
-    @SerializedName("itemImages") val img: List<imgProductDetailResult>
-)
+    @SerializedName("itemImages") val img: List<imgProductDetailResult>,
+    @SerializedName("seller") val seller: Seller
+): Serializable
+
+data class Seller(
+    @SerializedName("id") val id: Long,
+    @SerializedName("name") val name: String,
+    @SerializedName("phoneNumber") val phoneNumber: String,
+    @SerializedName("method") val method: String
+): Serializable
 
 data class imgProductDetailResult(
     @SerializedName("id") val id: Long,

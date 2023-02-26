@@ -18,8 +18,10 @@ interface RetrofitService {
     ) : Response<LoginResponse>
 
     // 3.2 전체상품 조회
-    @GET("items/all")
-    suspend fun getAllProducts() : List<ProductListResponse>
+    @POST("items/all")
+    suspend fun getAllProducts(
+        @Body memberId : MemberIdPost
+    ) : List<ProductListResponse>
 
     // 3.4 상품 상세보기
     @GET("items/detail/{itemId}")
@@ -54,5 +56,14 @@ interface RetrofitService {
         @Header("Authorization") BearerToken: String,
         @Body updateCartPost: UpdateCartPost
     ) : CartListResponse
+
+    // 6.1 상세보기에서 주문
+    @POST("order/{itemId}")
+    suspend fun orderInDetail(
+        @Header("Authorization") BearerToken: String,
+        @Body OrderDetailPost: OrderDetailPost,
+        @Path("itemId") itemId: Long
+    ) : Response<OrderDetailResponse>
+
 
 }

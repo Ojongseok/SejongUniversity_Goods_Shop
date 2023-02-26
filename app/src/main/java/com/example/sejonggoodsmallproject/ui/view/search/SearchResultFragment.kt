@@ -12,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.MemberIdPost
 import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentSearchBinding
 import com.example.sejonggoodsmallproject.databinding.FragmentSearchResultBinding
@@ -57,7 +58,7 @@ class SearchResultFragment : Fragment() {
 
     private fun setRvSearchResult() {
         CoroutineScope(Dispatchers.IO).launch {
-            response = viewModel.getAllProducts()
+            response = viewModel.getAllProducts(MemberIdPost(0))
 
             val keyword = arguments?.getString("searchKeyWord","")
             val searchResponse = response.filter {
@@ -78,14 +79,13 @@ class SearchResultFragment : Fragment() {
                 searchResultListAdapter.setItemClickListener(object : ProductListAdapter.OnItemClickListener {
                     override fun onClick(v: View, position: Int) {
                         val intent = Intent(requireContext(), ProductDetailActivity::class.java)
-                        intent.putExtra("itemId", response[position].id.toString())
+                        intent.putExtra("itemId", searchResponse[position].id.toString())
                         startActivity(intent)
                     }
                 })
             }
         }
     }
-
 
     private fun hideKeyboard() {
         if (requireActivity().currentFocus != null) {

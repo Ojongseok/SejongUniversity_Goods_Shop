@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/main_sub_text</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
@@ -19,5 +19,9 @@
     </style>
     <style name="SpinnerTheme">
         <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
+    </style>
+    <style name="tabTextSizeBold" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

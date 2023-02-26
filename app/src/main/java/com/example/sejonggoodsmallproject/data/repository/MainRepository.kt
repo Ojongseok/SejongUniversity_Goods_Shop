@@ -17,13 +17,18 @@ class MainRepository(application: Application) {
     val myToken = MyApplication.prefs.getString("accessToken","")
 
     // 메인화면, 상품 목록
-    suspend fun getAllProducts() : List<ProductListResponse> {
-        return retrofitService.getAllProducts()
+    suspend fun getAllProducts(memberId: MemberIdPost) : List<ProductListResponse> {
+        return retrofitService.getAllProducts(memberId)
     }
 
     // 상품 상세 정보
     suspend fun getProductDetail(itemId: Int) : Response<ProductDetailResponse> {
         return retrofitService.getProductDetail(itemId)
+    }
+
+    // 상품상세에서 주문
+    suspend fun postOrderInDetail(orderDetailPost: OrderDetailPost, itemId: Long) : Response<OrderDetailResponse> {
+        return retrofitService.orderInDetail("Bearer $myToken", orderDetailPost, itemId)
     }
 
     // 장바구니 담기

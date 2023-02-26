@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentCartBinding
-import com.example.sejonggoodsmallproject.ui.view.OrderPrevDialog
+import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderPrevDialog
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel

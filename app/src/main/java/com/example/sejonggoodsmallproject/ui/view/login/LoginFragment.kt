@@ -48,7 +48,9 @@ class LoginFragment : Fragment() {
 
                                 Toast.makeText(requireContext(),"환영합니다 :)",Toast.LENGTH_SHORT).show()
 
-                                startActivity(Intent(requireContext(), MainActivity()::class.java))
+                                val intent = Intent(requireContext(), MainActivity()::class.java)
+                                intent.putExtra("memberId", response.body()?.id.toString())
+                                startActivity(intent)
                                 requireActivity().finish()
                             }
 
