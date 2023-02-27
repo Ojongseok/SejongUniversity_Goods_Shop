@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
-import com.example.sejonggoodsmallproject.data.model.OrderDetailPost
-import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
+import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
 import com.example.sejonggoodsmallproject.databinding.FragmentOrderWriteBinding
 import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
@@ -26,6 +25,10 @@ class OrderWriteFragment : Fragment() {
     private lateinit var viewModel: ProductDetailViewModel
     private lateinit var response: ProductDetailResponse
     private var itemId: Long = 0
+    private var option1: String? = null
+    private var option2: String? = null
+    private var quantity: Int = 0
+    private var orderType = ""
     private lateinit var orderDetailPost: OrderDetailPost
     private lateinit var orderProductListAdapter: OrderProductListAdapter
 
@@ -38,24 +41,36 @@ class OrderWriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as ProductDetailActivity).viewModel
 
-        response = arguments?.getSerializable("response") as ProductDetailResponse
-        itemId = arguments?.getString("itemId")?.toLong()!!
-
+        getStringArg()
         setRvOrderProduct()
 
         binding.btnOrderComplete.setOnClickListener {
+            val buyerName = binding.tvOrderBuyerName.text.toString()
+            val phoneNumber = binding.tvOrderBuyerPhoneNumber.text.toString()
+            orderDetailPost = OrderDetailPost(buyerName,phoneNumber,orderType, OdpAddress(null,null,null), OdpOrderItems(option1,option2,quantity,response.price))
+
             CoroutineScope(Dispatchers.IO).launch {
                 val orderResponse = viewModel.postOrderInDetail(orderDetailPost, itemId)
-
+                Log.d("tag", orderResponse.body().toString())
 
             }
+        }
+
+        binding.btnOrderWriteBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.horizon_exit_front)
+                .remove(this).commit()
+
+            requireActivity().onBackPressed()
         }
     }
 
     private fun setRvOrderProduct() {
         val list = mutableListOf<ProductDetailResponse>()
         list.add(response)
-        orderProductListAdapter = OrderProductListAdapter(requireContext(), list)
+        val optionPickedList = mutableListOf<OptionPicked>()
+        optionPickedList.add(OptionPicked(option1, option2, quantity))
+        orderProductListAdapter = OrderProductListAdapter(requireContext(), list, optionPickedList)
 
         binding.rvOrderProduct.apply {
             setHasFixedSize(true)
@@ -63,10 +78,15 @@ class OrderWriteFragment : Fragment() {
             adapter = orderProductListAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
         }
+    }
 
-
-
-
+    private fun getStringArg() {
+        response = arguments?.getSerializable("response") as ProductDetailResponse
+        itemId = arguments?.getString("itemId")?.toLong()!!
+        option1 = arguments?.getString("option1")
+        option2 = arguments?.getString("option2")
+        quantity = arguments?.getString("quantity")?.toInt()!!
+        orderType = arguments?.getString("orderType")!!
     }
 
     override fun onDestroy() {

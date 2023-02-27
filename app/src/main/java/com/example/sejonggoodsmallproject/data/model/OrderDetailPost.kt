@@ -4,7 +4,7 @@ data class OrderDetailPost(
     val buyerName: String,
     val phoneNumber: String,
     val orderMethod: String,
-    val address: OdpAddress,
+    val address: OdpAddress?,
     val orderItems: OdpOrderItems?
 )
 
@@ -15,8 +15,8 @@ data class OdpAddress(
 )
 
 data class OdpOrderItems(
-    val color: String,
-    val size: String,
+    val color: String?,
+    val size: String?,
     val quantity: Int,
     val price: Int
 )

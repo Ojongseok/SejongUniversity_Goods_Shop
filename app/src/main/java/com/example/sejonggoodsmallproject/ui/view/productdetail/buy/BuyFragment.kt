@@ -63,7 +63,6 @@ class BuyFragment : Fragment() {
                     Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
                 } else {
                     CoroutineScope(Dispatchers.IO).launch {
-                        quantity = binding.tvBuyAmount.text.toString()
                         color = option1
                         size = option2
 
@@ -110,9 +109,12 @@ class BuyFragment : Fragment() {
             val bundle = Bundle()
             bundle.apply {
                 putString("quantity", quantity)
+                putString("option1", option1)
+                putString("option2", option2)
                 putString("color", color)
                 putString("size", size)
                 putString("itemId", itemId.toString())
+                putString("orderType", "pickup")
                 putSerializable("response", response)
             }
             val orderWriteFragment = OrderWriteFragment()
@@ -245,6 +247,7 @@ class BuyFragment : Fragment() {
         when(view.id) {
             R.id.btn_buy_amout_plus -> {
                 binding.tvBuyAmount.text = (++cnt).toString()
+                quantity = cnt.toString()
 
                 binding.tvBuyPriceSum.text = priceUpdate((cnt * price.toInt()))
             }
@@ -252,6 +255,7 @@ class BuyFragment : Fragment() {
             R.id.btn_buy_amount_minus -> {
                 if(binding.tvBuyAmount.text.toString() != "1") {
                     binding.tvBuyAmount.text = (--cnt).toString()
+                    quantity = cnt.toString()
 
                     binding.tvBuyPriceSum.text = priceUpdate((cnt * price.toInt()))
                 }
