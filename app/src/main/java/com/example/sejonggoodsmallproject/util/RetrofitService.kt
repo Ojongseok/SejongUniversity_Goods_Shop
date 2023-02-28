@@ -17,6 +17,12 @@ interface RetrofitService {
         @Body userInfo: LoginPost
     ) : Response<LoginResponse>
 
+    // 1.3 이메일 찾기
+    @POST("auth/find/email")
+    suspend fun findEmail(
+        @Body findEmailPost: FindEmailPost
+    ) : Response<FindEmailResponse>
+
     // 3.2 전체상품 조회
     @POST("items/all")
     suspend fun getAllProducts(

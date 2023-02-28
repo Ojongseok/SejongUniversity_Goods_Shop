@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.login.FindEmailFragment"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/btn_find_email_complete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/background_rec_10dp_red_stroke_red_solid"
+        android:gravity="center"
+        android:padding="13dp"
+        android:text="확인"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_find_email_birth"
+        app:layout_constraintStart_toStartOf="@+id/et_find_email_birth"
+        app:layout_constraintTop_toBottomOf="@+id/et_find_email_birth" />
+
+    <EditText
+        android:id="@+id/et_find_email_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_rec_10dp_red_stroke"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+
+    <EditText
+        android:id="@+id/et_find_email_birth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_rec_10dp_red_stroke"
+        android:ems="10"
+        android:hint="생년월일 (YYYY-MM-DD)"
+        android:inputType="date"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_find_email_name"
+        app:layout_constraintStart_toStartOf="@+id/et_find_email_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_find_email_name" />
+
+    <ImageView
+        android:id="@+id/btn_find_email_back"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ripple_oval"
+        android:padding="4dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="이메일 찾기"
+        android:textColor="@color/main_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/shape_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_find_email_back">
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="이메일 찾기 결과"
+        android:textColor="@color/main_text"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/btn_find_email_complete"
+        app:layout_constraintTop_toBottomOf="@+id/btn_find_email_complete" />
+
+    <TextView
+        android:id="@+id/tv_find_emall_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="-"
+        android:textColor="@color/main_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -94,6 +94,8 @@
         android:id="@+id/btn_find_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:padding="2dp"
         android:layout_marginTop="20dp"
         android:text="아이디/비밀번호 찾기"
         android:textColor="@color/main_red"

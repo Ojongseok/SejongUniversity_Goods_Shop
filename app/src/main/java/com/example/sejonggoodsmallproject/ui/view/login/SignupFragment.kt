@@ -112,11 +112,22 @@ class SignupFragment : Fragment() {
         binding.etPassword.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (binding.etPassword.text.length >= 8
-                    && binding.etPassword.text.toString() == binding.etPasswordConfirm.text.toString()) {
+                if (binding.etPassword.text.length >= 8) {
                     binding.tvWarnPassword.visibility = View.INVISIBLE
                     binding.ivCheckPassword.visibility = View.VISIBLE
-                    passFlagLiveData.value = 1
+                    if (binding.etPasswordConfirm.text.isEmpty()) {
+                        binding.tvWarnPassword.visibility = View.INVISIBLE
+                        binding.ivCheckPassword.visibility = View.VISIBLE
+                        passFlagLiveData.value = 1
+                    } else if (binding.etPassword.text.toString() == binding.etPasswordConfirm.text.toString()) {
+                        binding.tvWarnPassword.visibility = View.INVISIBLE
+                        binding.ivCheckPassword.visibility = View.VISIBLE
+                        passFlagLiveData.value = 1
+                    } else {
+                        binding.tvWarnPassword.visibility = View.VISIBLE
+                        binding.ivCheckPassword.visibility = View.INVISIBLE
+                        passFlagLiveData.value = 0
+                    }
                 } else {
                     binding.tvWarnPassword.visibility = View.VISIBLE
                     binding.ivCheckPassword.visibility = View.INVISIBLE

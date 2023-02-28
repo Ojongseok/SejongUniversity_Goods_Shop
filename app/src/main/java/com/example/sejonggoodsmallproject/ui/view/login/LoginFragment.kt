@@ -64,7 +64,11 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnFindId.setOnClickListener {
-            Toast.makeText(requireContext(),"준비중입니다.",Toast.LENGTH_SHORT).show()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.horizon_enter_front,0)
+                .add(R.id.init_container, FindEmailFragment(),"backStack")
+                .addToBackStack("backStack")
+                .commitAllowingStateLoss()
         }
     }
 
@@ -72,16 +76,11 @@ class LoginFragment : Fragment() {
         binding.btnLoginBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
-                .remove(this).commit()
-        }
+                .remove(this)
+                .commit()
 
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@LoginFragment).commit()
-            }
-        })
+            requireActivity().onBackPressed()
+        }
     }
 
     override fun onDestroy() {

@@ -31,8 +31,10 @@ class InitActivity : AppCompatActivity() {
             }
             R.id.btn_login -> {
                 supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.horizon_enter_front, 0)
-                    .replace(R.id.init_container,LoginFragment()).commit()
+                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                    .add(R.id.init_container, LoginFragment(),"backStack")
+                    .addToBackStack("backStack")
+                    .commitAllowingStateLoss()
             }
             R.id.btn_no_login_enter -> {
                 MyApplication.prefs.setString("accessToken", "Not Login State")
@@ -45,5 +47,9 @@ class InitActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }
