@@ -71,5 +71,19 @@ interface RetrofitService {
         @Path("itemId") itemId: Long
     ) : Response<OrderDetailResponse>
 
+    // 7.1 찜하기
+    @POST("scrap/{itemId}")
+    suspend fun addFavorite(
+        @Header("Authorization") BearerToken: String,
+        @Path("itemId") itemId: Long
+    ) : String
+
+    // 7.2 찜하기 취소
+    @DELETE("scrap/delete/{itemId}")
+    suspend fun deleteFavorite(
+        @Header("Authorization") BearerToken: String,
+        @Path("itemId") itemId: Long
+    ) : String
+
 
 }

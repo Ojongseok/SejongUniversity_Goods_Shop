@@ -26,6 +26,16 @@ class MainRepository(application: Application) {
         return retrofitService.getProductDetail(itemId)
     }
 
+    // 찜하기
+    suspend fun addFavorite(itemId: Long) : String {
+        return retrofitService.addFavorite("Bearer $myToken", itemId)
+    }
+
+    // 찜하기 취소
+    suspend fun deleteFavorite(itemId: Long) : String {
+        return retrofitService.deleteFavorite("Bearer $myToken", itemId)
+    }
+
     // 상품상세에서 주문
     suspend fun postOrderInDetail(orderDetailPost: OrderDetailPost, itemId: Long) : Response<OrderDetailResponse> {
         return retrofitService.orderInDetail("Bearer $myToken", orderDetailPost, itemId)

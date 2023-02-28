@@ -2,7 +2,6 @@ package com.example.sejonggoodsmallproject.ui.view.productdetail.buy
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
 import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
 import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
-import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.util.MyApplication
 import kotlinx.android.synthetic.main.dialog_login_confirm.*
@@ -114,15 +112,14 @@ class BuyFragment : Fragment() {
                 putString("color", color)
                 putString("size", size)
                 putString("itemId", itemId.toString())
-                putString("orderType", "pickup")
                 putSerializable("response", response)
             }
-            val orderWriteFragment = OrderWriteFragment()
-            orderWriteFragment.arguments = bundle
+            val orderVisitFragment = OrderVisitFragment()
+            orderVisitFragment.arguments = bundle
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front,0)
-                .add(R.id.pd_main_container, orderWriteFragment,"backStack")
+                .add(R.id.pd_main_container, orderVisitFragment,"backStack")
                 .addToBackStack("backStack")
                 .commitAllowingStateLoss()
         }

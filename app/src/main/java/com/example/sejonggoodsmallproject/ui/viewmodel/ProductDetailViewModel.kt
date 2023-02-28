@@ -17,6 +17,16 @@ class ProductDetailViewModel(private val mainRepository: MainRepository) : ViewM
         return mainRepository.postOrderInDetail(orderDetailPost, itemId)
     }
 
+    // 찜하기
+    suspend fun addFavorite(itemId: Long) : String {
+        return mainRepository.addFavorite(itemId)
+    }
+
+    // 찜하기 취소
+    suspend fun deleteFavorite(itemId: Long) : String {
+        return mainRepository.deleteFavorite(itemId)
+    }
+
     // 카트 담기
     suspend fun addCart(addCartPost: AddCartPost, itemId: Int) : Response<AddCartResponse> {
         return mainRepository.addCart(itemId.toString(), addCartPost)
