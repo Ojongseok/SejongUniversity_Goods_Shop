@@ -6,7 +6,6 @@ import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import retrofit2.Response
 
 class ProductDetailViewModel(private val mainRepository: MainRepository) : ViewModel() {
-
     // 상품상세 조회
     suspend fun getProductDetail(itemId: Int) : Response<ProductDetailResponse> {
         return mainRepository.getProductDetail(itemId)

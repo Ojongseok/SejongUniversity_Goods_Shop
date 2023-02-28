@@ -11,7 +11,9 @@ data class CartListResponse(
     @SerializedName("size") val size: String?,
     @SerializedName("price") val price: Int,
     @SerializedName("title") val title: String,
-    @SerializedName("repImage") val repImage: RepImageResult
+    @SerializedName("repImage") val repImage: RepImageResult,
+    @SerializedName("seller") val seller: String,
+    @SerializedName("cartMethod") val cartMethod: String
 )
 
 data class RepImageResult(

@@ -15,7 +15,10 @@ import com.example.sejonggoodsmallproject.databinding.FragmentCartBinding
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderPrevDialog
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductSellerFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
+import com.example.sejonggoodsmallproject.util.MyApplication
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
 import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +43,8 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
 
-        setCartList()
+        setTabLayout()
+
 
         binding.btnCartBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -49,176 +53,32 @@ class CartFragment : Fragment() {
 
             requireActivity().onBackPressed()
         }
-
-        binding.btnBuyComplete.setOnClickListener {
-            setDialogOrderPrev()
-        }
-
-        binding.checkboxItemCartAll.setOnClickListener {
-            if (responseList.isNotEmpty()) {
-                if (binding.checkboxItemCartAll.isChecked) {
-                    if (responseList.isNotEmpty()) {
-                        cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-                            cartListAdapter.checkStatusList[index] = true
-                            checkedList[index] = true
-                        }
-                    }
-                } else {
-                    cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-                        cartListAdapter.checkStatusList[index] = false
-                        checkedList[index] = false
-                    }
-                }
-                cartListAdapter.rvRefresh()
-            }
-        }
     }
 
-    private fun setDialogRemove(position: Int) {
-        val cartRemoveDialog = CartRemoveDialog(requireContext())
-        cartRemoveDialog.showDialog()
+    private fun setTabLayout() {
+        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.cart_container,VisitInCartFragment()).commit()
 
-        cartRemoveDialog.dialog.btn_cart_dialog_favorite.setOnClickListener {
-            Toast.makeText(context,"찜하기 보관",Toast.LENGTH_SHORT).show()
-        }
+        binding.cartFragmentTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab!!.position) {
+                    0 -> {
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.cart_container,VisitInCartFragment())
+                            .commit()
+                    }
 
-        cartRemoveDialog.dialog.btn_cart_dialog_remove.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                responseList = viewModel.deleteCart(cartListAdapter.getCartId(position)).toMutableList()
-                checkedList.removeAt(position)
-                cartListAdapter.checkStatusList.removeAt(position)
-
-                withContext(Dispatchers.Main) {
-                    cartListAdapter.setData(responseList)
-                    cartRemoveDialog.dialog.dismiss()
-
-                    binding.btnBuyComplete.text = calcPriceSum()
-                    binding.tvCartListAll.text = "전체 " + responseList.size.toString() +"개"
-                }
-            }
-        }
-
-        cartRemoveDialog.dialog.btn_cart_dialog_close.setOnClickListener {
-            cartRemoveDialog.dialog.dismiss()
-        }
-    }
-
-    private fun setCartList() {
-        CoroutineScope(Dispatchers.IO).launch {
-            responseList = viewModel.getCartList().toMutableList()
-            checkedList = MutableList(responseList.size) { true }
-
-            withContext(Dispatchers.Main) {
-                if (responseList.isNotEmpty()) {
-                    setRvCartList()
-                    binding.ivEmptyCart.visibility = View.INVISIBLE
-                } else {
-                    binding.ivEmptyCart.visibility = View.VISIBLE
-                }
-                binding.tvCartListAll.text = "전체 " + responseList.size.toString() +"개"
-            }
-        }
-    }
-
-    private fun setRvCartList() {
-        cartListAdapter = CartListAdapter(requireContext(), responseList)
-
-        binding.rvCartList.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = cartListAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
-        }
-
-        binding.btnBuyComplete.text = calcPriceSum()
-
-        cartListAdapter.setItemClickListener(object : CartListAdapter.OnItemClickListener {
-            override fun onClick(v: View, position: Int) { }
-
-            override fun onClickRemoveBtn(v: View, position: Int) {
-                setDialogRemove(position)
-            }
-
-            override fun onClickImage(v: View, position: Int) {
-                val intent = Intent(requireContext(), ProductDetailActivity::class.java)
-                intent.putExtra("itemId",cartListAdapter.getCartListItemId(position).toString())
-                startActivity(intent)
-            }
-
-            override fun onClickPlusBtn(v: View, position: Int) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    var nowQuantity = cartListAdapter.getNowQuantity(position)
-                    val response = viewModel.updateCart(cartListAdapter.getCartId(position),++nowQuantity)
-                    responseList[position] = response
-
-                    withContext(Dispatchers.Main) {
-                        cartListAdapter.setData(responseList)
-
-                        binding.btnBuyComplete.text = calcPriceSum()
+                    1 -> {
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.cart_container,DelivetyInCartFragment())
+                            .commit()
                     }
                 }
             }
-
-            override fun onClickMinusBtn(v: View, position: Int) {
-                if(cartListAdapter.getNowQuantity(position) != 1) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        var nowQuantity = cartListAdapter.getNowQuantity(position)
-                        val response = viewModel.updateCart(cartListAdapter.getCartId(position),--nowQuantity)
-                        responseList[position] = response
-
-                        withContext(Dispatchers.Main) {
-                            cartListAdapter.setData(responseList)
-
-                            binding.btnBuyComplete.text = calcPriceSum()
-                        }
-                    }
-                }
-            }
-
-            override fun onClickCheckBoxBtn(position: Int, checkedStatus: Boolean) {
-                checkedList[position] = checkedStatus
-
-                binding.btnBuyComplete.text = calcPriceSum()
-
-                binding.checkboxItemCartAll.isChecked = !isCheckedAll()
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) { }
+            override fun onTabReselected(tab: TabLayout.Tab?) { }
         })
     }
 
-    private fun isCheckedAll() : Boolean {
-        return checkedList.contains(false)
-    }
-
-    private fun calcPriceSum() : String {
-        var sum = 0
-        for (i in checkedList.indices) {
-            if (checkedList[i]) {
-                sum += responseList[i].price
-            }
-        }
-
-        if (sum in 1000..999999) {
-            val priceList = sum.toString().toCharArray().toMutableList()
-            priceList.add(priceList.size-3,',')
-            return priceList.joinToString("") + "원 주문하기"
-        } else {
-            return sum.toString() + "원 주문하기"
-        }
-    }
-
-    private fun setDialogOrderPrev() {
-        if (responseList.isNotEmpty()) {
-            val cartOrderPrevDialog = OrderPrevDialog(requireContext())
-            cartOrderPrevDialog.showDialog()
-
-            cartOrderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
-                cartOrderPrevDialog.dialog.dismiss()
-            }
-        } else {
-            Toast.makeText(context,"장바구니가 비어있습니다.",Toast.LENGTH_SHORT).show()
-        }
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()

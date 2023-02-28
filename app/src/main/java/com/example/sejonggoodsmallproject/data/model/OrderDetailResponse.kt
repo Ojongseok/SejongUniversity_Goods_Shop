@@ -8,7 +8,7 @@ data class OrderDetailResponse(
     @SerializedName("orderMethod") val orderMethod: String,
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("address") val address: OdrAddress,
-    @SerializedName("orderItems") val orderItems: OdrOrderItems,
+    @SerializedName("orderItems") val orderItems: List<OdrOrderItems>,
     @SerializedName("seller") val seller: OdrSeller
 )
 

@@ -67,7 +67,7 @@ interface RetrofitService {
     @POST("order/{itemId}")
     suspend fun orderInDetail(
         @Header("Authorization") BearerToken: String,
-        @Body OrderDetailPost: OrderDetailPost,
+        @Body orderDetailPost: OrderDetailPost,
         @Path("itemId") itemId: Long
     ) : Response<OrderDetailResponse>
 

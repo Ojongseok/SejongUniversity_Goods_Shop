@@ -45,11 +45,12 @@ class OrderVisitFragment : Fragment() {
         binding.btnOrderComplete.setOnClickListener {
             val buyerName = binding.tvOrderBuyerName.text.toString()
             val phoneNumber = binding.tvOrderBuyerPhoneNumber.text.toString()
-            orderDetailPost = OrderDetailPost(buyerName,phoneNumber,orderType, OdpAddress(null,null,null), OdpOrderItems(option1,option2,quantity,response.price), null)
+            val list = mutableListOf<OdpOrderItems>()
+            list.add(OdpOrderItems(option1,option2,quantity,response.price))
+            orderDetailPost = OrderDetailPost(buyerName,phoneNumber,orderType, OdpAddress(null,null,null), list, null)
 
             CoroutineScope(Dispatchers.IO).launch {
                 val orderResponse = viewModel.postOrderInDetail(orderDetailPost, itemId)
-                Log.d("tag", orderResponse.body().toString())
 
             }
         }

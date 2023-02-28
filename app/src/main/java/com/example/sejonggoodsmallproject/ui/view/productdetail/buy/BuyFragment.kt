@@ -17,6 +17,7 @@ import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.util.MyApplication
+import kotlinx.android.synthetic.main.dialog_cart_add_type.*
 import kotlinx.android.synthetic.main.dialog_login_confirm.*
 import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.android.synthetic.main.dialog_order_type.*
@@ -57,28 +58,7 @@ class BuyFragment : Fragment() {
             if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
                 setLoginDialog()
             } else {
-                if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
-                    Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
-                } else {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        color = option1
-                        size = option2
-
-                        val response = viewModel.addCart(AddCartPost(quantity, color, size), itemId)
-
-                        withContext(Dispatchers.Main) {
-                            when (response.code()) {
-                                200 -> {
-                                    Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
-                                    requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
-                                }
-                                400 -> {
-                                    Toast.makeText(requireContext(), "추가에 실패했습니다.",Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
-                    }
-                }
+                setDialogCartType()
             }
         }
 
@@ -92,6 +72,67 @@ class BuyFragment : Fragment() {
                     setDialogOrderType()
                 }
             }
+        }
+    }
+
+    private fun setDialogCartType() {
+        val cartTypeDialog = CartTypeDialog(requireContext())
+
+        cartTypeDialog.showDialog()
+
+        cartTypeDialog.dialog.btn_dialog_cart_type_visit.setOnClickListener {
+            if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
+                Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
+            } else {
+                CoroutineScope(Dispatchers.IO).launch {
+                    color = option1
+                    size = option2
+
+                    val response = viewModel.addCart(AddCartPost(quantity, color, size, "pickup"), itemId)
+
+                    withContext(Dispatchers.Main) {
+                        when (response.code()) {
+                            200 -> {
+                                Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
+
+                                cartTypeDialog.dialog.dismiss()
+                                requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
+                            }
+                            400 -> {
+                                Toast.makeText(requireContext(), "추가에 실패했습니다.",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        cartTypeDialog.dialog.btn_dialog_cart_type_delivery.setOnClickListener {
+            if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
+                Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
+            } else {
+                CoroutineScope(Dispatchers.IO).launch {
+                    color = option1
+                    size = option2
+
+                    val response = viewModel.addCart(AddCartPost(quantity, color, size, "delivery"), itemId)
+
+                    withContext(Dispatchers.Main) {
+                        when (response.code()) {
+                            200 -> {
+                                Toast.makeText(requireContext(), "장바구니에 추가되었습니다.",Toast.LENGTH_SHORT).show()
+
+                                cartTypeDialog.dialog.dismiss()
+                                requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
+                            }
+                            400 -> {
+                                Toast.makeText(requireContext(), "추가에 실패했습니다.",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }        }
+        cartTypeDialog.dialog.btn_dialog_cart_type_close.setOnClickListener {
+            cartTypeDialog.dialog.dismiss()
         }
     }
 
