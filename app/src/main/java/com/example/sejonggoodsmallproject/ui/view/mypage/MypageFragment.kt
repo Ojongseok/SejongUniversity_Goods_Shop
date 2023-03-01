@@ -2,6 +2,7 @@ package com.example.sejonggoodsmallproject.ui.view.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,11 @@ import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
 import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
+import com.example.sejonggoodsmallproject.util.MyApplication
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MypageFragment : Fragment() {
     private var _binding : FragmentMypageBinding? = null
@@ -40,22 +46,31 @@ class MypageFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-        binding.btnMypageLogin.setOnClickListener {
-            startActivity(Intent(requireContext(), InitActivity::class.java))
-            requireActivity().finish()
+//        binding.btnMypageLogin.setOnClickListener {
+//            startActivity(Intent(requireContext(), InitActivity::class.java))
+//            requireActivity().finish()
+//        }
+
+        if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
+
+        } else {
+            setRvFavoriteThumbnail()
         }
-
-        setRvFavoriteThumbnail()
-
     }
 
     private fun setRvFavoriteThumbnail() {
-        favoriteThumbnailAdapter = FavoriteThumbnailAdapter(requireContext(), emptyList())
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = viewModel.getFavoriteList()
 
-        binding.rvFavoriteThumbnail.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            adapter = favoriteThumbnailAdapter
+            withContext(Dispatchers.Main) {
+                favoriteThumbnailAdapter = FavoriteThumbnailAdapter(requireContext(), response)
+
+                binding.rvFavoriteThumbnail.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                    adapter = favoriteThumbnailAdapter
+                }
+            }
         }
     }
 

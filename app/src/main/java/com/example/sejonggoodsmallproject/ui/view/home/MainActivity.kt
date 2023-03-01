@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var productListAdapter: ProductListAdapter
     private lateinit var response : List<ProductListResponse>
     private lateinit var result : List<ProductListResponse>
+    var cartItemCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +49,17 @@ class MainActivity : AppCompatActivity() {
         binding.activity = this
 
         setTabLayout()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            cartItemCount = viewModel.getAllProducts(MemberIdPost(intent.getStringExtra("memberId")!!.toLong()))[0].cartItemCount
+            withContext(Dispatchers.Main) {
+                binding.tvHomeCartCount.text = cartItemCount.toString()
+            }
+        }
     }
 
     private fun setLoginDialog() {
@@ -102,8 +116,6 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                 })
-
-                binding.tvHomeCartCount.text = response[0].cartItemCount.toString()
             }
         }
     }
@@ -165,6 +177,7 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             super.onBackPressed()
+            onResume()
         }
     }
 }

@@ -42,9 +42,9 @@ class OrderVisitFragment : Fragment() {
         getStringArg()
         setRvOrderProduct()
 
-        binding.btnOrderComplete.setOnClickListener {
-            val buyerName = binding.tvOrderBuyerName.text.toString()
-            val phoneNumber = binding.tvOrderBuyerPhoneNumber.text.toString()
+        binding.btnOrderVisitComplete.setOnClickListener {
+            val buyerName = binding.tvOrderVisitBuyerName.text.toString()
+            val phoneNumber = binding.tvOrderVisitPhoneNumber.text.toString()
             val list = mutableListOf<OdpOrderItems>()
             list.add(OdpOrderItems(option1,option2,quantity,response.price))
             orderDetailPost = OrderDetailPost(buyerName,phoneNumber,orderType, OdpAddress(null,null,null), list, null)
@@ -55,7 +55,7 @@ class OrderVisitFragment : Fragment() {
             }
         }
 
-        binding.btnOrderWriteBack.setOnClickListener {
+        binding.btnOrderVisitBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this).commit()
@@ -71,7 +71,7 @@ class OrderVisitFragment : Fragment() {
         optionPickedList.add(OptionPicked(option1, option2, quantity))
         orderProductListAdapter = OrderProductListAdapter(requireContext(), list, optionPickedList)
 
-        binding.rvOrderProduct.apply {
+        binding.rvOrderVisitProduct.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = orderProductListAdapter

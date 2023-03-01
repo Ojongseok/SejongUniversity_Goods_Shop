@@ -1,8 +1,10 @@
 package com.example.sejonggoodsmallproject.ui.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.sejonggoodsmallproject.data.model.MemberIdPost
+import com.example.sejonggoodsmallproject.data.model.ProductListResponse
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 
@@ -19,6 +21,9 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
 
     // 장바구니 수정
     suspend fun updateCart(cartId: Long, quantity: Int) = mainRepository.updateCart(cartId, quantity)
+
+    // 찜한 상품 조회
+    suspend fun getFavoriteList() = mainRepository.getFavoriteList()
 
     // Search 관련
     fun getRecentSearchItemsList() : LiveData<List<RecentSearchModel>> {

@@ -83,6 +83,7 @@ class VisitInCartFragment : Fragment() {
                 filteredList = responseList.filter {
                     it.cartMethod == "pickup"
                 }.toMutableList()
+
                 checkedList.removeAt(position)
                 cartListAdapter.checkStatusList.removeAt(position)
 

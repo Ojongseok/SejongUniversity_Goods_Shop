@@ -12,7 +12,9 @@ data class ProductDetailResponse(
     @SerializedName("size") val size: String,
     @SerializedName("itemInfos") val detailImg : List<imgProductDetailInfoResult>,
     @SerializedName("itemImages") val img: List<imgProductDetailResult>,
-    @SerializedName("seller") val seller: Seller
+    @SerializedName("seller") val seller: Seller,
+    @SerializedName("scrapCount") val scrapCount: Int,
+    @SerializedName("scraped") val scraped: Boolean
 ): Serializable
 
 data class Seller(

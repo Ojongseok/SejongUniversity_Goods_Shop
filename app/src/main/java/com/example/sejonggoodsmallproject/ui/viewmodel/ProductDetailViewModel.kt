@@ -17,12 +17,12 @@ class ProductDetailViewModel(private val mainRepository: MainRepository) : ViewM
     }
 
     // 찜하기
-    suspend fun addFavorite(itemId: Long) : String {
+    suspend fun addFavorite(itemId: Long) : Response<FavoriteResponse> {
         return mainRepository.addFavorite(itemId)
     }
 
     // 찜하기 취소
-    suspend fun deleteFavorite(itemId: Long) : String {
+    suspend fun deleteFavorite(itemId: Long) : Response<FavoriteResponse> {
         return mainRepository.deleteFavorite(itemId)
     }
 

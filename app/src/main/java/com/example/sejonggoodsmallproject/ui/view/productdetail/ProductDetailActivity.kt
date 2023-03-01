@@ -34,6 +34,7 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var productImageViewPagerAdapter: ProductImageViewPagerAdapter
     private var itemId = 0
     lateinit var response : Response<ProductDetailResponse>
+    private var isScraped = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,19 +51,29 @@ class ProductDetailActivity : AppCompatActivity() {
             response = viewModel.getProductDetail(itemId)
 
             if (response.isSuccessful) {
-                val data = response.body()
+                val data = response.body()!!
                 binding.model = data
 
-                withContext(Dispatchers.Main) {
-                    setSomenailViewPager(data?.img!!)
-                    setTabLayout(response.body()?.detailImg!!)
+                Log.d("tag",data.scraped.toString())
 
-                    binding.tvProductDetailPrice.text = if (response.body()?.price in 1000..999999) {
-                        val priceList = response.body()?.price.toString().toCharArray().toMutableList()
+                withContext(Dispatchers.Main) {
+                    setSomenailViewPager(data.img)
+                    setTabLayout(data.detailImg)
+
+                    binding.tvProductDetailPrice.text = if (data.price in 1000..999999) {
+                        val priceList = data.price.toString().toCharArray().toMutableList()
                         priceList.add(priceList.size-3,',')
                         priceList.joinToString("") + "원"
                     } else {
-                        response.body()?.price.toString() + "원"
+                        data.price.toString() + "원"
+                    }
+
+                    if (data.scraped) {
+                        isScraped = true
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_on)
+                    }else {
+                        isScraped = false
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
                     }
                 }
             }
@@ -154,9 +165,22 @@ class ProductDetailActivity : AppCompatActivity() {
             R.id.btn_favorite -> {
                 if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
                     setLoginDialog()
-
                 } else {
-                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
+                    if (isScraped) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val result = viewModel.deleteFavorite(itemId.toLong())
+                            Log.d("tag", result.body()?.toString()!!)
+                        }
+                        isScraped = false
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
+                    } else {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val result = viewModel.addFavorite(itemId.toLong())
+                            Log.d("tag", result.body()?.toString()!!)
+                        }
+                        isScraped = true
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_on)
+                    }
                 }
             }
 

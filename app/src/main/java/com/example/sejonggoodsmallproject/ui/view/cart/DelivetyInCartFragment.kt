@@ -82,6 +82,7 @@ class DelivetyInCartFragment : Fragment() {
                 filteredList = responseList.filter {
                     it.cartMethod == "delivery"
                 }.toMutableList()
+
                 checkedList.removeAt(position)
                 cartListAdapter.checkStatusList.removeAt(position)
 
@@ -96,6 +97,7 @@ class DelivetyInCartFragment : Fragment() {
                     } else {
                         binding.ivCartEmptyDelivery.visibility = View.INVISIBLE
                     }
+
                 }
             }
         }

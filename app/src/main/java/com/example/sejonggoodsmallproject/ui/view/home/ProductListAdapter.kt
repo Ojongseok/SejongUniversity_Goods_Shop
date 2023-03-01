@@ -25,6 +25,13 @@ class ProductListAdapter(private val context: Context, private var list : List<P
             } else {
                 item.price.toString() + "원"
             }
+
+            binding.tvItemProductSeller.text = when(item.seller.method) {
+                "both" -> "현장수령, 택배수령"
+                "delivery" -> "택배수령"
+                "pickup" -> "현장수령"
+                else -> ""
+            }
         }
     }
 

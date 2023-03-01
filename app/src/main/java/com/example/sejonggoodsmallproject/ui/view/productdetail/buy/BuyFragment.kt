@@ -58,7 +58,11 @@ class BuyFragment : Fragment() {
             if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
                 setLoginDialog()
             } else {
-                setDialogCartType()
+                if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
+                    Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
+                } else {
+                    setDialogCartType()
+                }
             }
         }
 
@@ -142,7 +146,6 @@ class BuyFragment : Fragment() {
 
         orderTypeDialog.dialog.btn_dialog_order_type_visit.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
-
             orderTypeDialog.dialog.dismiss()
 
             val bundle = Bundle()
@@ -166,7 +169,27 @@ class BuyFragment : Fragment() {
         }
 
         orderTypeDialog.dialog.btn_dialog_order_type_delivery.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
             orderTypeDialog.dialog.dismiss()
+
+            val bundle = Bundle()
+            bundle.apply {
+                putString("quantity", quantity)
+                putString("option1", option1)
+                putString("option2", option2)
+                putString("color", color)
+                putString("size", size)
+                putString("itemId", itemId.toString())
+                putSerializable("response", response)
+            }
+            val orderDeliveryFragment = OrderDeliveryFragment()
+            orderDeliveryFragment.arguments = bundle
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.horizon_enter_front,0)
+                .add(R.id.pd_main_container, orderDeliveryFragment,"backStack")
+                .addToBackStack("backStack")
+                .commitAllowingStateLoss()
         }
 
         orderTypeDialog.dialog.btn_dialog_order_type_close.setOnClickListener {

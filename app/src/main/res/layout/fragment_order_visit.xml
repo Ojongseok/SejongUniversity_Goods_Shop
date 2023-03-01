@@ -9,7 +9,7 @@
     android:clickable="true">
 
     <ImageView
-        android:id="@+id/btn_order_write_back"
+        android:id="@+id/btn_order_visit_back"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
@@ -41,7 +41,7 @@
         android:background="@color/shape_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_order_write_back">
+        app:layout_constraintTop_toBottomOf="@+id/btn_order_visit_back">
 
     </FrameLayout>
 
@@ -49,7 +49,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_order_complete"
+        app:layout_constraintBottom_toTopOf="@+id/btn_order_visit_complete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
@@ -83,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23">
 
                 <EditText
-                    android:id="@+id/tv_order_buyer_name"
+                    android:id="@+id/tv_order_visit_buyer_name"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:background="@drawable/background_rec_10dp_grey_stroke"
@@ -93,7 +93,7 @@
                     android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/tv_order_buyer_phone_number"
+                    android:id="@+id/tv_order_visit_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:layout_marginTop="16dp"
@@ -118,7 +118,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_order_product"
+                android:id="@+id/rv_order_visit_product"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -130,7 +130,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/btn_order_complete"
+        android:id="@+id/btn_order_visit_complete"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"

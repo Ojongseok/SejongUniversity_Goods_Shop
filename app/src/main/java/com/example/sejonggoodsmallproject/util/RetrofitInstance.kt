@@ -31,6 +31,7 @@ object RetrofitInstance {
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .build()
+
     }
 
     val retrofitService: RetrofitService by lazy {

@@ -44,6 +44,17 @@
             app:layout_constraintTop_toTopOf="@+id/iv_item_cart_cardview" />
 
         <TextView
+            android:id="@+id/tv_item_product_seller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="-"
+            android:textColor="#D6983B"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_order_product_title" />
+
+        <TextView
             android:id="@+id/tv_product_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,13 +63,13 @@
             android:textColor="@color/sub_text"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_order_product_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_item_product_seller" />
 
         <TextView
             android:id="@+id/tv_product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/main_text"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title"

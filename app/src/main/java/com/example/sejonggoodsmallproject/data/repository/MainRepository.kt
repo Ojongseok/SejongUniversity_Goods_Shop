@@ -27,14 +27,15 @@ class MainRepository(application: Application) {
     }
 
     // 찜하기
-    suspend fun addFavorite(itemId: Long) : String {
+    suspend fun addFavorite(itemId: Long) : Response<FavoriteResponse> {
         return retrofitService.addFavorite("Bearer $myToken", itemId)
     }
-
     // 찜하기 취소
-    suspend fun deleteFavorite(itemId: Long) : String {
+    suspend fun deleteFavorite(itemId: Long) : Response<FavoriteResponse> {
         return retrofitService.deleteFavorite("Bearer $myToken", itemId)
     }
+    // 찜한 상품 조회
+    suspend fun getFavoriteList() = retrofitService.getFavorite("Bearer $myToken")
 
     // 상품상세에서 주문
     suspend fun postOrderInDetail(orderDetailPost: OrderDetailPost, itemId: Long) : Response<OrderDetailResponse> {
