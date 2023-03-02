@@ -1,5 +1,8 @@
 package com.example.sejonggoodsmallproject.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class FavoriteResponse(
-    val result : String
+    @SerializedName("memberId") val memberId: Long,
+    @SerializedName("itemId") val itemId: Long
 )

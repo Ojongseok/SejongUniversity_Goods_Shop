@@ -21,7 +21,7 @@ class ProductDetailViewModel(private val mainRepository: MainRepository) : ViewM
         return mainRepository.addFavorite(itemId)
     }
     // 찜하기 취소
-    suspend fun deleteFavorite(itemId: Long) : Response<FavoriteResponse> {
+    suspend fun deleteFavorite(itemId: Long) : List<CancelFavoriteResponse> {
         return mainRepository.deleteFavorite(itemId)
     }
 

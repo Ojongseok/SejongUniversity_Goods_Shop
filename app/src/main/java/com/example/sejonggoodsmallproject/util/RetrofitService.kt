@@ -32,6 +32,7 @@ interface RetrofitService {
     // 3.4 상품 상세보기
     @GET("items/detail/{itemId}")
     suspend fun getProductDetail(
+        @Header("Authorization") BearerToken: String,
         @Path("itemId") itemId: Int
     ) : Response<ProductDetailResponse>
 
@@ -90,7 +91,7 @@ interface RetrofitService {
     suspend fun deleteFavorite(
         @Header("Authorization") BearerToken: String,
         @Path("itemId") itemId: Long
-    ) : Response<FavoriteResponse>
+    ) : List<CancelFavoriteResponse>
 
     // 7.3 찜한 상품 조회
     @GET("scrap/list")

@@ -49,12 +49,11 @@ class ProductDetailActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).async {
             response = viewModel.getProductDetail(itemId)
+            Log.d("tag",response.body()?.scraped.toString())
 
             if (response.isSuccessful) {
                 val data = response.body()!!
                 binding.model = data
-
-                Log.d("tag",data.scraped.toString())
 
                 withContext(Dispatchers.Main) {
                     setSomenailViewPager(data.img)
@@ -146,16 +145,6 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setPdHelp() {
-        val pdHelpDialog = HelpDialog(this)
-
-        pdHelpDialog.showDialog()
-
-        pdHelpDialog.dialog.btn_dialog_pd_help_complete.setOnClickListener {
-            pdHelpDialog.dialog.dismiss()
-        }
-    }
-
     fun onClick(view: View) {
         when (view.id) {
             R.id.iv_back_button -> {
@@ -168,18 +157,22 @@ class ProductDetailActivity : AppCompatActivity() {
                 } else {
                     if (isScraped) {
                         CoroutineScope(Dispatchers.IO).launch {
-                            val result = viewModel.deleteFavorite(itemId.toLong())
-                            Log.d("tag", result.body()?.toString()!!)
+                            viewModel.deleteFavorite(itemId.toLong())
+
+                            withContext(Dispatchers.Main) {
+                                isScraped = false
+                                binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
+                            }
                         }
-                        isScraped = false
-                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
                     } else {
                         CoroutineScope(Dispatchers.IO).launch {
-                            val result = viewModel.addFavorite(itemId.toLong())
-                            Log.d("tag", result.body()?.toString()!!)
+                            viewModel.addFavorite(itemId.toLong())
+
+                            withContext(Dispatchers.Main) {
+                                isScraped = true
+                                binding.ivFavorite.setImageResource(R.drawable.ic_favorite_on)
+                            }
                         }
-                        isScraped = true
-                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_on)
                     }
                 }
             }
@@ -208,6 +201,16 @@ class ProductDetailActivity : AppCompatActivity() {
             R.id.btn_pd_help -> {
                 setPdHelp()
             }
+        }
+    }
+
+    private fun setPdHelp() {
+        val pdHelpDialog = HelpDialog(this)
+
+        pdHelpDialog.showDialog()
+
+        pdHelpDialog.dialog.btn_dialog_pd_help_complete.setOnClickListener {
+            pdHelpDialog.dialog.dismiss()
         }
     }
 }

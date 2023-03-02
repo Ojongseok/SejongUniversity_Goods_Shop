@@ -1,11 +1,10 @@
-package com.example.sejonggoodsmallproject.ui.view.productdetail.buy
+package com.example.sejonggoodsmallproject.ui.view.order
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.data.model.OptionPicked
 import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
 import com.example.sejonggoodsmallproject.databinding.ItemOrderProductListBinding
@@ -40,7 +39,7 @@ class OrderDetailProductListAdapter(
         return CustomViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: OrderDetailProductListAdapter.CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bind(list[position], optionPickedList[position])
     }
 

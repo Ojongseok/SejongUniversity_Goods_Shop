@@ -15,12 +15,13 @@ import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
 import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
 import com.example.sejonggoodsmallproject.ui.view.login.InitActivity
+import com.example.sejonggoodsmallproject.ui.view.order.OrderDeliveryFragment
+import com.example.sejonggoodsmallproject.ui.view.order.OrderVisitFragment
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
 import com.example.sejonggoodsmallproject.util.MyApplication
 import kotlinx.android.synthetic.main.dialog_cart_add_type.*
 import kotlinx.android.synthetic.main.dialog_login_confirm.*
-import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.android.synthetic.main.dialog_order_type.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

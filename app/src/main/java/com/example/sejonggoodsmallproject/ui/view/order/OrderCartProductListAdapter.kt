@@ -1,4 +1,4 @@
-package com.example.sejonggoodsmallproject.ui.view.productdetail.buy
+package com.example.sejonggoodsmallproject.ui.view.order
 
 import android.content.Context
 import android.view.LayoutInflater

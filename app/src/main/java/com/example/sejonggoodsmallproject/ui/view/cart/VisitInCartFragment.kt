@@ -13,13 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.data.model.OptionPicked
-import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
-import com.example.sejonggoodsmallproject.databinding.FragmentCartBinding
 import com.example.sejonggoodsmallproject.databinding.FragmentVisitInCartBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderPrevDialog
-import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderVisitFragment
+import com.example.sejonggoodsmallproject.ui.view.order.OrderVisitFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
 import kotlinx.android.synthetic.main.dialog_order_previous_alert.*

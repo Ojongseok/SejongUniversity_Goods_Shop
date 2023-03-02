@@ -23,7 +23,7 @@ class MainRepository(application: Application) {
 
     // 상품 상세 정보
     suspend fun getProductDetail(itemId: Int) : Response<ProductDetailResponse> {
-        return retrofitService.getProductDetail(itemId)
+        return retrofitService.getProductDetail("Bearer $myToken", itemId)
     }
 
     // 찜하기
@@ -31,7 +31,7 @@ class MainRepository(application: Application) {
         return retrofitService.addFavorite("Bearer $myToken", itemId)
     }
     // 찜하기 취소
-    suspend fun deleteFavorite(itemId: Long) : Response<FavoriteResponse> {
+    suspend fun deleteFavorite(itemId: Long) : List<CancelFavoriteResponse> {
         return retrofitService.deleteFavorite("Bearer $myToken", itemId)
     }
     // 찜한 상품 조회

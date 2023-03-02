@@ -1,4 +1,4 @@
-package com.example.sejonggoodsmallproject.ui.view.productdetail.buy
+package com.example.sejonggoodsmallproject.ui.view.order
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
