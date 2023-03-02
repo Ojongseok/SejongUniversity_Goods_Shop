@@ -71,6 +71,13 @@ interface RetrofitService {
         @Path("itemId") itemId: Long
     ) : Response<OrderDetailResponse>
 
+    // 6.2 장바구니에서 주문
+    @POST("order/cart")
+    suspend fun orderInCart(
+        @Header("Authorization") BearerToken: String,
+        @Body orderCartPost: OrderCartPost
+    ) : Response<OrderCartResponse>
+
     // 7.1 찜하기
     @POST("scrap/{itemId}")
     suspend fun addFavorite(

@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.AddCartPost
+import com.example.sejonggoodsmallproject.data.model.OptionPicked
 import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentBuyBinding
 import com.example.sejonggoodsmallproject.ui.view.home.LoginDialog
@@ -33,8 +34,6 @@ class BuyFragment : Fragment() {
     private var option1 : String? = "옵션1 선택하기"
     private var option2 : String? = "옵션2 선택하기"
     private var quantity = "1"
-    private var color: String? = null
-    private var size: String? = null
     private var itemId = 0
     private lateinit var response: ProductDetailResponse
 
@@ -89,10 +88,7 @@ class BuyFragment : Fragment() {
                 Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
-                    color = option1
-                    size = option2
-
-                    val response = viewModel.addCart(AddCartPost(quantity, color, size, "pickup"), itemId)
+                    val response = viewModel.addCart(AddCartPost(quantity, option1, option2, "pickup"), itemId)
 
                     withContext(Dispatchers.Main) {
                         when (response.code()) {
@@ -115,10 +111,7 @@ class BuyFragment : Fragment() {
                 Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
-                    color = option1
-                    size = option2
-
-                    val response = viewModel.addCart(AddCartPost(quantity, color, size, "delivery"), itemId)
+                    val response = viewModel.addCart(AddCartPost(quantity, option1, option2, "delivery"), itemId)
 
                     withContext(Dispatchers.Main) {
                         when (response.code()) {
@@ -149,14 +142,16 @@ class BuyFragment : Fragment() {
             orderTypeDialog.dialog.dismiss()
 
             val bundle = Bundle()
+            val optionPicked = OptionPicked(option1,option2,quantity.toInt())
+            val optionPickedList = ArrayList<OptionPicked>()
+            optionPickedList.add(optionPicked)
+            val responseList = ArrayList<ProductDetailResponse>()
+            responseList.add(response)
             bundle.apply {
-                putString("quantity", quantity)
-                putString("option1", option1)
-                putString("option2", option2)
-                putString("color", color)
-                putString("size", size)
+                putString("orderType", "detail")
                 putString("itemId", itemId.toString())
-                putSerializable("response", response)
+                putSerializable("optionPickedList", optionPickedList)
+                putSerializable("responseList", responseList)
             }
             val orderVisitFragment = OrderVisitFragment()
             orderVisitFragment.arguments = bundle
@@ -172,13 +167,12 @@ class BuyFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
             orderTypeDialog.dialog.dismiss()
 
+            // 여긴아직 안댐
             val bundle = Bundle()
             bundle.apply {
                 putString("quantity", quantity)
                 putString("option1", option1)
                 putString("option2", option2)
-                putString("color", color)
-                putString("size", size)
                 putString("itemId", itemId.toString())
                 putSerializable("response", response)
             }

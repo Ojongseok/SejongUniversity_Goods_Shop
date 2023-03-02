@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.sejonggoodsmallproject.data.model.CartListResponse
 import com.example.sejonggoodsmallproject.data.model.OptionPicked
-import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
 import com.example.sejonggoodsmallproject.databinding.ItemOrderProductListBinding
 
-class OrderProductListAdapter(
+class OrderCartProductListAdapter(
     private var context: Context,
-    private var list : List<ProductDetailResponse>,
-    private val optionPickedList : List<OptionPicked>) : RecyclerView.Adapter<OrderProductListAdapter.CustomViewHolder>() {
+    private var list : List<CartListResponse>,
+    private val optionPickedList : ArrayList<OptionPicked>) : RecyclerView.Adapter<OrderCartProductListAdapter.CustomViewHolder>() {
 
     inner class CustomViewHolder(private val binding: ItemOrderProductListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ProductDetailResponse, optionPicked: OptionPicked) {
+        fun bind(item: CartListResponse, optionPicked: OptionPicked) {
             binding.tvItemOrderProductTitle.text = item.title
-            binding.tvItemOrderCompany.text = item.seller.name
-            Glide.with(context).load(item.img[0].oriImgName).into(binding.ivProduct)
-
+            binding.tvItemOrderCompany.text = item.seller
+            Glide.with(context).load(item.repImage.oriImgName).into(binding.ivProduct)
 
             binding.tvItemOrderPrice.text = priceUpdate(item.price * optionPicked.quantity)
 
@@ -32,8 +31,6 @@ class OrderProductListAdapter(
             } else if (optionPicked.option1 == null && optionPicked.option2 == null) {
                 "선택사항 없음"
             } else { "" }
-
-
         }
     }
 
@@ -42,9 +39,8 @@ class OrderProductListAdapter(
         return CustomViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: OrderProductListAdapter.CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bind(list[position], optionPickedList[position])
-
     }
 
     private fun priceUpdate(price: Int) : String {

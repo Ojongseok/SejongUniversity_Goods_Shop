@@ -2,6 +2,7 @@ package com.example.sejonggoodsmallproject.ui.view.cart
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
+import com.example.sejonggoodsmallproject.data.model.OptionPicked
+import com.example.sejonggoodsmallproject.data.model.ProductDetailResponse
 import com.example.sejonggoodsmallproject.databinding.FragmentCartBinding
 import com.example.sejonggoodsmallproject.databinding.FragmentVisitInCartBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderPrevDialog
+import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderVisitFragment
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
 import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
@@ -30,7 +34,7 @@ class VisitInCartFragment : Fragment() {
     private lateinit var viewModel : MainViewModel
     private lateinit var cartListAdapter: CartListAdapter
     private lateinit var responseList : List<CartListResponse>
-    private lateinit var filteredList : MutableList<CartListResponse>
+    private lateinit var filteredList : ArrayList<CartListResponse>
     private lateinit var checkedList : MutableList<Boolean>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,11 +56,9 @@ class VisitInCartFragment : Fragment() {
         binding.checkboxItemCartAllVisit.setOnClickListener {
             if (filteredList.isNotEmpty()) {
                 if (binding.checkboxItemCartAllVisit.isChecked) {
-                    if (filteredList.isNotEmpty()) {
-                        cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-                            cartListAdapter.checkStatusList[index] = true
-                            checkedList[index] = true
-                        }
+                    cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+                        cartListAdapter.checkStatusList[index] = true
+                        checkedList[index] = true
                     }
                 } else {
                     cartListAdapter.checkStatusList.forEachIndexed { index, b ->
@@ -82,7 +84,7 @@ class VisitInCartFragment : Fragment() {
                 responseList = viewModel.deleteCart(cartListAdapter.getCartId(position))
                 filteredList = responseList.filter {
                     it.cartMethod == "pickup"
-                }.toMutableList()
+                }.toMutableList() as ArrayList<CartListResponse>
 
                 checkedList.removeAt(position)
                 cartListAdapter.checkStatusList.removeAt(position)
@@ -112,7 +114,7 @@ class VisitInCartFragment : Fragment() {
             responseList = viewModel.getCartList()
             filteredList = responseList.filter {
                 it.cartMethod == "pickup"
-            }.toMutableList()
+            }.toMutableList() as ArrayList<CartListResponse>
             checkedList = MutableList(filteredList.size) { true }
 
             withContext(Dispatchers.Main) {
@@ -141,7 +143,6 @@ class VisitInCartFragment : Fragment() {
 
         cartListAdapter.setItemClickListener(object : CartListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) { }
-
             override fun onClickRemoveBtn(v: View, position: Int) {
                 setDialogRemove(position)
             }
@@ -165,7 +166,6 @@ class VisitInCartFragment : Fragment() {
                     }
                 }
             }
-
             override fun onClickMinusBtn(v: View, position: Int) {
                 if(cartListAdapter.getNowQuantity(position) != 1) {
                     CoroutineScope(Dispatchers.IO).launch {
@@ -181,15 +181,57 @@ class VisitInCartFragment : Fragment() {
                     }
                 }
             }
-
             override fun onClickCheckBoxBtn(position: Int, checkedStatus: Boolean) {
                 checkedList[position] = checkedStatus
+                Log.d("tag", "$position ${checkedList[position]}")
 
                 binding.btnBuyCompleteCartVisit.text = calcPriceSum()
-
                 binding.checkboxItemCartAllVisit.isChecked = !isCheckedAll()
             }
         })
+    }
+    private fun setDialogOrderPrev() {
+        if (filteredList.isNotEmpty()) {
+            val cartOrderPrevDialog = OrderPrevDialog(requireContext())
+            cartOrderPrevDialog.showDialog()
+
+            cartOrderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
+                val bundle = Bundle()
+                val optionPickedList = ArrayList<OptionPicked>()
+                val cartIdList = ArrayList<Long>()
+                val filterCheckedList = ArrayList<CartListResponse>()
+
+                for (i in 0 until filteredList.size) {
+                    if (checkedList[i]) {
+                        val optionPicked = OptionPicked(filteredList[i].color, filteredList[i].size, filteredList[i].quantity)
+                        optionPickedList.add(optionPicked)
+
+                        cartIdList.add(filteredList[i].id.toLong())
+                        filterCheckedList.add(filteredList[i])
+                    }
+                }
+
+                bundle.apply {
+                    putString("orderType", "cart")
+                    putSerializable("cartIdList", cartIdList)
+                    putSerializable("optionPickedList", optionPickedList)
+                    putSerializable("responseList", filterCheckedList)
+                }
+
+                val orderVisitFragment = OrderVisitFragment()
+                orderVisitFragment.arguments = bundle
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                    .add(R.id.main_container, orderVisitFragment,"backStack")
+                    .addToBackStack("backStack")
+                    .commitAllowingStateLoss()
+
+                cartOrderPrevDialog.dialog.dismiss()
+            }
+        } else {
+            Toast.makeText(context,"장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun isCheckedAll() : Boolean {
@@ -210,19 +252,6 @@ class VisitInCartFragment : Fragment() {
             return priceList.joinToString("") + "원 주문하기"
         } else {
             return sum.toString() + "원 주문하기"
-        }
-    }
-
-    private fun setDialogOrderPrev() {
-        if (filteredList.isNotEmpty()) {
-            val cartOrderPrevDialog = OrderPrevDialog(requireContext())
-            cartOrderPrevDialog.showDialog()
-
-            cartOrderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
-                cartOrderPrevDialog.dialog.dismiss()
-            }
-        } else {
-            Toast.makeText(context,"장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show()
         }
     }
     override fun onDestroy() {

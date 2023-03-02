@@ -41,6 +41,10 @@ class MainRepository(application: Application) {
     suspend fun postOrderInDetail(orderDetailPost: OrderDetailPost, itemId: Long) : Response<OrderDetailResponse> {
         return retrofitService.orderInDetail("Bearer $myToken", orderDetailPost, itemId)
     }
+    // 장바구니에서 주문
+    suspend fun postOrderInCart(orderCartPost: OrderCartPost) : Response<OrderCartResponse> {
+        return retrofitService.orderInCart("Bearer $myToken", orderCartPost)
+    }
 
     // 장바구니 담기
     suspend fun addCart(itemId: String, addCartPost: AddCartPost) : Response<AddCartResponse> {

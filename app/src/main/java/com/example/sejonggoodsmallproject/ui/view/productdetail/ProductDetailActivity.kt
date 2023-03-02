@@ -71,7 +71,7 @@ class ProductDetailActivity : AppCompatActivity() {
                     if (data.scraped) {
                         isScraped = true
                         binding.ivFavorite.setImageResource(R.drawable.ic_favorite_on)
-                    }else {
+                    } else {
                         isScraped = false
                         binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
                     }

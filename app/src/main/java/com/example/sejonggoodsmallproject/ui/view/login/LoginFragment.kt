@@ -37,6 +37,7 @@ class LoginFragment : Fragment() {
             val email = binding.etLoginEmail.text.toString()
             val password = binding.etLoginPassword.text.toString()
             if (email.isNotEmpty() && password.isNotEmpty()) {
+                binding.pbLogin.visibility = View.VISIBLE
                 CoroutineScope(Dispatchers.IO).launch {
                     val response = retrofitService.authLogin(LoginPost(email,password))
 
@@ -55,11 +56,14 @@ class LoginFragment : Fragment() {
                             }
 
                             400 -> {
+                                binding.pbLogin.visibility = View.INVISIBLE
                                 Toast.makeText(requireContext(),"이메일 및 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 }
+            } else {
+                Toast.makeText(requireContext(),"이메일 및 비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show()
             }
         }
 

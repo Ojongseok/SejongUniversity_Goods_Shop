@@ -5,7 +5,7 @@ data class OrderDetailPost(
     val phoneNumber: String,
     val orderMethod: String,
     val address: OdpAddress?,
-    val orderItems: List<OdpOrderItems?>,
+    val orderItems: List<OdpOrderItems>,
     val deliveryRequest: String?
 )
 
