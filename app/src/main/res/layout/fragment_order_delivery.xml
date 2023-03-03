@@ -49,7 +49,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_order_visit_complete"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_order_delivery_complete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
@@ -96,7 +97,7 @@
                     android:id="@+id/tv_order_delivery_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/background_rec_10dp_grey_stroke"
                     android:gravity="center_vertical"
                     android:hint="휴대전화"
@@ -104,10 +105,43 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/tv_order_delivery_adress1"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_rec_10dp_grey_stroke"
+                    android:gravity="center_vertical"
+                    android:hint="우편번호"
+                    android:paddingLeft="14dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/tv_order_delivery_adress2"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_rec_10dp_grey_stroke"
+                    android:gravity="center_vertical"
+                    android:hint="주소"
+                    android:paddingLeft="14dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/tv_order_delivery_adress3"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_rec_10dp_grey_stroke"
+                    android:gravity="center_vertical"
+                    android:hint="상세주소"
+                    android:paddingLeft="14dp"
+                    android:textSize="14sp" />
+
+                <EditText
                     android:id="@+id/tv_order_delivery_request"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/background_rec_10dp_grey_stroke"
                     android:gravity="center_vertical"
                     android:hint="배송 요청사항 (선택)"
@@ -116,7 +150,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/tv_pd_seller_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -134,7 +168,11 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_pd_seller_phone_number"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

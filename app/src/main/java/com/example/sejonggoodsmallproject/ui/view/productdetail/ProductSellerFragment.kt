@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.sejonggoodsmallproject.R
+import com.example.sejonggoodsmallproject.data.model.Seller
 import com.example.sejonggoodsmallproject.databinding.FragmentProductInfoBinding
 import com.example.sejonggoodsmallproject.databinding.FragmentProductSellerBinding
 
@@ -22,9 +23,12 @@ class ProductSellerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arg = arguments?.getSerializable("sellerInfo")
+        val arg = arguments?.getSerializable("sellerInfo") as Seller
 
-        binding.textView3.text = arg.toString()
+        binding.tvPdSellerName.text = arg.name
+        binding.tvPdSellerPhoneNumber.text = arg.phoneNumber
+        binding.tvPdSellerMap.text = "업체 위치"
+        binding.tvPdSellerSns.text = "블로그나 인스타"
 
     }
 

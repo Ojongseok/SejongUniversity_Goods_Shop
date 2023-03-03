@@ -62,21 +62,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setLoginDialog() {
-        val loginDialog = LoginDialog(this)
-
-        loginDialog.showDialog()
-
-        loginDialog.dialog.btn_dialog_login.setOnClickListener {
-            startActivity(Intent(this, InitActivity::class.java))
-            finish()
-        }
-
-        loginDialog.dialog.btn_dialog_login_close.setOnClickListener {
-            loginDialog.dialog.dismiss()
-        }
-    }
-
     private fun setTabLayout() {
         if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
             setRvProductList(0)
@@ -120,20 +105,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateRecyclerView(tabId : Int) {
-        if (tabId == 0) {
-            result = response
-            productListAdapter.setData(result)
-        } else {
-            productListAdapter.apply {
-                result = response.filter {
-                    it.categoryId.toInt() == tabId
-                }
-                setData(result)
-            }
-        }
-    }
-
     fun onClick(view: View) {
         when (view.id) {
             R.id.btn_search -> {
@@ -163,6 +134,35 @@ class MainActivity : AppCompatActivity() {
                     .addToBackStack("backStack")
                     .commitAllowingStateLoss()
             }
+        }
+    }
+
+    private fun updateRecyclerView(tabId : Int) {
+        if (tabId == 0) {
+            result = response
+            productListAdapter.setData(result)
+        } else {
+            productListAdapter.apply {
+                result = response.filter {
+                    it.categoryId.toInt() == tabId
+                }
+                setData(result)
+            }
+        }
+    }
+
+    private fun setLoginDialog() {
+        val loginDialog = LoginDialog(this)
+
+        loginDialog.showDialog()
+
+        loginDialog.dialog.btn_dialog_login.setOnClickListener {
+            startActivity(Intent(this, InitActivity::class.java))
+            finish()
+        }
+
+        loginDialog.dialog.btn_dialog_login_close.setOnClickListener {
+            loginDialog.dialog.dismiss()
         }
     }
 

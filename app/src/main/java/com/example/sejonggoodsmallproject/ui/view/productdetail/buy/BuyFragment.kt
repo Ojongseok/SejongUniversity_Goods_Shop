@@ -138,6 +138,7 @@ class BuyFragment : Fragment() {
         val orderTypeDialog = OrderTypeDialog(requireContext())
         orderTypeDialog.showDialog()
 
+        // 방문 수령하기
         orderTypeDialog.dialog.btn_dialog_order_type_visit.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
             orderTypeDialog.dialog.dismiss()
@@ -163,19 +164,22 @@ class BuyFragment : Fragment() {
                 .addToBackStack("backStack")
                 .commitAllowingStateLoss()
         }
-
+        // 택배 수령하기
         orderTypeDialog.dialog.btn_dialog_order_type_delivery.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this@BuyFragment).commit()
             orderTypeDialog.dialog.dismiss()
 
-            // 여긴아직 안댐
             val bundle = Bundle()
+            val optionPicked = OptionPicked(option1,option2,quantity.toInt())
+            val optionPickedList = ArrayList<OptionPicked>()
+            optionPickedList.add(optionPicked)
+            val responseList = ArrayList<ProductDetailResponse>()
+            responseList.add(response)
             bundle.apply {
-                putString("quantity", quantity)
-                putString("option1", option1)
-                putString("option2", option2)
+                putString("orderType", "detail")
                 putString("itemId", itemId.toString())
-                putSerializable("response", response)
+                putSerializable("optionPickedList", optionPickedList)
+                putSerializable("responseList", responseList)
             }
             val orderDeliveryFragment = OrderDeliveryFragment()
             orderDeliveryFragment.arguments = bundle

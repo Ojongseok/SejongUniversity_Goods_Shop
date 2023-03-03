@@ -49,6 +49,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_order_visit_complete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/tv_pd_seller_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -124,7 +125,9 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_pd_seller_phone_number"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

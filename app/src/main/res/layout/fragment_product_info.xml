@@ -12,6 +12,7 @@
         android:id="@+id/rv_product_detail_info"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         android:nestedScrollingEnabled="false"
         android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"

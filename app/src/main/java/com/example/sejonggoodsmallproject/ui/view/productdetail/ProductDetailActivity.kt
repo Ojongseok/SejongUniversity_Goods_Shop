@@ -162,6 +162,7 @@ class ProductDetailActivity : AppCompatActivity() {
                             withContext(Dispatchers.Main) {
                                 isScraped = false
                                 binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
+                                binding.tvFavoriteCnt.text = response.body()?.scrapCount.toString()
                             }
                         }
                     } else {
@@ -171,6 +172,7 @@ class ProductDetailActivity : AppCompatActivity() {
                             withContext(Dispatchers.Main) {
                                 isScraped = true
                                 binding.ivFavorite.setImageResource(R.drawable.ic_favorite_on)
+                                binding.tvFavoriteCnt.text = response.body()?.scrapCount.toString()
                             }
                         }
                     }

@@ -46,10 +46,15 @@ class MypageFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
+
 //        binding.btnMypageLogin.setOnClickListener {
 //            startActivity(Intent(requireContext(), InitActivity::class.java))
 //            requireActivity().finish()
 //        }
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
 

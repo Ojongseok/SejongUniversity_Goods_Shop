@@ -48,7 +48,11 @@ class VisitInCartFragment : Fragment() {
         setCartList()
 
         binding.btnBuyCompleteCartVisit.setOnClickListener {
-            setDialogOrderPrev()
+            if (checkedList.containsAll(listOf(false))) {
+                Toast.makeText(requireContext(), "주문할 상품을 선택해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                setDialogOrderPrev()
+            }
         }
 
         binding.checkboxItemCartAllVisit.setOnClickListener {
@@ -181,7 +185,6 @@ class VisitInCartFragment : Fragment() {
             }
             override fun onClickCheckBoxBtn(position: Int, checkedStatus: Boolean) {
                 checkedList[position] = checkedStatus
-                Log.d("tag", "$position ${checkedList[position]}")
 
                 binding.btnBuyCompleteCartVisit.text = calcPriceSum()
                 binding.checkboxItemCartAllVisit.isChecked = !isCheckedAll()

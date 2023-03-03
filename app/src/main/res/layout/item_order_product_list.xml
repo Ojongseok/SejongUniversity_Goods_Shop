@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/iv_product"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="fitXY" />
         </androidx.cardview.widget.CardView>
 
@@ -38,12 +38,12 @@
             android:text="text"
             android:textColor="@color/main_text"
             android:textSize="15sp"
-            android:textStyle="normal"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/iv_item_cart_cardview"
             app:layout_constraintTop_toTopOf="@+id/iv_item_cart_cardview" />
 
         <TextView
-            android:id="@+id/textView31"
+            android:id="@+id/tv_pd_seller_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -62,9 +62,9 @@
             android:text="Tex"
             android:textColor="@color/main_text"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView31"
-            app:layout_constraintStart_toEndOf="@+id/textView31"
-            app:layout_constraintTop_toTopOf="@+id/textView31" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_pd_seller_map"
+            app:layout_constraintStart_toEndOf="@+id/tv_pd_seller_map"
+            app:layout_constraintTop_toTopOf="@+id/tv_pd_seller_map" />
 
         <TextView
             android:id="@+id/tv_item_order_company"
@@ -73,7 +73,7 @@
             android:layout_marginTop="4dp"
             android:text="업체명"
             android:textColor="#D6983B"
-            android:textSize="13sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_order_product_title" />
 
@@ -81,12 +81,24 @@
             android:id="@+id/tv_item_order_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="2dp"
             android:text="TextView"
             android:textColor="@color/main_text"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_item_cart_cardview"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_order_product_quantity" />
+
+        <TextView
+            android:id="@+id/tv_item_order_product_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_order_company" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

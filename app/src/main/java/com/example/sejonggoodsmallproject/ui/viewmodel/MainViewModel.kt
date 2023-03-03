@@ -30,7 +30,6 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
         return mainRepository.postOrderInCart(orderCartPost)
     }
 
-
     // 찜한 상품 조회
     suspend fun getFavoriteList() = mainRepository.getFavoriteList()
 

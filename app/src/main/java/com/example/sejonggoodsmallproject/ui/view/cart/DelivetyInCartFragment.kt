@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.CartListResponse
+import com.example.sejonggoodsmallproject.data.model.OptionPicked
 import com.example.sejonggoodsmallproject.databinding.FragmentDelivetyInCartBinding
 import com.example.sejonggoodsmallproject.databinding.FragmentVisitInCartBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
+import com.example.sejonggoodsmallproject.ui.view.order.OrderDeliveryFragment
+import com.example.sejonggoodsmallproject.ui.view.order.OrderVisitFragment
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderPrevDialog
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
@@ -46,17 +49,19 @@ class DelivetyInCartFragment : Fragment() {
         setCartList()
 
         binding.btnBuyCompleteCartDelivery.setOnClickListener {
-            setDialogOrderPrev()
+            if (checkedList.containsAll(listOf(false))) {
+                Toast.makeText(requireContext(), "주문할 상품을 선택해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                setDialogOrderPrev()
+            }
         }
 
         binding.checkboxItemCartAllDelivery.setOnClickListener {
             if (filteredList.isNotEmpty()) {
                 if (binding.checkboxItemCartAllDelivery.isChecked) {
-                    if (filteredList.isNotEmpty()) {
-                        cartListAdapter.checkStatusList.forEachIndexed { index, b ->
-                            cartListAdapter.checkStatusList[index] = true
-                            checkedList[index] = true
-                        }
+                    cartListAdapter.checkStatusList.forEachIndexed { index, b ->
+                        cartListAdapter.checkStatusList[index] = true
+                        checkedList[index] = true
                     }
                 } else {
                     cartListAdapter.checkStatusList.forEachIndexed { index, b ->
@@ -68,6 +73,7 @@ class DelivetyInCartFragment : Fragment() {
             }
         }
     }
+
     private fun setDialogRemove(position: Int) {
         val cartRemoveDialog = CartRemoveDialog(requireContext())
         cartRemoveDialog.showDialog()
@@ -219,6 +225,37 @@ class DelivetyInCartFragment : Fragment() {
             cartOrderPrevDialog.showDialog()
 
             cartOrderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
+                val bundle = Bundle()
+                val optionPickedList = ArrayList<OptionPicked>()
+                val cartIdList = ArrayList<Long>()
+                val filterCheckedList = ArrayList<CartListResponse>()
+
+                for (i in 0 until filteredList.size) {
+                    if (checkedList[i]) {
+                        val optionPicked = OptionPicked(filteredList[i].color, filteredList[i].size, filteredList[i].quantity)
+                        optionPickedList.add(optionPicked)
+
+                        cartIdList.add(filteredList[i].id.toLong())
+                        filterCheckedList.add(filteredList[i])
+                    }
+                }
+
+                bundle.apply {
+                    putString("orderType", "cart")
+                    putSerializable("cartIdList", cartIdList)
+                    putSerializable("optionPickedList", optionPickedList)
+                    putSerializable("responseList", filterCheckedList)
+                }
+
+                val orderDeliveryFragment = OrderDeliveryFragment()
+                orderDeliveryFragment.arguments = bundle
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                    .add(R.id.main_container, orderDeliveryFragment,"backStack")
+                    .addToBackStack("backStack")
+                    .commitAllowingStateLoss()
+
                 cartOrderPrevDialog.dialog.dismiss()
             }
         } else {

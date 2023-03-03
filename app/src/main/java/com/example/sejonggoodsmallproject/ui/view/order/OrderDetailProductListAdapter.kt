@@ -21,6 +21,7 @@ class OrderDetailProductListAdapter(
             Glide.with(context).load(item.img[0].oriImgName).into(binding.ivProduct)
 
             binding.tvItemOrderPrice.text = priceUpdate(item.price * optionPicked.quantity)
+            binding.tvItemOrderProductQuantity.text = "수량 ${optionPicked.quantity}개"
 
             binding.tvItemOrderProductOption.text = if (optionPicked.option1 != null && optionPicked.option2 != null) {
                 "${optionPicked.option1}, ${optionPicked.option2}"
