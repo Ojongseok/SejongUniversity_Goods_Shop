@@ -91,7 +91,7 @@ interface RetrofitService {
     suspend fun deleteFavorite(
         @Header("Authorization") BearerToken: String,
         @Path("itemId") itemId: Long
-    ) : List<CancelFavoriteResponse>
+    ) : Response<FavoriteResponse>
 
     // 7.3 찜한 상품 조회
     @GET("scrap/list")

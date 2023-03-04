@@ -49,7 +49,6 @@ class ProductDetailActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).async {
             response = viewModel.getProductDetail(itemId)
-            Log.d("tag",response.body()?.scraped.toString())
 
             if (response.isSuccessful) {
                 val data = response.body()!!
@@ -157,22 +156,22 @@ class ProductDetailActivity : AppCompatActivity() {
                 } else {
                     if (isScraped) {
                         CoroutineScope(Dispatchers.IO).launch {
-                            viewModel.deleteFavorite(itemId.toLong())
+                            val favoriteResponse = viewModel.deleteFavorite(itemId.toLong())
 
                             withContext(Dispatchers.Main) {
                                 isScraped = false
                                 binding.ivFavorite.setImageResource(R.drawable.ic_favorite_off)
-                                binding.tvFavoriteCnt.text = response.body()?.scrapCount.toString()
+                                binding.tvFavoriteCnt.text = favoriteResponse.body()?.scrapCount.toString()
                             }
                         }
                     } else {
                         CoroutineScope(Dispatchers.IO).launch {
-                            viewModel.addFavorite(itemId.toLong())
+                            val favoriteResponse = viewModel.addFavorite(itemId.toLong())
 
                             withContext(Dispatchers.Main) {
                                 isScraped = true
                                 binding.ivFavorite.setImageResource(R.drawable.ic_favorite_on)
-                                binding.tvFavoriteCnt.text = response.body()?.scrapCount.toString()
+                                binding.tvFavoriteCnt.text = favoriteResponse.body()?.scrapCount.toString()
                             }
                         }
                     }
