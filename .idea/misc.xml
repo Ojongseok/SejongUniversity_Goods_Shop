@@ -36,12 +36,12 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ripple_oval.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_init.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_product_detail.xml" value="0.4" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_product_detail.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_search.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_splash.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_buy.xml" value="0.264" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_cart_add_type.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_cart_remove_confirm.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_cart_add_type.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_cart_remove_confirm.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_login_confirm.xml" value="0.536" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_order_previous_alert.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/dialog_order_type.xml" value="0.264" />
@@ -67,6 +67,8 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_product_seller.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_review.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_search.xml" value="0.4" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_search_address_a_p_i.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_search_address_api.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_search_result.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_signup.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/fragment_store.xml" value="0.25364583333333335" />

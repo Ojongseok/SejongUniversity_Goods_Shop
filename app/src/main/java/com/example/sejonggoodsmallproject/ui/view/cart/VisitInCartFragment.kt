@@ -77,10 +77,6 @@ class VisitInCartFragment : Fragment() {
         val cartRemoveDialog = CartRemoveDialog(requireContext())
         cartRemoveDialog.showDialog()
 
-        cartRemoveDialog.dialog.btn_cart_dialog_favorite.setOnClickListener {
-            Toast.makeText(context,"찜하기 보관",Toast.LENGTH_SHORT).show()
-        }
-
         cartRemoveDialog.dialog.btn_cart_dialog_remove.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 responseList = viewModel.deleteCart(cartListAdapter.getCartId(position))

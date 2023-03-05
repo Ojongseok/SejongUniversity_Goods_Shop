@@ -65,6 +65,12 @@ class ProductDetailActivity : AppCompatActivity() {
                     } else {
                         data.price.toString() + "원"
                     }
+                    binding.tvPdOrderMethod.text = when(response.body()?.seller?.method) {
+                        "both" -> "현장수령, 택배수령"
+                        "delivery" -> "택배수령"
+                        "pickup" -> "현장수령"
+                        else -> ""
+                    }
 
                     if (data.scraped) {
                         isScraped = true

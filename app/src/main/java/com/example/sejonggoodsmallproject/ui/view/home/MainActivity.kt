@@ -105,6 +105,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateRecyclerView(tabId : Int) {
+        if (tabId == 0) {
+            result = response
+            productListAdapter.setData(result)
+        } else {
+            productListAdapter.apply {
+                result = response.filter {
+                    it.categoryId.toInt() == tabId
+                }
+                setData(result)
+            }
+        }
+    }
+
     fun onClick(view: View) {
         when (view.id) {
             R.id.btn_search -> {
@@ -133,20 +147,6 @@ class MainActivity : AppCompatActivity() {
                     .add(R.id.main_container, MypageFragment(), "backStack")
                     .addToBackStack("backStack")
                     .commitAllowingStateLoss()
-            }
-        }
-    }
-
-    private fun updateRecyclerView(tabId : Int) {
-        if (tabId == 0) {
-            result = response
-            productListAdapter.setData(result)
-        } else {
-            productListAdapter.apply {
-                result = response.filter {
-                    it.categoryId.toInt() == tabId
-                }
-                setData(result)
             }
         }
     }

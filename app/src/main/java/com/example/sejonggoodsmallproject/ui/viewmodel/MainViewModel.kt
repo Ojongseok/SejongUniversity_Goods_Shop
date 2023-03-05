@@ -26,9 +26,10 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
     suspend fun updateCart(cartId: Long, quantity: Int) = mainRepository.updateCart(cartId, quantity)
 
     // 장바구니에서 주문
-    suspend fun postOrderInCart(orderCartPost: OrderCartPost) : Response<OrderCartResponse> {
-        return mainRepository.postOrderInCart(orderCartPost)
-    }
+    suspend fun postOrderInCart(orderCartPost: OrderCartPost) = mainRepository.postOrderInCart(orderCartPost)
+
+    // 주문내역 전체 조회
+    suspend fun getOrderList() = mainRepository.getOrderList()
 
     // 찜한 상품 조회
     suspend fun getFavoriteList() = mainRepository.getFavoriteList()

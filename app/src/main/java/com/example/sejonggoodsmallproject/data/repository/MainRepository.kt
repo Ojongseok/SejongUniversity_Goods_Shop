@@ -52,6 +52,9 @@ class MainRepository(application: Application) {
     suspend fun updateCart(cartId: Long, quantity: Int) =
         retrofitService.updateCart("Bearer $myToken", UpdateCartPost(cartId, quantity))
 
+    // 주문내역 전체 조회
+    suspend fun getOrderList() = retrofitService.getOrderList("Bearer $myToken")
+
     // Room, 최근검색어
     private val mRecentSearchDatabase = RecentSearchDatabase.getInstance(application)
     private val mRecentSearchDAO = mRecentSearchDatabase.recentSearchDao()

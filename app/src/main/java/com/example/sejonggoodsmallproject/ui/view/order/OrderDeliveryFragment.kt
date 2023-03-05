@@ -1,25 +1,28 @@
 package com.example.sejonggoodsmallproject.ui.view.order
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.databinding.FragmentOrderDeliveryBinding
-import com.example.sejonggoodsmallproject.databinding.FragmentOrderVisitBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class OrderDeliveryFragment : Fragment() {
     private var _binding : FragmentOrderDeliveryBinding? = null
@@ -51,6 +54,11 @@ class OrderDeliveryFragment : Fragment() {
         }
 
         setRvOrderProduct()
+
+        binding.tvOrderDeliveryAdress1.setOnClickListener {
+
+
+        }
 
         binding.btnOrderDeliveryComplete.setOnClickListener {
             val buyerName = binding.tvOrderDeliveryBuyerName.text.toString()
@@ -112,6 +120,8 @@ class OrderDeliveryFragment : Fragment() {
                 adapter = orderDetailProductListAdapter
                 addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
             }
+
+            binding.btnOrderDeliveryComplete.text = orderDetailProductListAdapter.getPriceString(responseDetailList[0].price * optionPickedList[0].quantity) + " 결제하기"
         } else if (orderType == "cart") {
             orderCartProductListAdapter = OrderCartProductListAdapter(requireContext(), responseCartList, optionPickedList)
 
@@ -121,6 +131,13 @@ class OrderDeliveryFragment : Fragment() {
                 adapter = orderCartProductListAdapter
                 addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
             }
+
+            var priceSum = 0
+            for (i in 0 until responseCartList.size) {
+                priceSum += responseCartList[i].price
+            }
+
+            binding.btnOrderDeliveryComplete.text = orderCartProductListAdapter.priceUpdate(priceSum) + " 주문하기"
         }
     }
 
@@ -136,5 +153,25 @@ class OrderDeliveryFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    inner class NetworkStatus {
+        val TYPE_WIFI = 1
+        val TYPE_MOBILE = 2
+        val TYPE_NOT_CONNECTED = 3
+
+        fun getConnectivityStatus(context: Context): Int {
+            val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkInfo = manager.activeNetworkInfo
+            if (networkInfo != null) {
+                val type = networkInfo.type
+                if (type == ConnectivityManager.TYPE_MOBILE) { //모바일 (LTE, 5G)
+                    return TYPE_MOBILE
+                } else if (type == ConnectivityManager.TYPE_WIFI) { //WIFI
+                    return TYPE_WIFI
+                }
+            }
+            return TYPE_NOT_CONNECTED //연결 X
+        }
     }
 }

@@ -46,13 +46,11 @@ class MypageFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-
 //        binding.btnMypageLogin.setOnClickListener {
 //            startActivity(Intent(requireContext(), InitActivity::class.java))
 //            requireActivity().finish()
 //        }
     }
-
     override fun onResume() {
         super.onResume()
 
@@ -60,6 +58,23 @@ class MypageFragment : Fragment() {
 
         } else {
             setRvFavoriteThumbnail()
+            setOrderHistory()
+        }
+    }
+
+    private fun setOrderHistory() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val allOrderList = viewModel.getOrderList()
+//            val orderVisitList = allOrderList.filter {
+//                it.orderMethod ==
+//            }
+//            val orderDeliveryList = allOrderList.filter {
+//
+//            }
+
+            withContext(Dispatchers.Main) {
+                binding
+            }
         }
     }
 

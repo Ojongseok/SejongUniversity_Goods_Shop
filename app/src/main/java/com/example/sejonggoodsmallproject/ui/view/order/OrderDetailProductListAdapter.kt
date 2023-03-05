@@ -54,5 +54,9 @@ class OrderDetailProductListAdapter(
         }
     }
 
+    fun getPriceString(price: Int) : String {
+        return priceUpdate(price)
+    }
+
     override fun getItemCount() = list.size
 }

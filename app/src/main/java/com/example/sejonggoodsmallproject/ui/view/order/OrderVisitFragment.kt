@@ -55,41 +55,45 @@ class OrderVisitFragment : Fragment() {
             val buyerName = binding.tvOrderVisitBuyerName.text.toString()
             val phoneNumber = binding.tvOrderVisitPhoneNumber.text.toString()
 
-            if (orderType == "detail") {
-                itemId = arguments?.getString("itemId", "0")?.toLong()!!
+            if (buyerName.isNotEmpty() && phoneNumber.isNotEmpty()) {
+                if (orderType == "detail") {
+                    itemId = arguments?.getString("itemId", "0")?.toLong()!!
 
-                val orderDetailPostInfo = OdpOrderItems(optionPickedList[0].option1, optionPickedList[0].option2, optionPickedList[0].quantity, responseDetailList[0].price)
-                val mlist = mutableListOf<OdpOrderItems>()
-                mlist.add(orderDetailPostInfo)
+                    val orderDetailPostInfo = OdpOrderItems(optionPickedList[0].option1, optionPickedList[0].option2, optionPickedList[0].quantity, responseDetailList[0].price)
+                    val mlist = mutableListOf<OdpOrderItems>()
+                    mlist.add(orderDetailPostInfo)
 
-                val orderDetailPost = OrderDetailPost(
-                    buyerName,phoneNumber,"pickup", OdpAddress(null,null,null), mlist, null
-                )
+                    val orderDetailPost = OrderDetailPost(
+                        buyerName,phoneNumber,"pickup", OdpAddress(null,null,null), mlist, null
+                    )
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    val orderResponse = viewModel.postOrderInDetail(orderDetailPost, itemId)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val orderResponse = viewModel.postOrderInDetail(orderDetailPost, itemId)
 
-                    withContext(Dispatchers.Main) {
-                        if (orderResponse.code() == 200) {
-                            Toast.makeText(requireContext(), "상세보기 주문 완료", Toast.LENGTH_SHORT).show()
+                        withContext(Dispatchers.Main) {
+                            if (orderResponse.code() == 200) {
+                                Toast.makeText(requireContext(), "상세보기 주문 완료", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                } else if (orderType == "cart") {
+                    val cartIdList = arguments?.getSerializable("cartIdList") as List<Long>
+                    val orderCartPost = OrderCartPost(
+                        buyerName,phoneNumber,"pickup", OcpAddress(null,null,null), cartIdList, null
+                    )
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val orderResponse = mainViewModel.postOrderInCart(orderCartPost)
+
+                        withContext(Dispatchers.Main) {
+                            if (orderResponse.code() == 200) {
+                                Toast.makeText(requireContext(), "카트주문 완료", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
-            } else if (orderType == "cart") {
-                val cartIdList = arguments?.getSerializable("cartIdList") as List<Long>
-                val orderCartPost = OrderCartPost(
-                    buyerName,phoneNumber,"pickup", OcpAddress(null,null,null), cartIdList, null
-                )
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    val orderResponse = mainViewModel.postOrderInCart(orderCartPost)
-
-                    withContext(Dispatchers.Main) {
-                        if (orderResponse.code() == 200) {
-                            Toast.makeText(requireContext(), "카트주문 완료", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
+            } else {
+                Toast.makeText(requireContext(), "주문 정보를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -112,6 +116,8 @@ class OrderVisitFragment : Fragment() {
                 adapter = orderDetailProductListAdapter
                 addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
             }
+
+            binding.btnOrderVisitComplete.text = orderDetailProductListAdapter.getPriceString(responseDetailList[0].price * optionPickedList[0].quantity) + " 결제하기"
         } else if (orderType == "cart") {
             orderCartProductListAdapter = OrderCartProductListAdapter(requireContext(), responseCartList, optionPickedList)
 
@@ -121,6 +127,13 @@ class OrderVisitFragment : Fragment() {
                 adapter = orderCartProductListAdapter
                 addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager(requireContext()).orientation))
             }
+
+            var priceSum = 0
+            for (i in 0 until responseCartList.size) {
+                priceSum += responseCartList[i].price
+            }
+
+            binding.btnOrderVisitComplete.text = orderCartProductListAdapter.priceUpdate(priceSum) + " 주문하기"
         }
     }
 

@@ -79,6 +79,12 @@ interface RetrofitService {
         @Body orderCartPost: OrderCartPost
     ) : Response<OrderCartResponse>
 
+    // 6.3 주문 상품 전체 조회
+    @GET("order/list/all")
+    suspend fun getOrderList(
+        @Header("Authorization") BearerToken: String
+    ) : List<OrderListResponse>
+
     // 7.1 찜하기
     @POST("scrap/{itemId}")
     suspend fun addFavorite(
@@ -98,6 +104,5 @@ interface RetrofitService {
     suspend fun getFavorite(
         @Header("Authorization") BearerToken: String
     ) : List<FavoriteListResponse>
-
 
 }

@@ -13,14 +13,13 @@ class OrderCartProductListAdapter(
     private var context: Context,
     private var list : List<CartListResponse>,
     private val optionPickedList : ArrayList<OptionPicked>) : RecyclerView.Adapter<OrderCartProductListAdapter.CustomViewHolder>() {
-
     inner class CustomViewHolder(private val binding: ItemOrderProductListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartListResponse, optionPicked: OptionPicked) {
             binding.tvItemOrderProductTitle.text = item.title
             binding.tvItemOrderCompany.text = item.seller
             Glide.with(context).load(item.repImage.oriImgName).into(binding.ivProduct)
 
-            binding.tvItemOrderPrice.text = priceUpdate(item.price * optionPicked.quantity)
+            binding.tvItemOrderPrice.text = priceUpdate(item.price)
             binding.tvItemOrderProductQuantity.text = "수량 ${optionPicked.quantity}개"
 
             binding.tvItemOrderProductOption.text = if (optionPicked.option1 != null && optionPicked.option2 != null) {
@@ -44,7 +43,7 @@ class OrderCartProductListAdapter(
         holder.bind(list[position], optionPickedList[position])
     }
 
-    private fun priceUpdate(price: Int) : String {
+    fun priceUpdate(price: Int) : String {
         if (price in 1000..999999) {
             val priceList = price.toString().toCharArray().toMutableList()
             priceList.add(priceList.size-3,',')

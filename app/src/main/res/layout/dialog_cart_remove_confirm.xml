@@ -21,38 +21,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/sejong_login_tv3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginRight="8dp"
-        android:text="다음에 구매하실 예정이라면 찜하기에 잠시 보관해 주세요."
-        android:textColor="@color/main_text"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/sejong_login_tv3"
-        app:layout_constraintTop_toBottomOf="@+id/sejong_login_tv3">
-
-        <TextView
-            android:id="@+id/btn_cart_dialog_favorite"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/background_rec_8dp"
-            android:backgroundTint="@color/main_red"
-            android:gravity="center"
-            android:text="찜하기에 보관하기"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <TextView
             android:id="@+id/btn_cart_dialog_remove"
@@ -60,10 +36,10 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/background_rec_8dp"
-            android:backgroundTint="@color/shape_background"
+            android:backgroundTint="@color/main_red"
             android:gravity="center"
             android:text="삭제하기"
-            android:textColor="@color/main_text"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
@@ -71,9 +47,11 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/background_rec_8dp"
+            android:backgroundTint="@color/shape_background"
             android:gravity="center"
             android:text="닫기"
-            android:textColor="@color/sub_text"
+            android:textColor="@color/main_text"
             android:textStyle="bold" />
 
     </LinearLayout>
