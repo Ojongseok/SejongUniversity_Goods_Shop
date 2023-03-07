@@ -30,7 +30,7 @@ data class imgProductDetailResult(
     @SerializedName("oriImgName") val oriImgName: String,
     @SerializedName("imgUrl") val imgUrl: String,
     @SerializedName("repImgUrl") val repImgUrl: String
-)
+) : Serializable
 
 data class imgProductDetailInfoResult(
     @SerializedName("infoUrl") val infoUrl: String

@@ -62,7 +62,7 @@
         android:background="@drawable/background_rec_10dp_red_stroke"
         android:backgroundTint="@color/main_red"
         android:gravity="center"
-        android:text="0원 결제하기"
+        android:text="0원 주문하기"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"

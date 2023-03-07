@@ -19,14 +19,14 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="앱 설명, 이름, 로고"
-            android:textColor="@color/main_text"
-            android:textSize="30sp"
+            android:layout_marginTop="12dp"
+            android:text="세종이의 집"
+            android:textColor="@color/main_red"
+            android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
         <TextView
             android:id="@+id/btn_signup"
@@ -71,7 +71,7 @@
             android:id="@+id/btn_no_login_enter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="@{(v)->activity.onClick(v)}"
             android:padding="4dp"
@@ -82,6 +82,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
             app:layout_constraintStart_toStartOf="@+id/btn_login" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/app_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

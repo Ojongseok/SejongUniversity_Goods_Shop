@@ -58,7 +58,7 @@ class SearchResultFragment : Fragment() {
 
     private fun setRvSearchResult() {
         CoroutineScope(Dispatchers.IO).launch {
-            response = viewModel.getAllProducts(MemberIdPost(0))
+            response = viewModel.getAllProducts()
 
             val keyword = arguments?.getString("searchKeyWord","")
             val searchResponse = response.filter {

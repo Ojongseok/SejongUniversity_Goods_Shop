@@ -19,7 +19,7 @@ class MainRepository(application: Application) {
     val productList = MutableLiveData<ProductListResponse>()
 
     // 메인화면, 상품 목록
-    suspend fun getAllProducts(memberId: MemberIdPost) = retrofitService.getAllProducts(memberId)
+    suspend fun getAllProducts() = retrofitService.getAllProducts("Bearer $myToken")
 
     // 상품 상세 정보
     suspend fun getProductDetail(itemId: Int) = retrofitService.getProductDetail("Bearer $myToken", itemId)

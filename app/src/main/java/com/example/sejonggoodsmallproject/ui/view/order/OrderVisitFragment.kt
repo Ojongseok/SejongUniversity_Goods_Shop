@@ -1,11 +1,15 @@
 package com.example.sejonggoodsmallproject.ui.view.order
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
@@ -13,8 +17,10 @@ import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.databinding.FragmentOrderVisitBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderPrevDialog
 import com.example.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import com.example.sejonggoodsmallproject.ui.viewmodel.ProductDetailViewModel
+import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,8 +56,26 @@ class OrderVisitFragment : Fragment() {
         }
 
         setRvOrderProduct()
+        observeEditText()
 
         binding.btnOrderVisitComplete.setOnClickListener {
+            setDialogOrderPrev()
+        }
+
+        binding.btnOrderVisitBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.horizon_exit_front)
+                .remove(this).commit()
+
+            requireActivity().onBackPressed()
+        }
+    }
+
+    private fun setDialogOrderPrev() {
+        val prevDialog = OrderPrevDialog(requireContext())
+        prevDialog.showDialog()
+
+        prevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
             val buyerName = binding.tvOrderVisitBuyerName.text.toString()
             val phoneNumber = binding.tvOrderVisitPhoneNumber.text.toString()
 
@@ -72,7 +96,21 @@ class OrderVisitFragment : Fragment() {
 
                         withContext(Dispatchers.Main) {
                             if (orderResponse.code() == 200) {
-                                Toast.makeText(requireContext(), "상세보기 주문 완료", Toast.LENGTH_SHORT).show()
+                                val orderCompleteFragment = OrderCompleteFragment()
+                                val bundle = Bundle()
+                                bundle.apply {
+                                    putString("orderType", "detail")
+                                    putSerializable("orderResponse", orderResponse.body())
+                                    putSerializable("optionPickedList", optionPickedList)
+                                    putSerializable("responseDetailList", responseDetailList)
+                                }
+                                orderCompleteFragment.arguments = bundle
+
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                                    .add(R.id.pd_main_container, orderCompleteFragment,"backStack")
+                                    .addToBackStack("backStack")
+                                    .commitAllowingStateLoss()
                             }
                         }
                     }
@@ -87,7 +125,21 @@ class OrderVisitFragment : Fragment() {
 
                         withContext(Dispatchers.Main) {
                             if (orderResponse.code() == 200) {
-                                Toast.makeText(requireContext(), "카트주문 완료", Toast.LENGTH_SHORT).show()
+                                val orderCompleteFragment = OrderCompleteFragment()
+                                val bundle = Bundle()
+                                bundle.apply {
+                                    putString("orderType", "cart")
+                                    putSerializable("orderResponse", orderResponse.body())
+                                    putSerializable("optionPickedList", optionPickedList)
+                                    putSerializable("responseCartList", responseCartList)
+                                }
+                                orderCompleteFragment.arguments = bundle
+
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.horizon_enter_front,0)
+                                    .add(R.id.main_container, orderCompleteFragment,"backStack")
+                                    .addToBackStack("backStack")
+                                    .commitAllowingStateLoss()
                             }
                         }
                     }
@@ -95,14 +147,7 @@ class OrderVisitFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "주문 정보를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        binding.btnOrderVisitBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.horizon_exit_front)
-                .remove(this).commit()
-
-            requireActivity().onBackPressed()
+            prevDialog.dialog.dismiss()
         }
     }
 
@@ -145,6 +190,35 @@ class OrderVisitFragment : Fragment() {
             responseCartList = arguments?.getSerializable("responseList") as ArrayList<CartListResponse>
         }
         optionPickedList = arguments?.getSerializable("optionPickedList") as ArrayList<OptionPicked>
+    }
+
+    private fun observeEditText() {
+        binding.tvOrderVisitBuyerName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                setCompleteBtn()
+            }
+        })
+        binding.tvOrderVisitPhoneNumber.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                setCompleteBtn()
+            }
+        })
+    }
+
+    private fun setCompleteBtn() {
+        if (binding.tvOrderVisitBuyerName.text.isNotEmpty() && binding.tvOrderVisitPhoneNumber.text.isNotEmpty()) {
+            binding.btnOrderVisitComplete.setBackgroundResource(R.drawable.background_rec_10dp_red_stroke_red_solid)
+        } else {
+            binding.btnOrderVisitComplete.setBackgroundResource(R.drawable.background_rec_10dp_grey_solid)
+        }
     }
 
     override fun onDestroy() {

@@ -205,19 +205,6 @@ class ProductDetailActivity : AppCompatActivity() {
                     .replace(R.id.lt_product_detail_buy, buyFragment)
                     .commit()
             }
-            R.id.btn_pd_help -> {
-                setPdHelp()
-            }
-        }
-    }
-
-    private fun setPdHelp() {
-        val pdHelpDialog = HelpDialog(this)
-
-        pdHelpDialog.showDialog()
-
-        pdHelpDialog.dialog.btn_dialog_pd_help_complete.setOnClickListener {
-            pdHelpDialog.dialog.dismiss()
         }
     }
 }

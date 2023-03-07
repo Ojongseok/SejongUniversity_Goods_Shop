@@ -65,15 +65,26 @@ class MypageFragment : Fragment() {
     private fun setOrderHistory() {
         CoroutineScope(Dispatchers.IO).launch {
             val allOrderList = viewModel.getOrderList()
-//            val orderVisitList = allOrderList.filter {
-//                it.orderMethod ==
-//            }
-//            val orderDeliveryList = allOrderList.filter {
-//
-//            }
+            val orderVisitList = allOrderList.filter {
+                it.orderMethod == "pickup"
+            }
+            val orderDeliveryList = allOrderList.filter {
+                it.orderMethod == "delivery"
+            }
+
+            var orderVisitCnt = 0
+            orderVisitList.forEach {
+                orderVisitCnt += it.orderItems.size
+            }
+
+            var orderDeliveryCnt = 0
+            orderDeliveryList.forEach {
+                orderDeliveryCnt += it.orderItems.size
+            }
 
             withContext(Dispatchers.Main) {
-                binding
+                binding.tvMypageOrderVisitCnt.text = orderVisitCnt.toString()
+                binding.tvMypageOrderDeliveryCnt.text = orderDeliveryCnt.toString()
             }
         }
     }

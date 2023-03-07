@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/background_rec_10dp_red_stroke"
         android:orientation="vertical"
         android:paddingLeft="12dp"
         android:paddingTop="12dp"
@@ -25,12 +23,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="업체명 : "
+                android:text="업체명"
                 android:textColor="@color/main_red"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -39,21 +39,32 @@
                 android:id="@+id/tv_pd_seller_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:text="TextView"
                 android:textColor="@color/main_text"
                 android:textSize="20sp" />
+
         </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shape_background">
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="연락처 : "
+                android:text="연락처"
                 android:textColor="@color/main_red"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -62,21 +73,31 @@
                 android:id="@+id/tv_pd_seller_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:text="TextView"
                 android:textColor="@color/main_text"
                 android:textSize="20sp" />
         </LinearLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shape_background">
+
+        </FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="위치 : "
+                android:text="계좌번호"
                 android:textColor="@color/main_red"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -85,21 +106,31 @@
                 android:id="@+id/tv_pd_seller_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:text="TextView"
                 android:textColor="@color/main_text"
                 android:textSize="20sp" />
         </LinearLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shape_background">
+
+        </FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="블로그 / 인스타 : "
+                android:text="계좌번호"
                 android:textColor="@color/main_red"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -108,9 +139,20 @@
                 android:id="@+id/tv_pd_seller_sns"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:text="TextView"
                 android:textColor="@color/main_text"
                 android:textSize="20sp" />
         </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shape_background">
+
+        </FrameLayout>
+
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

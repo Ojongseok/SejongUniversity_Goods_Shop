@@ -26,22 +26,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/app_logo" />
+
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="세종이의 집"
                 android:textColor="@color/main_red"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.545" />
 
             <ImageView
                 android:id="@+id/btn_search"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ripple_oval"
                 android:onClick="@{(v)->activity.onClick(v)}"
@@ -53,8 +64,8 @@
 
             <ImageView
                 android:id="@+id/btn_cart"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ripple_oval"
                 android:onClick="@{(v)->activity.onClick(v)}"
@@ -66,8 +77,8 @@
 
             <ImageView
                 android:id="@+id/btn_mypage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:background="@drawable/ripple_oval"
                 android:onClick="@{(v)->activity.onClick(v)}"
                 android:padding="4dp"
@@ -89,6 +100,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/btn_cart"
                 app:layout_constraintTop_toTopOf="@+id/btn_cart" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.tabs.TabLayout
@@ -96,15 +108,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
             app:tabIndicatorColor="@color/main_red"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main_red"
-            app:tabTextColor="@color/sub_text"
-            app:tabTextAppearance="@style/tabTextSizeBold">
+            app:tabTextAppearance="@style/tabTextSizeBold"
+            app:tabTextColor="@color/sub_text">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"

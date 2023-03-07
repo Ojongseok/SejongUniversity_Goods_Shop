@@ -275,6 +275,16 @@
                     app:layout_constraintStart_toStartOf="@+id/et_birth"
                     app:layout_constraintTop_toBottomOf="@+id/et_birth">
 
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_right" />
+
                     <CheckBox
                         android:id="@+id/checkbox_signup_terms"
                         android:layout_width="20dp"
@@ -291,7 +301,7 @@
 
                     <TextView
                         android:id="@+id/tv_show_terms"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="이용약관 (필수)"
@@ -299,6 +309,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView6"
                         app:layout_constraintStart_toEndOf="@+id/checkbox_signup_terms"
                         app:layout_constraintTop_toTopOf="parent" />
 

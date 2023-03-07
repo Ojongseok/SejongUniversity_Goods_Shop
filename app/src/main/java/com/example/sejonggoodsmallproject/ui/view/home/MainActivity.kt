@@ -54,20 +54,19 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            cartItemCount = viewModel.getAllProducts(MemberIdPost(intent.getStringExtra("memberId")!!.toLong()))[0].cartItemCount
-            withContext(Dispatchers.Main) {
-                binding.tvHomeCartCount.text = cartItemCount.toString()
+        if (MyApplication.prefs.getString("accessToken","") != "Not Login State") {
+            CoroutineScope(Dispatchers.IO).launch {
+                cartItemCount = viewModel.getAllProducts()[0].cartItemCount
+                withContext(Dispatchers.Main) {
+                    binding.tvHomeCartCount.text = cartItemCount.toString()
+                }
             }
         }
+
     }
 
     private fun setTabLayout() {
-        if (MyApplication.prefs.getString("accessToken","") == "Not Login State") {
-            setRvProductList(0)
-        } else {
-            setRvProductList(intent.getStringExtra("memberId")!!.toLong())
-        }
+        setRvProductList()
 
         binding.storeFragmentTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -78,9 +77,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setRvProductList(memberId : Long) {
+    private fun setRvProductList() {
         CoroutineScope(Dispatchers.IO).launch {
-            response = viewModel.getAllProducts(MemberIdPost(memberId))
+            response = viewModel.getAllProducts()
             result = response
 
             productListAdapter = ProductListAdapter(applicationContext, response)

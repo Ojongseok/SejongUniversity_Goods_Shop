@@ -1,6 +1,7 @@
 package com.example.sejonggoodsmallproject.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CartListResponse(
     @SerializedName("id") val id: Int,
@@ -14,7 +15,7 @@ data class CartListResponse(
     @SerializedName("repImage") val repImage: RepImageResult,
     @SerializedName("seller") val seller: String,
     @SerializedName("cartMethod") val cartMethod: String
-)
+) : Serializable
 
 data class RepImageResult(
     @SerializedName("id") val id: Long,
@@ -22,4 +23,4 @@ data class RepImageResult(
     @SerializedName("oriImgName") val oriImgName: String,
     @SerializedName("imgUrl") val imgUrl: String,
     @SerializedName("repImgUrl") val repImgUrl: String
-)
+) : Serializable

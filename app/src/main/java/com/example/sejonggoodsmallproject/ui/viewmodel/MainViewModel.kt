@@ -14,7 +14,7 @@ import retrofit2.Response
 class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
 
     // 전체상품 조회
-    suspend fun getAllProducts(memberId: MemberIdPost) = mainRepository.getAllProducts(memberId)
+    suspend fun getAllProducts() = mainRepository.getAllProducts()
 
     // 장바구니 조회
     suspend fun getCartList() = mainRepository.getCart()

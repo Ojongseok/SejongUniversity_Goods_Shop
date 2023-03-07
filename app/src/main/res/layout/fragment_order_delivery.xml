@@ -100,7 +100,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/background_rec_10dp_grey_stroke"
                     android:gravity="center_vertical"
-                    android:hint="휴대전화"
+                    android:hint="휴대전화 (010-1234-5678)"
                     android:paddingLeft="14dp"
                     android:textSize="14sp" />
 
@@ -184,10 +184,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/background_rec_10dp_red_stroke"
-        android:backgroundTint="@color/main_red"
+        android:background="@drawable/background_rec_10dp_grey_solid"
         android:gravity="center"
-        android:text="0원 결제하기"
+        android:text="0원 주문하기"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"

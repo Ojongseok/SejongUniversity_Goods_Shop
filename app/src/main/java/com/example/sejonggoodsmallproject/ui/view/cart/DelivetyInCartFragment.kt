@@ -52,7 +52,41 @@ class DelivetyInCartFragment : Fragment() {
             if (checkedList.containsAll(listOf(false))) {
                 Toast.makeText(requireContext(), "주문할 상품을 선택해주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                setDialogOrderPrev()
+                if (filteredList.isNotEmpty()) {
+                    val bundle = Bundle()
+                    val optionPickedList = ArrayList<OptionPicked>()
+                    val cartIdList = ArrayList<Long>()
+                    val filterCheckedList = ArrayList<CartListResponse>()
+
+                    for (i in 0 until filteredList.size) {
+                        if (checkedList[i]) {
+                            val optionPicked = OptionPicked(filteredList[i].color, filteredList[i].size, filteredList[i].quantity)
+                            optionPickedList.add(optionPicked)
+
+                            cartIdList.add(filteredList[i].id.toLong())
+                            filterCheckedList.add(filteredList[i])
+                        }
+                    }
+
+                    bundle.apply {
+                        putString("orderType", "cart")
+                        putSerializable("cartIdList", cartIdList)
+                        putSerializable("optionPickedList", optionPickedList)
+                        putSerializable("responseList", filterCheckedList)
+                    }
+
+                    val orderDeliveryFragment = OrderDeliveryFragment()
+                    orderDeliveryFragment.arguments = bundle
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.horizon_enter_front,0)
+                        .add(R.id.main_container, orderDeliveryFragment,"backStack")
+                        .addToBackStack("backStack")
+                        .commitAllowingStateLoss()
+
+                } else {
+                    Toast.makeText(context,"장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -212,50 +246,6 @@ class DelivetyInCartFragment : Fragment() {
             return priceList.joinToString("") + "원 주문하기"
         } else {
             return sum.toString() + "원 주문하기"
-        }
-    }
-
-    private fun setDialogOrderPrev() {
-        if (filteredList.isNotEmpty()) {
-            val cartOrderPrevDialog = OrderPrevDialog(requireContext())
-            cartOrderPrevDialog.showDialog()
-
-            cartOrderPrevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
-                val bundle = Bundle()
-                val optionPickedList = ArrayList<OptionPicked>()
-                val cartIdList = ArrayList<Long>()
-                val filterCheckedList = ArrayList<CartListResponse>()
-
-                for (i in 0 until filteredList.size) {
-                    if (checkedList[i]) {
-                        val optionPicked = OptionPicked(filteredList[i].color, filteredList[i].size, filteredList[i].quantity)
-                        optionPickedList.add(optionPicked)
-
-                        cartIdList.add(filteredList[i].id.toLong())
-                        filterCheckedList.add(filteredList[i])
-                    }
-                }
-
-                bundle.apply {
-                    putString("orderType", "cart")
-                    putSerializable("cartIdList", cartIdList)
-                    putSerializable("optionPickedList", optionPickedList)
-                    putSerializable("responseList", filterCheckedList)
-                }
-
-                val orderDeliveryFragment = OrderDeliveryFragment()
-                orderDeliveryFragment.arguments = bundle
-
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.horizon_enter_front,0)
-                    .add(R.id.main_container, orderDeliveryFragment,"backStack")
-                    .addToBackStack("backStack")
-                    .commitAllowingStateLoss()
-
-                cartOrderPrevDialog.dialog.dismiss()
-            }
-        } else {
-            Toast.makeText(context,"장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show()
         }
     }
     override fun onDestroy() {

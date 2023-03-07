@@ -56,11 +56,13 @@
             app:tabTextColor="@color/sub_text">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tv_cart_tab_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="현장 수령" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tv_cart_tab_2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="택배 수령" />

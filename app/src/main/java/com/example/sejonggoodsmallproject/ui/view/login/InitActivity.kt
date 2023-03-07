@@ -19,6 +19,13 @@ class InitActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.activity = this
+
+        if (MyApplication.prefs.getString("accessToken","") != "Not Login State") {
+            Toast.makeText(applicationContext, "환영합니다 :)", Toast.LENGTH_SHORT).show()
+
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
+        }
     }
 
     fun onClick(view: View) {
@@ -40,10 +47,7 @@ class InitActivity : AppCompatActivity() {
                 MyApplication.prefs.setString("accessToken", "Not Login State")
 
                 Toast.makeText(applicationContext, "환영합니다 :)", Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                intent.putExtra("memberId", "0")
-                startActivity(intent)
+                startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
         }

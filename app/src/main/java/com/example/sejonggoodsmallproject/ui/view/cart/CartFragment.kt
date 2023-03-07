@@ -30,9 +30,6 @@ class CartFragment : Fragment() {
     private var _binding : FragmentCartBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel : MainViewModel
-    private lateinit var cartListAdapter: CartListAdapter
-    private lateinit var responseList : MutableList<CartListResponse>
-    private lateinit var checkedList : MutableList<Boolean>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCartBinding.inflate(inflater, container,false)
