@@ -85,6 +85,8 @@ class MainActivity : AppCompatActivity() {
             productListAdapter = ProductListAdapter(applicationContext, response)
 
             withContext(Dispatchers.Main) {
+                binding.pbMain.visibility = View.GONE
+
                 binding.rvProductList.apply {
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(applicationContext)

@@ -18,7 +18,6 @@ class FavoriteThumbnailAdapter(private val context: Context, private val list: L
     inner class CustomViewHolder(private val binding: ItemFavoriteProductBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FavoriteListResponse) {
             binding.model = item
-            Log.d("tag",item.toString())
             Glide.with(context).load(item.repImage.oriImgName).into(binding.ivItemFavoriteProduct)
         }
     }

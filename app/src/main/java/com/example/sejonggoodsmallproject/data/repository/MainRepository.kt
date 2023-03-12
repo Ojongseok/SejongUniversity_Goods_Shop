@@ -16,7 +16,6 @@ import retrofit2.Response
 
 class MainRepository(application: Application) {
     val myToken = MyApplication.prefs.getString("accessToken","")
-    val productList = MutableLiveData<ProductListResponse>()
 
     // 메인화면, 상품 목록
     suspend fun getAllProducts() = retrofitService.getAllProducts("Bearer $myToken")

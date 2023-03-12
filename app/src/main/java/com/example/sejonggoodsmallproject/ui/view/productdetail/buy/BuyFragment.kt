@@ -61,7 +61,7 @@ class BuyFragment : Fragment() {
                 if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
                     Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
                 } else {
-                    setDialogCartType()
+                    setDialogCartType(response.seller.method)
                 }
             }
         }
@@ -73,16 +73,29 @@ class BuyFragment : Fragment() {
                 if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
                     Toast.makeText(requireContext(), "옵션을 선택해주세요.",Toast.LENGTH_SHORT).show()
                 } else {
-                    setDialogOrderType()
+                    setDialogOrderType(response.seller.method)
                 }
             }
         }
     }
 
-    private fun setDialogCartType() {
+    private fun setDialogCartType(type: String) {
         val cartTypeDialog = CartTypeDialog(requireContext())
-
         cartTypeDialog.showDialog()
+
+        when(type) {
+            "pickup" -> {
+                cartTypeDialog.dialog.btn_dialog_cart_type_delivery.visibility = View.GONE
+                cartTypeDialog.dialog.tv_contents_dialog_cart_add_type.text = "해당 상품은 현장수령만 가능합니다."
+            }
+            "delivery" -> {
+                cartTypeDialog.dialog.btn_dialog_cart_type_visit.visibility = View.GONE
+                cartTypeDialog.dialog.tv_contents_dialog_cart_add_type.text = "해당 상품은 택배수령만 가능합니다."
+            }
+            "both" -> {
+                cartTypeDialog.dialog.tv_contents_dialog_cart_add_type.text = "해당 상품은 택배수령/현장수령 모두 가능합니다."
+            }
+        }
 
         cartTypeDialog.dialog.btn_dialog_cart_type_visit.setOnClickListener {
             if (option1 == "옵션1 선택하기" || option2 == "옵션2 선택하기") {
@@ -134,9 +147,23 @@ class BuyFragment : Fragment() {
         }
     }
 
-    private fun setDialogOrderType() {
+    private fun setDialogOrderType(type: String) {
         val orderTypeDialog = OrderTypeDialog(requireContext())
         orderTypeDialog.showDialog()
+
+        when(type) {
+            "pickup" -> {
+                orderTypeDialog.dialog.btn_dialog_order_type_delivery.visibility = View.GONE
+                orderTypeDialog.dialog.tv_contents_dialog_order_type.text = "해당 상품은 현장수령만 가능합니다."
+            }
+            "delivery" -> {
+                orderTypeDialog.dialog.btn_dialog_order_type_visit.visibility = View.GONE
+                orderTypeDialog.dialog.tv_contents_dialog_order_type.text = "해당 상품은 택배수령만 가능합니다."
+            }
+            "both" -> {
+                orderTypeDialog.dialog.tv_contents_dialog_order_type.text = "해당 상품은 택배수령/현장수령 모두 가능합니다."
+            }
+        }
 
         // 방문 수령하기
         orderTypeDialog.dialog.btn_dialog_order_type_visit.setOnClickListener {

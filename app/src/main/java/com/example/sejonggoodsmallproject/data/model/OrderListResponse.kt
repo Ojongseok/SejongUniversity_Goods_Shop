@@ -1,6 +1,7 @@
 package com.example.sejonggoodsmallproject.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class OrderListResponse(
     @SerializedName("id") val id: Long,
@@ -12,13 +13,13 @@ data class OrderListResponse(
     @SerializedName("status") val status: String,
     @SerializedName("orderItems") val orderItems: List<OrderListItems>,
     @SerializedName("seller") val seller: OrderListSeller
-)
+) : Serializable
 
 data class OrderListAddress(
     @SerializedName("mainAddress") val mainAddress: String,
     @SerializedName("detailAddress") val detailAddress: String,
     @SerializedName("zipcode") val zipcode: String
-)
+) : Serializable
 
 data class OrderListItems(
     @SerializedName("itemId") val itemId: Long,
@@ -26,7 +27,7 @@ data class OrderListItems(
     @SerializedName("size") val size: String,
     @SerializedName("quantity") val quantity: Int,
     @SerializedName("price") val price: Int
-)
+) : Serializable
 
 data class OrderListSeller(
     @SerializedName("id") val id: Int,
@@ -36,4 +37,4 @@ data class OrderListSeller(
     @SerializedName("bank") val bank: String,
     @SerializedName("account") val account: String,
     @SerializedName("method") val method: String
-)
+) : Serializable
