@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.databinding.FragmentOrderDeliveryBinding
+import com.example.sejonggoodsmallproject.ui.view.cart.CartFragment
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.example.sejonggoodsmallproject.ui.view.productdetail.buy.OrderPrevDialog
@@ -130,6 +131,8 @@ class OrderDeliveryFragment : Fragment() {
                                 }
                                 orderCompleteFragment.arguments = bundle
 
+                                requireActivity().supportFragmentManager.popBackStack()
+
                                 requireActivity().supportFragmentManager.beginTransaction()
                                     .setCustomAnimations(R.anim.horizon_enter_front, 0)
                                     .add(R.id.pd_main_container, orderCompleteFragment, "backStack")
@@ -161,9 +164,11 @@ class OrderDeliveryFragment : Fragment() {
                                 }
                                 orderCompleteFragment.arguments = bundle
 
+                                requireActivity().supportFragmentManager.popBackStack()
+
                                 requireActivity().supportFragmentManager.beginTransaction()
                                     .setCustomAnimations(R.anim.horizon_enter_front, 0)
-                                    .add(R.id.main_container, orderCompleteFragment, "backStack")
+                                    .replace(R.id.main_container, orderCompleteFragment, "backStack")
                                     .addToBackStack("backStack")
                                     .commitAllowingStateLoss()
                             }

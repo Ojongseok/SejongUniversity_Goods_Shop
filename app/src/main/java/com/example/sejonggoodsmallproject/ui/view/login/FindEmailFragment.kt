@@ -48,10 +48,18 @@ class FindEmailFragment : Fragment() {
                 }
             }
         }
+
+        binding.btnFindPasswordComplete.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.horizon_enter_front,0)
+                .add(R.id.init_container, FindPasswordFragment(),"backStack")
+                .addToBackStack("backStack")
+                .commitAllowingStateLoss()
+        }
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         _binding = null
+        super.onDestroy()
     }
 }

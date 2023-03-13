@@ -24,6 +24,22 @@
         app:layout_constraintStart_toStartOf="@+id/et_find_email_birth"
         app:layout_constraintTop_toBottomOf="@+id/et_find_email_birth" />
 
+    <TextView
+        android:id="@+id/btn_find_password_complete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_rec_10dp_red_stroke"
+        android:gravity="center"
+        android:padding="13dp"
+        android:text="비밀번호 찾기"
+        android:textColor="@color/main_red"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_find_email_birth"
+        app:layout_constraintStart_toStartOf="@+id/et_find_email_birth"
+        app:layout_constraintTop_toBottomOf="@+id/btn_find_email_complete" />
+
     <EditText
         android:id="@+id/et_find_email_name"
         android:layout_width="0dp"
@@ -95,12 +111,12 @@
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         android:text="이메일 찾기 결과"
         android:textColor="@color/main_text"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/btn_find_email_complete"
-        app:layout_constraintTop_toBottomOf="@+id/btn_find_email_complete" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_find_password_complete" />
 
     <TextView
         android:id="@+id/tv_find_emall_result"

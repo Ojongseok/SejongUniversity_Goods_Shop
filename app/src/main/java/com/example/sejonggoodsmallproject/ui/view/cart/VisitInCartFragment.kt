@@ -45,8 +45,6 @@ class VisitInCartFragment : Fragment() {
 
         viewModel = (activity as MainActivity).viewModel
 
-        setCartList()
-
         binding.btnBuyCompleteCartVisit.setOnClickListener {
             if (checkedList.containsAll(listOf(false))) {
                 Toast.makeText(requireContext(), "주문할 상품을 선택해주세요.", Toast.LENGTH_SHORT).show()
@@ -104,6 +102,12 @@ class VisitInCartFragment : Fragment() {
                 cartListAdapter.rvRefresh()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setCartList()
     }
 
     private fun setDialogRemove(position: Int) {

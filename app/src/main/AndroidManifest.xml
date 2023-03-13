@@ -31,7 +31,7 @@
         </activity>
         <activity android:name=".ui.view.productdetail.ProductDetailActivity" />
         <activity android:name=".ui.view.home.MainActivity" />
-        <activity android:name=".ui.view.login.InitActivity" />
+        <activity android:name=".ui.view.login.InitActivity" android:windowSoftInputMode = "adjustResize" />
         <activity android:name=".ui.view.order.WebViewActivity"/>
     </application>
 </manifest>

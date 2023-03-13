@@ -101,6 +101,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_favorite_list" />
 
+                <TextView
+                    android:id="@+id/tv_empty_favorite_list"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:gravity="center"
+                    android:text="찜한 상품이 없습니다."
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/btn_favorite_list"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_favorite_list" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

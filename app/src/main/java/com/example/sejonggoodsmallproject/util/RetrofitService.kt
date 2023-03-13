@@ -23,6 +23,24 @@ interface RetrofitService {
         @Body findEmailPost: FindEmailPost
     ) : Response<FindEmailResponse>
 
+    // 1.4 비밀번호 찾기
+    @POST("auth/find/password")
+    suspend fun findPassword(
+        @Body findPasswordPost: FindPasswordPost
+    ) : Response<FindPasswordResponse>
+
+    // 1.5 비밀번호 찾기 - 인증번호 일치 확인
+    @POST("auth/check/authNumber")
+    suspend fun findPasswordCheck(
+        @Body findPasswordPost2: FindPasswordPost2
+    ) : Response<FindPasswordResponse2>
+
+    // 1.6 비밀번호 변경
+    @POST("auth/update/password")
+    suspend fun updatePassword(
+        @Body findPasswordPost3: FindPasswordPost3
+    ) : Response<FindPasswordResponse3>
+
     // 3.2 전체상품 조회
     @GET("items/all")
     suspend fun getAllProducts(

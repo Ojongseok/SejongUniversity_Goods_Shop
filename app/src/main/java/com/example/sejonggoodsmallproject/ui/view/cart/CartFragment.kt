@@ -42,7 +42,6 @@ class CartFragment : Fragment() {
 
         setTabLayout()
 
-
         binding.btnCartBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.horizon_exit_front)

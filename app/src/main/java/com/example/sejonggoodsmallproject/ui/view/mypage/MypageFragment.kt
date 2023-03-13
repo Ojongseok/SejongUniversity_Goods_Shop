@@ -1,5 +1,6 @@
 package com.example.sejonggoodsmallproject.ui.view.mypage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -94,6 +95,7 @@ class MypageFragment : Fragment() {
         }
     }
 
+
     private fun setLoginDialog() {
         val loginDialog = LoginDialog(requireContext())
 
@@ -170,6 +172,12 @@ class MypageFragment : Fragment() {
             val response = viewModel.getFavoriteList()
 
             withContext(Dispatchers.Main) {
+                if (response.isEmpty()) {
+                    binding.tvEmptyFavoriteList.visibility = View.VISIBLE
+                } else {
+                    binding.tvEmptyFavoriteList.visibility = View.INVISIBLE
+                }
+
                 favoriteThumbnailAdapter = FavoriteThumbnailAdapter(requireContext(), response)
 
                 binding.rvFavoriteThumbnail.apply {

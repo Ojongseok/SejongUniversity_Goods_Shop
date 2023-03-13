@@ -97,6 +97,7 @@
         android:id="@+id/tv_item_order_complete_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:text="TextView"
         android:textColor="@color/main_red"
         android:textSize="13sp"

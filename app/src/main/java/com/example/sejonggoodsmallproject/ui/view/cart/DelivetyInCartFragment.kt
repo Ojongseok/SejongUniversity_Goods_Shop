@@ -46,7 +46,6 @@ class DelivetyInCartFragment : Fragment() {
 
         viewModel = (activity as MainActivity).viewModel
 
-        setCartList()
 
         binding.btnBuyCompleteCartDelivery.setOnClickListener {
             if (checkedList.containsAll(listOf(false))) {
@@ -106,6 +105,12 @@ class DelivetyInCartFragment : Fragment() {
                 cartListAdapter.rvRefresh()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setCartList()
     }
 
     private fun setDialogRemove(position: Int) {
