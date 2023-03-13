@@ -3,10 +3,7 @@ package com.example.sejonggoodsmallproject.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sejonggoodsmallproject.data.model.MemberIdPost
-import com.example.sejonggoodsmallproject.data.model.OrderCartPost
-import com.example.sejonggoodsmallproject.data.model.OrderCartResponse
-import com.example.sejonggoodsmallproject.data.model.ProductListResponse
+import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.data.repository.MainRepository
 import com.example.sejonggoodsmallproject.data.room.RecentSearchModel
 import retrofit2.Response
@@ -33,6 +30,11 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
 
     // 찜한 상품 조회
     suspend fun getFavoriteList() = mainRepository.getFavoriteList()
+
+    // 상품상세 조회
+    suspend fun getProductDetail(itemId: Int) : Response<ProductDetailResponse> {
+        return mainRepository.getProductDetail(itemId)
+    }
 
     // Search 관련
     fun getRecentSearchItemsList() : LiveData<List<RecentSearchModel>> {

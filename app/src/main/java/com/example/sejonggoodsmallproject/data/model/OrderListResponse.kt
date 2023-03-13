@@ -12,7 +12,6 @@ data class OrderListResponse(
     @SerializedName("address") val address: OrderListAddress,
     @SerializedName("status") val status: String,
     @SerializedName("orderItems") val orderItems: List<OrderListItems>,
-    @SerializedName("seller") val seller: OrderListSeller
 ) : Serializable
 
 data class OrderListAddress(
@@ -26,7 +25,8 @@ data class OrderListItems(
     @SerializedName("color") val color: String,
     @SerializedName("size") val size: String,
     @SerializedName("quantity") val quantity: Int,
-    @SerializedName("price") val price: Int
+    @SerializedName("price") val price: Int,
+    @SerializedName("seller") val seller: OrderListSeller
 ) : Serializable
 
 data class OrderListSeller(

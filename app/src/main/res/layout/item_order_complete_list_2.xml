@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingTop="12dp"
     android:paddingBottom="12dp">
 
@@ -51,24 +51,24 @@
         android:id="@+id/tv_item_order_complete_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"
         android:text="Tex"
         android:textColor="@color/main_text"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_pd_seller_map2"
-        app:layout_constraintStart_toEndOf="@+id/tv_pd_seller_map2"
-        app:layout_constraintTop_toTopOf="@+id/tv_pd_seller_map2" />
+        app:layout_constraintStart_toStartOf="@+id/tv_item_order_complete_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_order_complete_title" />
 
     <TextView
         android:id="@+id/tv_item_order_complete_seller"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="8dp"
         android:text="업체명"
         android:textColor="#D6983B"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_order_complete_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_order_complete_title" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_pd_seller_map2"
+        app:layout_constraintStart_toEndOf="@+id/tv_pd_seller_map2"
+        app:layout_constraintTop_toTopOf="@+id/tv_pd_seller_map2" />
 
     <TextView
         android:id="@+id/tv_item_order_complete_price"
@@ -91,7 +91,7 @@
         android:textColor="@color/sub_text"
         android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_item_order_complete_price"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_order_complete_seller" />
+        app:layout_constraintStart_toStartOf="@+id/tv_item_order_complete_title" />
 
     <TextView
         android:id="@+id/tv_item_order_complete_status"

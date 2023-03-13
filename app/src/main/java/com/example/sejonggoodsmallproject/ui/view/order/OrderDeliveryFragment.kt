@@ -67,6 +67,7 @@ class OrderDeliveryFragment : Fragment() {
                 binding.tvOrderDeliveryAdress1.text = data
             }
         }
+
         binding.tvOrderDeliveryAdress1.setOnClickListener {
             val intent = Intent(requireActivity(), WebViewActivity::class.java)
             childForResult.launch(intent)
@@ -139,10 +140,7 @@ class OrderDeliveryFragment : Fragment() {
                     }
                 } else if (orderType == "cart") {
                     val cartIdList = arguments?.getSerializable("cartIdList") as List<Long>
-                    val orderCartPost = OrderCartPost(
-                        buyerName,
-                        phoneNumber,
-                        "delivery",
+                    val orderCartPost = OrderCartPost(buyerName, phoneNumber, "delivery",
                         OcpAddress(null, null, null),
                         cartIdList,
                         null

@@ -27,9 +27,6 @@ class ProductSellerFragment : Fragment() {
 
         binding.tvPdSellerName.text = arg.name
         binding.tvPdSellerPhoneNumber.text = arg.phoneNumber
-        binding.tvPdSellerMap.text = "업체 위치"
-        binding.tvPdSellerSns.text = "블로그나 인스타"
-
     }
 
     override fun onDestroy() {

@@ -13,6 +13,9 @@ import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.databinding.FragmentOrderCompleteBinding
 import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
+import com.example.sejonggoodsmallproject.ui.view.mypage.MypageFragment
+import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 
 class OrderCompleteFragment : Fragment() {
     private var _binding : FragmentOrderCompleteBinding? = null
@@ -39,9 +42,17 @@ class OrderCompleteFragment : Fragment() {
 
         binding.btnOrderCompleteBack.setOnClickListener {
             if (orderType == "detail") {
-                requireActivity().finish()
+                (activity as ProductDetailActivity).finish()
             } else if (orderType == "cart") {
                 requireActivity().supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            }
+        }
+        binding.btnGoOrderList.setOnClickListener {
+            if (orderType == "detail") {
+                (activity as ProductDetailActivity).finish()
+            } else if (orderType == "cart") {
+                requireActivity().supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
             }
         }
 

@@ -184,7 +184,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/background_rec_10dp_grey_solid"
+        android:background="@drawable/background_rec_10dp_red_stroke_red_solid"
         android:gravity="center"
         android:text="0원 주문하기"
         android:textColor="@color/white"

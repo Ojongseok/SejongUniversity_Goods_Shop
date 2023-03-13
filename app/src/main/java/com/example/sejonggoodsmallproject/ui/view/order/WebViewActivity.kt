@@ -1,5 +1,6 @@
 package com.example.sejonggoodsmallproject.ui.view.order
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
@@ -10,53 +11,39 @@ import android.os.PowerManager
 import android.view.View
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
-
+import com.example.sejonggoodsmallproject.R
 
 class WebViewActivity : AppCompatActivity() {
-    private lateinit var browser: WebView
-
-    internal inner class MyJavaScriptInterface {
-        @JavascriptInterface
-        fun processDATA(data: String?) {
-            val extra = Bundle()
-            val intent = Intent()
-            extra.putString("data", data)
-            intent.putExtras(extra)
-            setResult(RESULT_OK, intent)
-            finish()
-        }
+    companion object {
+        const val ADDRESS_REQUEST_CODE = 2928
     }
-
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.sejonggoodsmallproject.R.layout.activity_web_view)
+        setContentView(R.layout.activity_web_view)
 
-        browser = findViewById<View>(com.example.sejonggoodsmallproject.R.id.webView) as WebView
+        val webView = findViewById<WebView>(R.id.webView)
 
-        browser.getSettings().setJavaScriptEnabled(true)
-        browser.getSettings().setDomStorageEnabled(true)
-        browser.addJavascriptInterface(MyJavaScriptInterface(), "Android")
+        webView.settings.javaScriptEnabled = true
 
-        browser.webViewClient = object : WebViewClient() {
-            override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError
-            ) {
-                handler.proceed() // SSL 에러가 발생해도 계속 진행
-            }
-
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
-                return true
+        webView.addJavascriptInterface(KaKaoJavaScriptInterface(), "Android")
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String) {
+                webView.loadUrl("javascript:execKakaoPostcode();")
             }
         }
+        // Kakao에서 https를 허용하지 않아서 https -> http로 바꿔야 동작함 (중요!!)
+        webView.loadUrl("http://ojongseok.github.io/")
+    }
 
-        //ssl 인증이 없는 경우 해결을 위한 부분
-        browser.setWebChromeClient(object : WebChromeClient() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            override fun onPermissionRequest(request: PermissionRequest) {
-                request.grant(request.resources)
+    inner class KaKaoJavaScriptInterface {
+        @JavascriptInterface
+        fun processDATA(address: String?) {
+            Intent().apply {
+                putExtra("address", address)
+                setResult(RESULT_OK, this)
             }
-        })
-
-        browser.loadUrl("https://ojongseok.github.io/index.html")
+            finish()
+        }
     }
 }

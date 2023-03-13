@@ -4,28 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.mypage.OrderCompleteListFragment"
+    tools:context=".ui.view.mypage.OrderCompleteDetailFragment"
     android:background="@color/white"
     android:clickable="true">
 
+    <TextView
+        android:id="@+id/tv_item_order_complete_detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:text="주문일자 : 2222-22-"
+        android:textColor="@color/main_text"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+
     <ImageView
-        android:id="@+id/btn_order_complete_list_back"
+        android:id="@+id/btn_order_complete_detail_back"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/ripple_oval"
         android:padding="4dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintBottom_toBottomOf="@+id/textView28"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView28" />
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="주문 내역"
+        android:text="주문 상세 내역"
         android:textColor="@color/main_text"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -37,31 +50,22 @@
         android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:background="@color/shape_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28">
+        app:layout_constraintTop_toBottomOf="@+id/btn_order_complete_detail_back">
 
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_order_complete_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/rv_order_complete_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="＊1~2일 이내 입금 내역을 전달받아 배송 상태가 변경됩니다.  "
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/btn_order_complete_list_back"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_order_complete_detail_date" />
 </androidx.constraintlayout.widget.ConstraintLayout>
