@@ -14,7 +14,8 @@ data class ProductDetailResponse(
     @SerializedName("itemImages") val img: List<imgProductDetailResult>,
     @SerializedName("seller") val seller: Seller,
     @SerializedName("scrapCount") val scrapCount: Int,
-    @SerializedName("scraped") var scraped: Boolean
+    @SerializedName("scraped") var scraped: Boolean,
+    @SerializedName("deliveryFee") var deliveryFee: Int
 ): Serializable
 
 data class Seller(

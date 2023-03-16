@@ -14,7 +14,6 @@ import com.example.sejonggoodsmallproject.databinding.FragmentTermsBinding
 class TermsFragment : Fragment() {
     private var _binding : FragmentTermsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentTermsBinding.inflate(inflater, container,false)
@@ -29,6 +28,8 @@ class TermsFragment : Fragment() {
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this@TermsFragment)
                 .commit()
+
+            requireActivity().onBackPressed()
         }
 
         binding.btnSignupTermsAgree.setOnClickListener {
@@ -36,21 +37,9 @@ class TermsFragment : Fragment() {
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this@TermsFragment)
                 .commit()
-        }
-    }
+            requireActivity().onBackPressed()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@TermsFragment)
-                    .commit()
-            }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onDestroy() {

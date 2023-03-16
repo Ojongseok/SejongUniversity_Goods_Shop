@@ -79,6 +79,7 @@ class MypageFragment : Fragment() {
         binding.tvMypageBoard.setOnClickListener {
             Toast.makeText(requireContext(), "업데이트 준비중입니다.", Toast.LENGTH_SHORT).show()
         }
+
         binding.tvMypageTerms1.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front, 0)
@@ -86,6 +87,7 @@ class MypageFragment : Fragment() {
                 .addToBackStack("backStack")
                 .commitAllowingStateLoss()
         }
+
         binding.tvMypageTerms2.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front, 0)

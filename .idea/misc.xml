@@ -37,7 +37,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/drawable/ripple_oval.xml" value="0.1195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_init.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_product_detail.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_product_detail.xml" value="0.536" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_search.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_splash.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/activity_web_view.xml" value="0.25364583333333335" />
@@ -91,9 +91,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_cart_list.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_favorite_product.xml" value="0.536" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_imageview.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_order_complete_detail.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_order_complete_list.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_order_complete_list_2.xml" value="0.264" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_order_complete_product_list.xml" value="0.6" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_order_complete_product_list.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_order_product_list.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_list.xml" value="0.4" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SejongGoodsMallProject/app/src/main/res/layout/item_product_somenail.xml" value="0.2526041666666667" />

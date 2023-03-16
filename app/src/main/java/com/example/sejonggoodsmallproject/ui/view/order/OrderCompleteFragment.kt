@@ -1,6 +1,5 @@
 package com.example.sejonggoodsmallproject.ui.view.order
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,13 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sejonggoodsmallproject.R
 import com.example.sejonggoodsmallproject.data.model.*
 import com.example.sejonggoodsmallproject.databinding.FragmentOrderCompleteBinding
-import com.example.sejonggoodsmallproject.ui.view.home.MainActivity
-import com.example.sejonggoodsmallproject.ui.view.mypage.MypageFragment
 import com.example.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
-import com.example.sejonggoodsmallproject.ui.view.search.SearchFragment
 
 class OrderCompleteFragment : Fragment() {
     private var _binding : FragmentOrderCompleteBinding? = null

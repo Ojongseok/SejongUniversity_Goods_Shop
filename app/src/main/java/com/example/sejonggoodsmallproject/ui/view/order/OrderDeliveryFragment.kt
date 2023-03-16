@@ -107,14 +107,8 @@ class OrderDeliveryFragment : Fragment() {
                     val mlist = mutableListOf<OdpOrderItems>()
                     mlist.add(orderDetailPostInfo)
 
-                    val orderDetailPost = OrderDetailPost(
-                        buyerName,
-                        phoneNumber,
-                        "delivery",
-                        OdpAddress(null, null, null),
-                        mlist,
-                        null
-                    )
+                    val orderDetailPost = OrderDetailPost(buyerName, phoneNumber, "delivery",
+                        OdpAddress(null, null, null), mlist, null)
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val orderResponse = viewModel.postOrderInDetail(orderDetailPost, itemId)
@@ -144,10 +138,7 @@ class OrderDeliveryFragment : Fragment() {
                 } else if (orderType == "cart") {
                     val cartIdList = arguments?.getSerializable("cartIdList") as List<Long>
                     val orderCartPost = OrderCartPost(buyerName, phoneNumber, "delivery",
-                        OcpAddress(null, null, null),
-                        cartIdList,
-                        null
-                    )
+                        OcpAddress(null, null, null), cartIdList, null)
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val orderResponse = mainViewModel.postOrderInCart(orderCartPost)
@@ -223,8 +214,6 @@ class OrderDeliveryFragment : Fragment() {
         }
         optionPickedList = arguments?.getSerializable("optionPickedList") as ArrayList<OptionPicked>
     }
-
-
 
     override fun onDestroy() {
         super.onDestroy()

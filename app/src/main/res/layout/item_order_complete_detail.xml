@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/iv_item_cart_cardview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_product"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_item_order_product_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="text"
+            android:textColor="@color/main_text"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iv_item_cart_cardview"
+            app:layout_constraintTop_toTopOf="@+id/iv_item_cart_cardview" />
+
+        <TextView
+            android:id="@+id/tv_pd_seller_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="ㅣ"
+            android:textColor="@color/main_text"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_item_order_product_title"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_order_product_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_item_order_product_title" />
+
+        <TextView
+            android:id="@+id/tv_item_order_product_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Tex"
+            android:textColor="@color/main_text"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_order_product_title" />
+
+        <TextView
+            android:id="@+id/tv_item_order_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="업체명"
+            android:textColor="#D6983B"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_pd_seller_map"
+            app:layout_constraintStart_toEndOf="@+id/tv_pd_seller_map"
+            app:layout_constraintTop_toTopOf="@+id/tv_pd_seller_map" />
+
+        <TextView
+            android:id="@+id/tv_item_order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_cart_cardview"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title" />
+
+        <TextView
+            android:id="@+id/tv_item_order_product_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_item_order_price"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_item_cart_cardview">
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="예금주명"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout7" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="입금은행"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout8" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="계좌번호"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout9" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="수령인"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout10" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="휴대전화"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout11" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="요청사항"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout12" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout9"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26">
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_order_complete_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView21"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_bank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView24"
+            app:layout_constraintStart_toStartOf="@+id/tv_order_complete_name"
+            app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_bank_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView26"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_buyer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_buyer_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout11" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/textView35" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout11"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView33"/>
+
+        <FrameLayout
+            android:id="@+id/frameLayout12"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_order_complete_buyer_number" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

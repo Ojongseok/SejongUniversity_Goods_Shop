@@ -65,9 +65,14 @@ class OrderCompleteListFragment : Fragment() {
 
         orderCompleteListAdapter.setItemClickListener(object : OrderCompleteListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
+                val frg = OrderCompleteDetailFragment()
+                val bundle = Bundle()
+                bundle.putSerializable("response", response[position])
+                frg.arguments = bundle
+
                 requireActivity().supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.horizon_enter_front,0)
-                    .add(R.id.main_container, OrderCompleteDetailFragment(),"backStack")
+                    .add(R.id.main_container, frg,"backStack")
                     .addToBackStack("backStack")
                     .commitAllowingStateLoss()
 
