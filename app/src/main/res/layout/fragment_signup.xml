@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.example.sejonggoodsmallproject.ui.view.login.SignupFragment" />
+            type="com.sejong.sejonggoodsmallproject.ui.view.login.SignupFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

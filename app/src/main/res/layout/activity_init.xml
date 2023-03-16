@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activity"
-            type="com.example.sejonggoodsmallproject.ui.view.login.InitActivity" />
+            type="com.sejong.sejonggoodsmallproject.ui.view.login.InitActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.example.sejonggoodsmallproject.ui.view.search.SearchFragment" />
+            type="com.sejong.sejonggoodsmallproject.ui.view.search.SearchFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
