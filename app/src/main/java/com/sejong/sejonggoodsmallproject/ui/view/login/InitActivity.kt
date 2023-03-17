@@ -20,6 +20,8 @@ class InitActivity : AppCompatActivity() {
 
         binding.activity = this
 
+//        MyApplication.prefs.setString("accessToken", "Not Login State")
+
         if (MyApplication.prefs.getString("accessToken","") != "Not Login State") {
             Toast.makeText(applicationContext, "환영합니다 :)", Toast.LENGTH_SHORT).show()
 

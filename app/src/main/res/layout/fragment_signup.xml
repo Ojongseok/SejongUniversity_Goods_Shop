@@ -259,7 +259,7 @@
                     android:background="@drawable/background_rec_10dp_red_stroke"
                     android:ems="10"
                     android:hint="생년월일 (YYYY-MM-DD)"
-                    android:inputType="date"
+                    android:inputType="phone"
                     android:padding="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/et_name"
                     app:layout_constraintStart_toStartOf="@+id/et_name"

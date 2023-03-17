@@ -51,10 +51,13 @@ class LoginFragment : Fragment() {
                                 startActivity(Intent(requireContext(), MainActivity()::class.java))
                                 requireActivity().finish()
                             }
-
                             400 -> {
                                 binding.pbLogin.visibility = View.INVISIBLE
                                 Toast.makeText(requireContext(),"이메일 및 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
+                            }
+                            else -> {
+                                binding.pbLogin.visibility = View.INVISIBLE
+                                Toast.makeText(requireContext(),"오류입니다",Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

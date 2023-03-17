@@ -167,6 +167,9 @@ class SignupFragment : Fragment() {
         binding.etBirth.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun afterTextChanged(p0: Editable?) {
                 val birthArray = binding.etBirth.text.toString().split("-")
                 if (birthArray.size == 3 && binding.etBirth.text.toString().length == 10) {
                     if (birthArray[0].length == 4 && birthArray[1].length == 2 && birthArray[2].length == 2) {
@@ -177,7 +180,6 @@ class SignupFragment : Fragment() {
                 }
                 setSignupBtnFlag()
             }
-            override fun afterTextChanged(p0: Editable?) { }
         })
     }
 
