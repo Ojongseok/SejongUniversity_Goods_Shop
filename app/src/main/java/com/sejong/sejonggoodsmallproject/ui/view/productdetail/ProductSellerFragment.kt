@@ -24,6 +24,7 @@ class ProductSellerFragment : Fragment() {
 
         binding.tvPdSellerName.text = arg.name
         binding.tvPdSellerPhoneNumber.text = arg.phoneNumber
+        binding.tvPdSellerSns.text = arg.sns
     }
 
     override fun onDestroy() {

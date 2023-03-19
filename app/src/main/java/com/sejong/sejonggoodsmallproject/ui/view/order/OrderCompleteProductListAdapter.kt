@@ -1,8 +1,11 @@
 package com.sejong.sejonggoodsmallproject.ui.view.order
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sejong.sejonggoodsmallproject.data.model.CartListResponse
@@ -30,6 +33,7 @@ class OrderCompleteProductListAdapter(
 
             binding.tvItemOrderPrice.text = priceUpdate(item.price)
             binding.tvItemOrderProductQuantity.text = "수량 ${optionPicked.quantity}개"
+            binding.tvOrderCompleteDeliveryfee.text = "${item.deliveryFee}원"
 
             binding.tvItemOrderProductOption.text = if (optionPicked.option1 != null && optionPicked.option2 != null) {
                 "${optionPicked.option1}, ${optionPicked.option2}"
@@ -40,6 +44,17 @@ class OrderCompleteProductListAdapter(
             } else if (optionPicked.option1 == null && optionPicked.option2 == null) {
                 "선택사항 없음"
             } else { "" }
+
+            binding.btnItemCompleteCopy.setOnClickListener {
+                val getAccount = binding.tvOrderCompleteBankNumber.text.toString()
+
+                val clipboard: ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip : ClipData = ClipData.newPlainText("getAccount", getAccount)
+                clipboard.setPrimaryClip(clip)
+
+                Toast.makeText(context, "텍스트가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

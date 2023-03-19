@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:text="주문 전 확인하세요 !"
-        android:textColor="@color/main_text"
+        android:textColor="@color/main_red"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView10"

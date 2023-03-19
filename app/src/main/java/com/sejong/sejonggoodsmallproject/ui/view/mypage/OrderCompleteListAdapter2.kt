@@ -28,8 +28,8 @@ class OrderCompleteListAdapter2(
                     Glide.with(context).load(result.img[0].oriImgName).into(binding.ivProduct)
 
                     binding.tvItemOrderCompleteSeller.text = item.seller.name
-                    binding.tvItemOrderCompleteStatus.text // 이거 api수정해야ㅕ하지않나
-                    binding.tvItemOrderCompleteStatus.text
+                    binding.tvItemOrderCompleteStatus.text = item.orderStatus
+
                     binding.tvItemOrderCompleteQuantity.text = "수량 ${item.quantity}개"
                     binding.tvItemOrderCompletePrice.text = priceUpdate(item.price)
                     binding.tvItemOrderCompleteOption.text = if (item.color != null && item.size != null) {

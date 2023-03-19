@@ -1,18 +1,13 @@
 package com.sejong.sejonggoodsmallproject.ui.view.order
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import com.sejong.sejonggoodsmallproject.R
 
-class WebViewActivity : AppCompatActivity() {
-    companion object {
-        const val ADDRESS_REQUEST_CODE = 2928
-    }
-    @SuppressLint("SetJavaScriptEnabled")
 
+class WebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
@@ -21,7 +16,7 @@ class WebViewActivity : AppCompatActivity() {
 
         webView.settings.javaScriptEnabled = true
 
-        webView.addJavascriptInterface(KaKaoJavaScriptInterface(), "Android")
+        webView.addJavascriptInterface(MyJavaScriptInterface(), "Android")
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 webView.loadUrl("javascript:execKakaoPostcode();")
@@ -31,13 +26,14 @@ class WebViewActivity : AppCompatActivity() {
         webView.loadUrl("http://ojongseok.github.io/")
     }
 
-    inner class KaKaoJavaScriptInterface {
+    inner class MyJavaScriptInterface {
         @JavascriptInterface
-        fun processDATA(address: String?) {
-            Intent().apply {
-                putExtra("address", address)
-                setResult(RESULT_OK, this)
-            }
+        fun processDATA(data: String?) {
+            val extra = Bundle()
+            val intent = Intent()
+            extra.putString("data", data)
+            intent.putExtras(extra)
+            setResult(RESULT_OK, intent)
             finish()
         }
     }

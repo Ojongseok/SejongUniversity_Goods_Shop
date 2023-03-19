@@ -1,8 +1,11 @@
 package com.sejong.sejonggoodsmallproject.ui.view.mypage
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sejong.sejonggoodsmallproject.data.model.*
@@ -16,7 +19,7 @@ import kotlinx.coroutines.withContext
 class OrderCompleteDetailListAdapter(
     private var context: Context,
     private var orderResponse: OrderListResponse,
-    private val viewModel: MainViewModel
+    private val viewModel: MainViewModel,
 ) : RecyclerView.Adapter<OrderCompleteDetailListAdapter.CustomViewHolder>() {
     inner class CustomViewHolder(private val binding: ItemOrderCompleteDetailBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: OrderListItems) {
@@ -34,6 +37,9 @@ class OrderCompleteDetailListAdapter(
                     binding.tvOrderCompleteBank.text = item.seller.bank
                     binding.tvOrderCompleteBankNumber.text = item.seller.account
                     Glide.with(context).load(result.img[0].oriImgName).into(binding.ivProduct)
+                    binding.tvOrderCompleteBuyerAddress.text = orderResponse.address?.mainAddress
+                    binding.tvOrderCompleteBuyerAddress2.text = orderResponse.address?.detailAddress
+//                    binding.tvOrderCompleteRequest.text =
 
                     binding.tvItemOrderPrice.text = priceUpdate(item.price)
                     binding.tvItemOrderProductQuantity.text = "수량 ${item.quantity}개"
@@ -47,6 +53,17 @@ class OrderCompleteDetailListAdapter(
                     } else if (item.color == null && item.size == null) {
                         "선택사항 없음"
                     } else { "" }
+
+
+                    binding.tvOrderCompleteDetailFee.text = "${item.deliveryFee}원"
+
+                    binding.btnItemCompleteDetailCopy.setOnClickListener {
+                        val getAccount = binding.tvOrderCompleteBankNumber.text.toString()
+
+                        val clipboard: ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip : ClipData = ClipData.newPlainText("getAccount", getAccount)
+                        clipboard.setPrimaryClip(clip)
+                    }
                 }
             }
         }

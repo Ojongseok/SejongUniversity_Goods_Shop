@@ -141,13 +141,13 @@
                     android:id="@+id/tv_pd_order_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginBottom="2dp"
                     android:text="TextView"
                     android:textColor="#D6983B"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/textView4" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -179,6 +179,16 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView4"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_product_detail_price"
+                    app:layout_constraintStart_toEndOf="@+id/tv_product_detail_price"
+                    app:srcCompat="@drawable/ic_car" />
 
                 <FrameLayout
                     android:id="@+id/frameLayout"
@@ -218,11 +228,12 @@
                     android:id="@+id/tv_pd_deliveryfee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginStart="2dp"
                     android:text="-"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_product_detail_price"
-                    app:layout_constraintStart_toEndOf="@+id/tv_product_detail_price" />
+                    android:textColor="#D6983B"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+                    app:layout_constraintStart_toEndOf="@+id/imageView13"
+                    app:layout_constraintTop_toTopOf="@+id/imageView13" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

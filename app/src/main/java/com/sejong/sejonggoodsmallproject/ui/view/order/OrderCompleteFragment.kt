@@ -1,16 +1,23 @@
 package com.sejong.sejonggoodsmallproject.ui.view.order
 
+import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sejong.sejonggoodsmallproject.data.model.*
 import com.sejong.sejonggoodsmallproject.databinding.FragmentOrderCompleteBinding
 import com.sejong.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class OrderCompleteFragment : Fragment() {
     private var _binding : FragmentOrderCompleteBinding? = null
@@ -19,7 +26,6 @@ class OrderCompleteFragment : Fragment() {
     private lateinit var orderCompleteDetailAdapter : OrderCompleteDetailAdapter
     private lateinit var orderDetailResponse : OrderDetailResponse
     private lateinit var optionPickedList : ArrayList<OptionPicked>
-    private lateinit var productList : List<ProductListResponse>
     private var responseCartList =  ArrayList<CartListResponse>()
     private var responseDetailList =  ArrayList<ProductDetailResponse>()
     private var orderType = ""
@@ -29,6 +35,7 @@ class OrderCompleteFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,13 +57,16 @@ class OrderCompleteFragment : Fragment() {
 
             }
         }
+        val createStr = orderDetailResponse.createdAt
+        val cal = Calendar.getInstance()
+        val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
+        val date: Date = df.parse(createStr)
+        cal.time = date
+        cal.add(Calendar.HOUR_OF_DAY, 9)
 
-        var str = orderDetailResponse.createdAt.substring(0,19).toCharArray()
-        str[4] = '년'
-        str[7] = '월'
-        str[10] = '일'
-        str[11] = ' '
-        binding.tvOrderCompleteDeadline.text = "입금기한 : " + str.joinToString("")
+        val reDate = df.format(cal.time).toString().replace("-", ".").replace('T', ' ')
+
+        binding.tvOrderCompleteDeadline.text = "주문일자 : $reDate"
     }
 
     private fun setRV() {

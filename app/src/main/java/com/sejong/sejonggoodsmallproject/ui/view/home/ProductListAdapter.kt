@@ -32,6 +32,7 @@ class ProductListAdapter(private val context: Context, private var list : List<P
                 "pickup" -> "현장수령"
                 else -> ""
             }
+
         }
     }
 

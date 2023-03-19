@@ -18,7 +18,6 @@ import com.sejong.sejonggoodsmallproject.ui.view.order.OrderDeliveryFragment
 import com.sejong.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActivity
 import com.sejong.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
-import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +41,6 @@ class DelivetyInCartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as MainActivity).viewModel
-
 
         binding.btnBuyCompleteCartDelivery.setOnClickListener {
             if (checkedList.containsAll(listOf(false))) {

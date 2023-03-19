@@ -91,6 +91,7 @@
                     android:gravity="center_vertical"
                     android:hint="수령인"
                     android:paddingLeft="14dp"
+                    android:textColor="@color/main_text"
                     android:textSize="14sp" />
 
                 <EditText
@@ -102,32 +103,45 @@
                     android:gravity="center_vertical"
                     android:hint="휴대전화 (010-1234-5678)"
                     android:paddingLeft="14dp"
+                    android:textColor="@color/main_text"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/tv_order_delivery_adress1"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/background_rec_10dp_grey_stroke"
-                    android:gravity="center_vertical"
-                    android:hint="우편번호"
-                    android:paddingLeft="14dp"
-                    android:textSize="14sp" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
 
-                <TextView
-                    android:id="@+id/tv_order_delivery_adress2"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/background_rec_10dp_grey_stroke"
-                    android:gravity="center_vertical"
-                    android:hint="주소"
-                    android:paddingLeft="14dp"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/textView41"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:text="우편번호 검색"
+                        android:textColor="@color/main_red"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_order_delivery_adress1"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@drawable/background_rec_10dp_grey_stroke"
+                        android:gravity="center_vertical"
+                        android:hint="주소"
+                        android:paddingLeft="14dp"
+                        android:textColor="@color/main_text"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <EditText
-                    android:id="@+id/tv_order_delivery_adress3"
+                    android:id="@+id/tv_order_delivery_adress2"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:layout_marginTop="10dp"
@@ -135,6 +149,7 @@
                     android:gravity="center_vertical"
                     android:hint="상세주소"
                     android:paddingLeft="14dp"
+                    android:textColor="@color/main_text"
                     android:textSize="14sp" />
 
                 <EditText
@@ -146,6 +161,7 @@
                     android:gravity="center_vertical"
                     android:hint="배송 요청사항 (선택)"
                     android:paddingLeft="14dp"
+                    android:textColor="@color/main_text"
                     android:textSize="14sp" />
             </LinearLayout>
 

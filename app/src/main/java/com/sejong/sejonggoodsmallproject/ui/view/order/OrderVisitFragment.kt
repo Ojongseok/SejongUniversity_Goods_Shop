@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sejong.sejonggoodsmallproject.R
@@ -170,7 +169,12 @@ class OrderVisitFragment : Fragment() {
 
             binding.btnOrderVisitComplete.text = orderDetailProductListAdapter.getPriceString(responseDetailList[0].price * optionPickedList[0].quantity) + " 결제하기"
         } else if (orderType == "cart") {
-            orderCartProductListAdapter = OrderCartProductListAdapter(requireContext(), responseCartList, optionPickedList)
+            orderCartProductListAdapter = OrderCartProductListAdapter(
+                requireContext(),
+                responseCartList,
+                optionPickedList,
+                mainViewModel
+            )
 
             binding.rvOrderVisitProduct.apply {
                 setHasFixedSize(true)

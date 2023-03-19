@@ -44,6 +44,18 @@
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp"
+        android:text="* 자세한 내용은 주문 내역에서 확인하세요."
+        android:textColor="@color/main_red"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+    <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,15 +66,15 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
     <TextView
         android:id="@+id/tv_order_complete_deadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="입금기한"
-        android:textColor="@color/main_red"
+        android:layout_marginTop="6dp"
+        android:text="주문일자"
+        android:textColor="@color/main_text"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +84,7 @@
         android:id="@+id/rv_order_complete"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_go_order_list"
         app:layout_constraintEnd_toEndOf="parent"

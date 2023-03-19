@@ -9,15 +9,15 @@ data class OrderListResponse(
     @SerializedName("phoneNumber") val phoneNumber: String,
     @SerializedName("orderMethod") val orderMethod: String,
     @SerializedName("createdAt") val createdAt: String,
-    @SerializedName("address") val address: OrderListAddress,
+    @SerializedName("address") val address: OrderListAddress?,
     @SerializedName("status") val status: String,
-    @SerializedName("orderItems") val orderItems: List<OrderListItems>,
+    @SerializedName("orderItems") val orderItems: List<OrderListItems>
 ) : Serializable
 
 data class OrderListAddress(
-    @SerializedName("mainAddress") val mainAddress: String,
-    @SerializedName("detailAddress") val detailAddress: String,
-    @SerializedName("zipcode") val zipcode: String
+    @SerializedName("mainAddress") val mainAddress: String?,
+    @SerializedName("detailAddress") val detailAddress: String?,
+    @SerializedName("zipcode") val zipcode: String?
 ) : Serializable
 
 data class OrderListItems(
@@ -26,7 +26,9 @@ data class OrderListItems(
     @SerializedName("size") val size: String,
     @SerializedName("quantity") val quantity: Int,
     @SerializedName("price") val price: Int,
-    @SerializedName("seller") val seller: OrderListSeller
+    @SerializedName("seller") val seller: OrderListSeller,
+    @SerializedName("orderStatus") val orderStatus: String,
+    @SerializedName("deliveryFee") val deliveryFee: Int
 ) : Serializable
 
 data class OrderListSeller(

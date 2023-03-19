@@ -9,9 +9,40 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/btn_item_complete_detail_copy"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_order_complete_bank_number"
+            app:layout_constraintStart_toEndOf="@+id/tv_order_complete_bank_number"
+            app:layout_constraintTop_toTopOf="@+id/tv_order_complete_bank_number"
+            app:srcCompat="@drawable/ic_copy" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_detail_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="-"
+            android:textColor="#D6983B"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+            app:layout_constraintStart_toEndOf="@+id/imageView14"
+            app:layout_constraintTop_toTopOf="@+id/imageView14" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_item_order_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_order_price"
+            app:srcCompat="@drawable/ic_car" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/iv_item_cart_cardview"
@@ -84,7 +115,7 @@
             android:layout_marginBottom="8dp"
             android:text="TextView"
             android:textColor="@color/main_text"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_cart_cardview"
             app:layout_constraintStart_toStartOf="@+id/tv_item_order_product_title" />
@@ -165,6 +196,16 @@
             app:layout_constraintTop_toBottomOf="@+id/frameLayout11" />
 
         <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="주소"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout12" />
+
+        <TextView
             android:id="@+id/textView35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -172,7 +213,17 @@
             android:text="요청사항"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/frameLayout7"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout12" />
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout14" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="상세주소"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout13" />
 
         <FrameLayout
             android:id="@+id/frameLayout8"
@@ -275,11 +326,33 @@
             app:layout_constraintTop_toBottomOf="@+id/frameLayout11" />
 
         <TextView
-            android:id="@+id/tv_order_complete_request"
+            android:id="@+id/tv_order_complete_buyer_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/textView38" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_buyer_address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="TextView"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="-"
             android:textColor="@color/main_text"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/textView21"
@@ -295,7 +368,7 @@
             android:background="@color/shape_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
         <FrameLayout
             android:id="@+id/frameLayout12"
@@ -309,6 +382,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_order_complete_buyer_number" />
 
+        <FrameLayout
+            android:id="@+id/frameLayout13"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView38">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout14"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/shape_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

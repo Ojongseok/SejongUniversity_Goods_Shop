@@ -22,7 +22,8 @@ data class Seller(
     @SerializedName("id") val id: Long,
     @SerializedName("name") val name: String,
     @SerializedName("phoneNumber") val phoneNumber: String,
-    @SerializedName("method") val method: String
+    @SerializedName("method") val method: String,
+    @SerializedName("sns") val sns: String?
 ): Serializable
 
 data class imgProductDetailResult(

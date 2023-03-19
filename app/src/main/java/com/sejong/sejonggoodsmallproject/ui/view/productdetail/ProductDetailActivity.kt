@@ -61,7 +61,7 @@ class ProductDetailActivity : AppCompatActivity() {
                     var deliveryFeeStr = deliveryFee.joinToString("")
                     if (deliveryFeeStr == "0,") { deliveryFeeStr = "0" }
 
-                    binding.tvPdDeliveryfee.text = "배송비 : ${deliveryFeeStr}원"
+                    binding.tvPdDeliveryfee.text = "${deliveryFeeStr}원"
                     binding.tvProductDetailPrice.text = if (data.price in 1000..999999) {
                         val priceList = data.price.toString().toCharArray().toMutableList()
                         priceList.add(priceList.size-3,',')

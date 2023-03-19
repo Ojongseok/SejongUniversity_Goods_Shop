@@ -2,7 +2,9 @@ package com.sejong.sejonggoodsmallproject.ui.view.order
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +50,7 @@ class OrderDeliveryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getStringArg()
+//        binding.textView41.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         if (orderType == "detail") {
             viewModel = (activity as ProductDetailActivity).viewModel
@@ -60,7 +63,9 @@ class OrderDeliveryFragment : Fragment() {
         val childForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data = result.data?.getStringExtra("data")
-                binding.tvOrderDeliveryAdress1.text = data
+                if (data != null) {
+                    binding.tvOrderDeliveryAdress1.text = data
+                }
             }
         }
 
@@ -88,8 +93,10 @@ class OrderDeliveryFragment : Fragment() {
         prevDialog.dialog.btn_dialog_order_prev.setOnClickListener {
             val buyerName = binding.tvOrderDeliveryBuyerName.text.toString()
             val phoneNumber = binding.tvOrderDeliveryPhoneNumber.text.toString()
+            val address1 = binding.tvOrderDeliveryAdress1.text.toString()
+            val address2 = binding.tvOrderDeliveryAdress2.text.toString()
 
-            if (buyerName.isNotEmpty() && phoneNumber.isNotEmpty()) {
+            if (buyerName.isNotEmpty() && phoneNumber.isNotEmpty() && address1.isNotEmpty() && address2.isNotEmpty()) {
                 if (orderType == "detail") {
                     itemId = arguments?.getString("itemId", "0")?.toLong()!!
 
@@ -103,7 +110,9 @@ class OrderDeliveryFragment : Fragment() {
                     mlist.add(orderDetailPostInfo)
 
                     val orderDetailPost = OrderDetailPost(buyerName, phoneNumber, "delivery",
-                        OdpAddress(null, null, null), mlist, null)
+                        OdpAddress(binding.tvOrderDeliveryAdress1.text.toString(),
+                            binding.tvOrderDeliveryAdress2.text.toString(),
+                            "0"), mlist, null)
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val orderResponse = viewModel.postOrderInDetail(orderDetailPost, itemId)
@@ -127,13 +136,17 @@ class OrderDeliveryFragment : Fragment() {
                                     .add(R.id.pd_main_container, orderCompleteFragment, "backStack")
                                     .addToBackStack("backStack")
                                     .commitAllowingStateLoss()
+                            } else {
+                                Toast.makeText(requireContext(), "${orderResponse.code()}에러입니다.", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 } else if (orderType == "cart") {
                     val cartIdList = arguments?.getSerializable("cartIdList") as List<Long>
                     val orderCartPost = OrderCartPost(buyerName, phoneNumber, "delivery",
-                        OcpAddress(null, null, null), cartIdList, null)
+                        OcpAddress(binding.tvOrderDeliveryAdress1.text.toString(),
+                            binding.tvOrderDeliveryAdress2.text.toString(),
+                            "0"), cartIdList, null)
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val orderResponse = mainViewModel.postOrderInCart(orderCartPost)
@@ -157,6 +170,8 @@ class OrderDeliveryFragment : Fragment() {
                                     .replace(R.id.main_container, orderCompleteFragment, "backStack")
                                     .addToBackStack("backStack")
                                     .commitAllowingStateLoss()
+                            } else {
+                                Toast.makeText(requireContext(), "${orderResponse.code()}에러입니다.", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
@@ -182,7 +197,7 @@ class OrderDeliveryFragment : Fragment() {
 
             binding.btnOrderDeliveryComplete.text = orderDetailProductListAdapter.getPriceString(responseDetailList[0].price * optionPickedList[0].quantity) + " 결제하기"
         } else if (orderType == "cart") {
-            orderCartProductListAdapter = OrderCartProductListAdapter(requireContext(), responseCartList, optionPickedList)
+            orderCartProductListAdapter = OrderCartProductListAdapter(requireContext(), responseCartList, optionPickedList, mainViewModel)
 
             binding.rvOrderDeliveryProduct.apply {
                 setHasFixedSize(true)
@@ -196,7 +211,16 @@ class OrderDeliveryFragment : Fragment() {
                 priceSum += responseCartList[i].price
             }
 
-            binding.btnOrderDeliveryComplete.text = orderCartProductListAdapter.priceUpdate(priceSum) + " 주문하기"
+            CoroutineScope(Dispatchers.IO).launch {
+                var hap = 0
+                for (i in 0 until responseCartList.size) {
+                    hap += mainViewModel.getProductDetail(responseCartList[i].itemId.toInt()).body()?.deliveryFee!!
+                }
+                withContext(Dispatchers.Main) {
+                    binding.btnOrderDeliveryComplete.text = orderCartProductListAdapter.priceUpdate(priceSum+hap) + " 주문하기"
+                }
+            }
+
         }
     }
 

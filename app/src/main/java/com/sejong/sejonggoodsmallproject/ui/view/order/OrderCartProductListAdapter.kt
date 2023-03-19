@@ -8,11 +8,18 @@ import com.bumptech.glide.Glide
 import com.sejong.sejonggoodsmallproject.data.model.CartListResponse
 import com.sejong.sejonggoodsmallproject.data.model.OptionPicked
 import com.sejong.sejonggoodsmallproject.databinding.ItemOrderProductListBinding
+import com.sejong.sejonggoodsmallproject.ui.viewmodel.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class OrderCartProductListAdapter(
     private var context: Context,
-    private var list : List<CartListResponse>,
-    private val optionPickedList : ArrayList<OptionPicked>) : RecyclerView.Adapter<OrderCartProductListAdapter.CustomViewHolder>() {
+    private var list: List<CartListResponse>,
+    private val optionPickedList: ArrayList<OptionPicked>,
+    private val mainViewModel: MainViewModel
+) : RecyclerView.Adapter<OrderCartProductListAdapter.CustomViewHolder>() {
     inner class CustomViewHolder(private val binding: ItemOrderProductListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartListResponse, optionPicked: OptionPicked) {
             binding.tvItemOrderProductTitle.text = item.title
@@ -31,6 +38,13 @@ class OrderCartProductListAdapter(
             } else if (optionPicked.option1 == null && optionPicked.option2 == null) {
                 "선택사항 없음"
             } else { "" }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val result = mainViewModel.getProductDetail(item.itemId.toInt()).body()!!
+                withContext(Dispatchers.Main) {
+                    binding.tvPdDeliveryfee3.text = "${result.deliveryFee}원"
+                }
+            }
         }
     }
 

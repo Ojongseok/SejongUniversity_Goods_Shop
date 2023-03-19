@@ -22,6 +22,7 @@ class OrderCompleteListFragment : Fragment() {
     private lateinit var orderCompleteListAdapter: OrderCompleteListAdapter
     private lateinit var viewModel: MainViewModel
     private lateinit var response : List<OrderListResponse>
+    private lateinit var responseRevered : List<OrderListResponse>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
          _binding = FragmentOrderCompleteListBinding.inflate(inflater, container,false)
@@ -34,6 +35,7 @@ class OrderCompleteListFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             response = viewModel.getOrderList()
+            responseRevered = response.reversed()
 
             withContext(Dispatchers.Main) {
                 setRvOrderCompleteList()
@@ -51,7 +53,7 @@ class OrderCompleteListFragment : Fragment() {
     }
 
     private fun setRvOrderCompleteList() {
-        orderCompleteListAdapter = OrderCompleteListAdapter(requireContext(), response, viewModel)
+        orderCompleteListAdapter = OrderCompleteListAdapter(requireContext(), responseRevered, viewModel)
 
         binding.rvOrderCompleteList.apply {
             setHasFixedSize(true)
@@ -63,7 +65,7 @@ class OrderCompleteListFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 val frg = OrderCompleteDetailFragment()
                 val bundle = Bundle()
-                bundle.putSerializable("response", response[position])
+                bundle.putSerializable("response", responseRevered[position])
                 frg.arguments = bundle
 
                 requireActivity().supportFragmentManager.beginTransaction()

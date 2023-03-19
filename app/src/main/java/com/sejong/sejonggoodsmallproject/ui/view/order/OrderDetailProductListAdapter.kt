@@ -22,6 +22,7 @@ class OrderDetailProductListAdapter(
 
             binding.tvItemOrderPrice.text = priceUpdate(item.price * optionPicked.quantity)
             binding.tvItemOrderProductQuantity.text = "수량 ${optionPicked.quantity}개"
+            binding.tvPdDeliveryfee3.text = "${item.deliveryFee}"
 
             binding.tvItemOrderProductOption.text = if (optionPicked.option1 != null && optionPicked.option2 != null) {
                 "${optionPicked.option1}, ${optionPicked.option2}"
@@ -32,6 +33,8 @@ class OrderDetailProductListAdapter(
             } else if (optionPicked.option1 == null && optionPicked.option2 == null) {
                 "선택사항 없음"
             } else { "" }
+
+            binding.tvPdDeliveryfee3.text = "${item.deliveryFee}원"
         }
     }
 
@@ -55,7 +58,8 @@ class OrderDetailProductListAdapter(
     }
 
     fun getPriceString(price: Int) : String {
-        return priceUpdate(price)
+        val hap = price+list[0].deliveryFee
+        return priceUpdate(hap)
     }
 
     override fun getItemCount() = list.size

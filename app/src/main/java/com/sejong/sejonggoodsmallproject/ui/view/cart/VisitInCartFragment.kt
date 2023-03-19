@@ -18,7 +18,6 @@ import com.sejong.sejonggoodsmallproject.ui.view.productdetail.ProductDetailActi
 import com.sejong.sejonggoodsmallproject.ui.view.order.OrderVisitFragment
 import com.sejong.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.dialog_cart_remove_confirm.*
-import kotlinx.android.synthetic.main.dialog_order_previous_alert.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

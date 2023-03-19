@@ -12,7 +12,6 @@ import com.bumptech.glide.request.target.Target
 import com.sejong.sejonggoodsmallproject.databinding.FragmentProductInfoBinding
 import com.sejong.sejonggoodsmallproject.databinding.ItemImageviewBinding
 
-
 class ProductInfoFragment : Fragment() {
     private var _binding : FragmentProductInfoBinding? = null
     private val binding get() = _binding!!
@@ -33,7 +32,6 @@ class ProductInfoFragment : Fragment() {
 //        }
         val img = imgList[0].toString()
         Glide.with(requireActivity()).load(img.substring(48, img.length-1)).override(Target.SIZE_ORIGINAL).into(binding.imageView12)
-
 
     }
 

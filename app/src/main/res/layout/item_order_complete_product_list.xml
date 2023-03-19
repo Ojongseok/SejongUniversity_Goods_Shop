@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
 
     </data>
@@ -12,6 +12,38 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/btn_item_complete_copy"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_order_complete_bank_number"
+            app:layout_constraintStart_toEndOf="@+id/tv_order_complete_bank_number"
+            app:layout_constraintTop_toTopOf="@+id/tv_order_complete_bank_number"
+            app:srcCompat="@drawable/ic_copy" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_item_order_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_order_price"
+            app:layout_constraintTop_toTopOf="@+id/tv_item_order_price"
+            app:srcCompat="@drawable/ic_car" />
+
+        <TextView
+            android:id="@+id/tv_order_complete_deliveryfee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="-"
+            android:textColor="#D6983B"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+            app:layout_constraintStart_toEndOf="@+id/imageView17"
+            app:layout_constraintTop_toTopOf="@+id/imageView17" />
 
         <FrameLayout
             android:id="@+id/frameLayout6"

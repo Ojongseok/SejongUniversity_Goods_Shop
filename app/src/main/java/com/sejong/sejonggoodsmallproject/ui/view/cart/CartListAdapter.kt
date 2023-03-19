@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sejong.sejonggoodsmallproject.data.model.CartListResponse
 import com.sejong.sejonggoodsmallproject.databinding.ItemCartListBinding
+import com.sejong.sejonggoodsmallproject.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.item_cart_list.view.*
 
-class CartListAdapter(private val context: Context, private var list : List<CartListResponse>)
+class CartListAdapter(
+    private val context: Context,
+    private var list: List<CartListResponse>
+)
     : RecyclerView.Adapter<CartListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
     var checkStatusList = MutableList(list.size) { true }

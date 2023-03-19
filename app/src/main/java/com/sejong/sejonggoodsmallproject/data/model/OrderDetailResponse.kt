@@ -23,7 +23,8 @@ data class OdrOrderItems(
     @SerializedName("size") val size: String,
     @SerializedName("quantity") val quantity: Int,
     @SerializedName("price") val price: Int,
-    @SerializedName("seller") val seller: OdrSeller
+    @SerializedName("seller") val seller: OdrSeller,
+    @SerializedName("deliveryFee") val deliveryFee: Int
 ) : Serializable
 
 data class OdrSeller(

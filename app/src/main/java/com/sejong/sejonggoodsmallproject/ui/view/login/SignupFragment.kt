@@ -166,18 +166,10 @@ class SignupFragment : Fragment() {
         // 생년월일 입력 감지
         binding.etBirth.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
-                val birthArray = binding.etBirth.text.toString().split("-")
-                if (birthArray.size == 3 && binding.etBirth.text.toString().length == 10) {
-                    if (birthArray[0].length == 4 && birthArray[1].length == 2 && birthArray[2].length == 2) {
-                        birthFlag = true
-                    }
-                } else {
-                    birthFlag = false
-                }
+                val birth = binding.etBirth.text.toString()
+                birthFlag = (birth.length == 8)
                 setSignupBtnFlag()
             }
         })
@@ -216,7 +208,7 @@ class SignupFragment : Fragment() {
             binding.btnSignupComplete.setBackgroundResource(R.drawable.background_rec_10dp_grey_solid)
             binding.btnSignupComplete.setOnClickListener {
                 if (!birthFlag) {
-                    Toast.makeText(requireContext(), "생년월일 형식은 YYYY-MM-DD 입니다.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "생년월일 형식은 YYYYMMDD 입니다.",Toast.LENGTH_SHORT).show()
                 } else if (!passFlag) {
                     Toast.makeText(requireContext(), "비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                 }
