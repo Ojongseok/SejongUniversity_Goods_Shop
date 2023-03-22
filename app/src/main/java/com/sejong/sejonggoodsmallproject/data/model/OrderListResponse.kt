@@ -9,6 +9,7 @@ data class OrderListResponse(
     @SerializedName("phoneNumber") val phoneNumber: String,
     @SerializedName("orderMethod") val orderMethod: String,
     @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("deliveryRequest") val deliveryRequest: String,
     @SerializedName("address") val address: OrderListAddress?,
     @SerializedName("status") val status: String,
     @SerializedName("orderItems") val orderItems: List<OrderListItems>

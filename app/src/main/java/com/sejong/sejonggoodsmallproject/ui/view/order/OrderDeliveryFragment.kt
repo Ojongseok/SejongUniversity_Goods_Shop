@@ -95,6 +95,7 @@ class OrderDeliveryFragment : Fragment() {
             val phoneNumber = binding.tvOrderDeliveryPhoneNumber.text.toString()
             val address1 = binding.tvOrderDeliveryAdress1.text.toString()
             val address2 = binding.tvOrderDeliveryAdress2.text.toString()
+            val request = binding.tvOrderDeliveryRequest.text.toString()
 
             if (buyerName.isNotEmpty() && phoneNumber.isNotEmpty() && address1.isNotEmpty() && address2.isNotEmpty()) {
                 if (orderType == "detail") {
@@ -112,7 +113,7 @@ class OrderDeliveryFragment : Fragment() {
                     val orderDetailPost = OrderDetailPost(buyerName, phoneNumber, "delivery",
                         OdpAddress(binding.tvOrderDeliveryAdress1.text.toString(),
                             binding.tvOrderDeliveryAdress2.text.toString(),
-                            "0"), mlist, null)
+                            "0"), mlist, request)
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val orderResponse = viewModel.postOrderInDetail(orderDetailPost, itemId)
@@ -146,7 +147,7 @@ class OrderDeliveryFragment : Fragment() {
                     val orderCartPost = OrderCartPost(buyerName, phoneNumber, "delivery",
                         OcpAddress(binding.tvOrderDeliveryAdress1.text.toString(),
                             binding.tvOrderDeliveryAdress2.text.toString(),
-                            "0"), cartIdList, null)
+                            "0"), cartIdList, request)
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val orderResponse = mainViewModel.postOrderInCart(orderCartPost)

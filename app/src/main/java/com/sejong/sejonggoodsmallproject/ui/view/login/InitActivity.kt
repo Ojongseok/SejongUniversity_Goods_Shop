@@ -3,6 +3,7 @@ package com.sejong.sejonggoodsmallproject.ui.view.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.sejong.sejonggoodsmallproject.R
@@ -21,8 +22,9 @@ class InitActivity : AppCompatActivity() {
         binding.activity = this
 
 //        MyApplication.prefs.setString("accessToken", "Not Login State")
+        Log.d("tag", MyApplication.prefs.getString("accessToken",""))
 
-        if (MyApplication.prefs.getString("accessToken","") != "Not Login State") {
+        if (MyApplication.prefs.getString("accessToken","Not Login State") != "Not Login State") {
             Toast.makeText(applicationContext, "환영합니다 :)", Toast.LENGTH_SHORT).show()
 
             startActivity(Intent(applicationContext, MainActivity::class.java))
@@ -35,9 +37,11 @@ class InitActivity : AppCompatActivity() {
             R.id.btn_signup -> {
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.horizon_enter_front, 0)
-                    .replace(R.id.init_container,SignupFragment())
-                    .commit()
+                    .add(R.id.init_container, SignupFragment(),"backStack")
+                    .addToBackStack("backStack")
+                    .commitAllowingStateLoss()
             }
+
             R.id.btn_login -> {
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.horizon_enter_front,0)
@@ -45,6 +49,7 @@ class InitActivity : AppCompatActivity() {
                     .addToBackStack("backStack")
                     .commitAllowingStateLoss()
             }
+
             R.id.btn_no_login_enter -> {
                 MyApplication.prefs.setString("accessToken", "Not Login State")
 

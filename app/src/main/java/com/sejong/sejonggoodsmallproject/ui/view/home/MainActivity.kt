@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun setTabLayout() {
@@ -109,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             productListAdapter.apply {
                 result = response.filter {
-                    it.categoryId.toInt() == tabId
+                    it.categoryId.toInt() == tabId+18
                 }
                 setData(result)
             }

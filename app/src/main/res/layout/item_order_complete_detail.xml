@@ -327,12 +327,13 @@
 
         <TextView
             android:id="@+id/tv_order_complete_buyer_address"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="TextView"
             android:textColor="@color/main_text"
             android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/frameLayout12"
             app:layout_constraintStart_toEndOf="@+id/textView21"
             app:layout_constraintTop_toTopOf="@+id/textView38" />
 
@@ -392,7 +393,7 @@
             android:background="@color/shape_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView38">
+            app:layout_constraintTop_toBottomOf="@+id/tv_order_complete_buyer_address">
 
         </FrameLayout>
 

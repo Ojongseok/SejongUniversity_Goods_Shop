@@ -22,7 +22,6 @@ class OrderDetailProductListAdapter(
 
             binding.tvItemOrderPrice.text = priceUpdate(item.price * optionPicked.quantity)
             binding.tvItemOrderProductQuantity.text = "수량 ${optionPicked.quantity}개"
-            binding.tvPdDeliveryfee3.text = "${item.deliveryFee}"
 
             binding.tvItemOrderProductOption.text = if (optionPicked.option1 != null && optionPicked.option2 != null) {
                 "${optionPicked.option1}, ${optionPicked.option2}"
@@ -34,7 +33,8 @@ class OrderDetailProductListAdapter(
                 "선택사항 없음"
             } else { "" }
 
-            binding.tvPdDeliveryfee3.text = "${item.deliveryFee}원"
+            val deliveryFee = item.deliveryFee.toString().substring(0,1) + "," + item.deliveryFee.toString().substring(1,4)
+            binding.tvPdDeliveryfee3.text = "${deliveryFee}원"
         }
     }
 

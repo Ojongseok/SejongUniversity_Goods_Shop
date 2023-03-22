@@ -28,7 +28,18 @@ class OrderCompleteListAdapter2(
                     Glide.with(context).load(result.img[0].oriImgName).into(binding.ivProduct)
 
                     binding.tvItemOrderCompleteSeller.text = item.seller.name
-                    binding.tvItemOrderCompleteStatus.text = item.orderStatus
+                    binding.tvItemOrderCompleteStatus.text = when (item.orderStatus) {
+                        "ORDER" -> {
+                            "주문 완료"
+                        }
+                        "COMP" -> {
+                            "입금 완료"
+                        }
+                        "CANCEL" -> {
+                            "주문 취소"
+                        }
+                        else -> { "ERROR" }
+                    }
 
                     binding.tvItemOrderCompleteQuantity.text = "수량 ${item.quantity}개"
                     binding.tvItemOrderCompletePrice.text = priceUpdate(item.price)

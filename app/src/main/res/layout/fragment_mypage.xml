@@ -290,8 +290,9 @@
 
                 <TextView
                     android:id="@+id/tv_mypage_terms_1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:layout_marginTop="16dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
@@ -301,8 +302,9 @@
 
                 <TextView
                     android:id="@+id/tv_mypage_terms_2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:layout_marginTop="16dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
@@ -312,8 +314,9 @@
 
                 <TextView
                     android:id="@+id/tv_mypage_logout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:layout_marginTop="16dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"

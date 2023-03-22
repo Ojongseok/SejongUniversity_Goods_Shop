@@ -42,7 +42,8 @@ class OrderCartProductListAdapter(
             CoroutineScope(Dispatchers.IO).launch {
                 val result = mainViewModel.getProductDetail(item.itemId.toInt()).body()!!
                 withContext(Dispatchers.Main) {
-                    binding.tvPdDeliveryfee3.text = "${result.deliveryFee}원"
+                    val deliveryFee = result.deliveryFee.toString().substring(0,1) + "," + result.deliveryFee.toString().substring(1,4)
+                    binding.tvPdDeliveryfee3.text = "${deliveryFee}원"
                 }
             }
         }

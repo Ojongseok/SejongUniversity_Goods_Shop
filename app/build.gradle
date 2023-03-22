@@ -15,7 +15,7 @@ android {
         applicationId "com.sejong.sejonggoodsmallproject"
         minSdk 21
         targetSdk 32
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -48,18 +48,7 @@ android {
 }
 
 dependencies {
-    // viewModels
-    implementation 'androidx.activity:activity-ktx:1.4.0'
-    implementation 'androidx.fragment:fragment-ktx:1.4.1'
-    // Lifecycle
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.1'
-    // Coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-    // Recyclerview
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'

@@ -31,7 +31,6 @@ class OrderCompleteDetailListAdapter(
                     binding.tvItemOrderCompany.text = result.seller.name
                     binding.tvOrderCompleteBuyerName.text = orderResponse.buyerName
                     binding.tvOrderCompleteBuyerNumber.text = orderResponse.phoneNumber
-                    binding.tvOrderCompleteRequest.text
 
                     binding.tvOrderCompleteName.text = item.seller.name
                     binding.tvOrderCompleteBank.text = item.seller.bank
@@ -39,7 +38,7 @@ class OrderCompleteDetailListAdapter(
                     Glide.with(context).load(result.img[0].oriImgName).into(binding.ivProduct)
                     binding.tvOrderCompleteBuyerAddress.text = orderResponse.address?.mainAddress
                     binding.tvOrderCompleteBuyerAddress2.text = orderResponse.address?.detailAddress
-//                    binding.tvOrderCompleteRequest.text =
+                    binding.tvOrderCompleteRequest.text = orderResponse.deliveryRequest
 
                     binding.tvItemOrderPrice.text = priceUpdate(item.price)
                     binding.tvItemOrderProductQuantity.text = "수량 ${item.quantity}개"
@@ -54,8 +53,8 @@ class OrderCompleteDetailListAdapter(
                         "선택사항 없음"
                     } else { "" }
 
-
-                    binding.tvOrderCompleteDetailFee.text = "${item.deliveryFee}원"
+                    val deliveryFee = item.deliveryFee.toString().substring(0,1) + "," + item.deliveryFee.toString().substring(1,4)
+                    binding.tvOrderCompleteDetailFee.text = "${deliveryFee}원"
 
                     binding.btnItemCompleteDetailCopy.setOnClickListener {
                         val getAccount = binding.tvOrderCompleteBankNumber.text.toString()

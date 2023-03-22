@@ -23,7 +23,6 @@ import kotlinx.coroutines.withContext
 class SignupFragment : Fragment() {
     private var _binding : FragmentSignupBinding? = null
     private val binding get() = _binding!!
-    private lateinit var callback: OnBackPressedCallback
     private var emailFlag = false
     private var passFlag = false
     private var nameFlag = false
@@ -63,29 +62,17 @@ class SignupFragment : Fragment() {
         binding.tvShowTerms.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.horizon_enter_front, 0)
-                .add(R.id.init_container,TermsFragment())
-                .commit()
+                .add(R.id.init_container,TermsFragment(),"backStack")
+                .addToBackStack("backStack")
+                .commitAllowingStateLoss()
         }
+
         binding.btnBackSignup.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.horizon_exit_front)
                 .remove(this@SignupFragment)
                 .commit()
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.horizon_exit_front)
-                    .remove(this@SignupFragment)
-                    .commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun setSignupTextWatcher() {

@@ -94,7 +94,6 @@ class MypageFragment : Fragment() {
         }
     }
 
-
     private fun setLoginDialog() {
         val loginDialog = LoginDialog(requireContext())
 

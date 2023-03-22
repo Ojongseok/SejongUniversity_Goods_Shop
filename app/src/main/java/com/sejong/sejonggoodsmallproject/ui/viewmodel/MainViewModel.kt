@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.sejong.sejonggoodsmallproject.data.model.*
 import com.sejong.sejonggoodsmallproject.data.repository.MainRepository
 import com.sejong.sejonggoodsmallproject.data.room.RecentSearchModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
