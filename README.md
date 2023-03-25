@@ -9,4 +9,4 @@
 또한, 에브리타임이라는 대학생 커뮤니티에서 학생이 개인적으로 굿즈 제작 및 홍보, 공동구매 게시글을 작성하는 것을 종종 보았습니다. 이 과정에서 번거롭고, 효과적이지 못한 부분들이 많다고 느껴 교내 학생들과 함께 아이디어를 구체화하고 기획했습니다.
 
 ## 🛠️ Tech Stack
-```Kotlin```, ```MVVM```, ```Repository```, ```Coroutine```, ```Room```, ```Data Binding```, ```Retrofit2```, ```Gson```, ```JWT Token```, ```SharedPreference```
+```Kotlin```, ```MVVM```, ```Repository```, ```Coroutine```, ```Room```, ```DataBinding```, ```Retrofit2```, ```Gson```, ```JWT Token```, ```SharedPreference```
