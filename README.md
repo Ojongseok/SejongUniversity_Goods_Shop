@@ -44,10 +44,31 @@
 </div>
 
 ### 3️⃣ 장바구니 및 마이페이지
+* 장바구니 상품은 현장수령/택배수령으로 구분해 담을 수 있습니다.
 * 
-* 
+
 <br>
 
+<div> 
+  <img src="https://user-images.githubusercontent.com/98886487/230842675-cfaacfde-46cc-4c43-90cf-2927425565ff.png" width="200" height="400" /> 
+  <img src="https://user-images.githubusercontent.com/98886487/230842722-a5d2050a-4cfd-4863-872f-ddad782f0ba6.png" width="200" height="400" /> 
+  <img src="https://user-images.githubusercontent.com/98886487/230843338-b7b7f994-f0ed-4c67-9616-e992d5f2da90.png" width="200" height="400" /> 
+  <img src="https://user-images.githubusercontent.com/98886487/230843370-b42abbab-3fc5-4ec1-83bd-c9ffdd34b97e.png" width="200" height="400" /> 
+</div>
+
+### #️⃣ 상품 검색 및 로그인 기능
+* 적은 상품 수에서 필수적인 기능은 아니지만 Jetpack Room 라이브러리를 이용하기 위해 검색 기능을 구현해 보았습니다.
+* 회원가입 및 로그인에는 JWT Token이 사용됩니다. 또한, 이메일 인증을 통한 비밀번호 찾기가 가능합니다.
+
+### [추가]
+<div> 
+  <img src="https://user-images.githubusercontent.com/98886487/230846229-b35cb79a-5496-4ab7-9597-35a7d3a975c7.png" width="200" height="400" /> 
+  <img src="https://user-images.githubusercontent.com/98886487/230846052-3f47cd22-f118-4e6c-8eab-7dfcd94aa9ef.png" width="200" height="400" /> 
+  <img src="https://user-images.githubusercontent.com/98886487/230846474-ad0a82d9-3eb6-4eca-9cd6-9bdb25c12182.png" width="200" height="400" /> 
+  <img src="https://user-images.githubusercontent.com/98886487/230848092-391eaf4b-27c0-4406-8441-e4ddddcadfd2.png" width="200" height="400" /> 
+</div>
+
+* '우편번호 검색'에는 Git Pages와 다음에서 제공하는 우편번호 검색 API를 활용했습니다.
 
 ## 🔗 PlayStore Link
 https://play.google.com/store/apps/details?id=com.sejong.sejonggoodsmallproject
