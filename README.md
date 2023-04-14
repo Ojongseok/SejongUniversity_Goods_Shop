@@ -70,5 +70,13 @@
 
 * '우편번호 검색'에는 Git Pages와 다음에서 제공하는 우편번호 검색 API를 활용했습니다.
 
+## 📌 Issue
+### 서버와 API 통신을 위해 기존의 http → https 통신
+안드로이드에서 기본적으로 http 통신을 허용하지 않지만 manifest에서 android:usesCleartextTraffic 속성을 true로 설정하면 http로 접근이 가능합니다. 하지만 해당 방법은 권장되지 않고, 사이트에서 http 접근을 보안상의 이유로 허용하지 않는다면 https 통신을 강제해야 합니다.   
+https 통신의 경우 웹사이트에 SSL/TLS 인증서가 적용된 경우 정상적인 인증서가 패키지에 포함되어야 하지만 인증서없이 우회하여 접속이 가능합니다.   
+이 방법 또한 권장되지 않는 방식이지만 인증서 발급에 어려움이 있어 우회하여 https 주소에 접근하는 방식을 채택했습니다.
+
+## 🤔 Learned
+
 ## 🔗 PlayStore Link
 https://play.google.com/store/apps/details?id=com.sejong.sejonggoodsmallproject
