@@ -12,61 +12,58 @@
 ```Kotlin```, ```MVVM```, ```Repository```, ```Coroutine```, ```Room```, ```DataBinding```, ```Retrofit2```, ```Gson```, ```JWT Token```, ```SharedPreference```
 
 ## ✅ Main Function
+### 1️⃣ 굿즈/상품 정보 제공   
+* 교내 학생들이 제작한 세종대학교 굿즈 상품을 한눈에 확인 가능
+* 개별적으로 판매하던 굿즈 판매자와 직접 연락해 상품/판매자 정보를 받아 앱에 게시했습니다.
 <div>
   <img src="https://user-images.githubusercontent.com/98886487/230816770-08542932-a62a-449c-a9b3-117d8897b81b.png" width="200" height="400" />
   <img src="https://user-images.githubusercontent.com/98886487/230827102-14feb11b-7eec-423a-a337-b80db6a07660.png" width="200" height="400" />
   <img src="https://user-images.githubusercontent.com/98886487/230818265-96dec8b1-6d91-4124-8a8c-3302c3058565.png" width="200" height="400" />
   <img src="https://user-images.githubusercontent.com/98886487/230827249-6eeca30d-34b0-4c99-a458-516cd7b5a5f9.png" width="200" height="400" />
-</div>
-
-### 1️⃣ 굿즈/상품 정보 제공   
-* 교내 학생들이 제작한 세종대학교 굿즈 상품을 한눈에 확인 가능
-* 개별적으로 판매하던 굿즈 판매자와 직접 연락해 상품/판매자 정보를 받아 앱에 게시했습니다.
+</div> 
 <br>
 
+### 2️⃣ 상품 주문 및 주문 내역 확인
+* 사용자는 앱에서 굿즈를 확인하고, 구매할 수 있습니다. 상품은 현장수령과 택배수령이 가능하며 구매방법은 계좌이체로 이루어 집니다.
+* [앱] 사용자가 앱에서 굿즈 구매 후 계좌이체 완료 → [서버] 구매 정보 DataBase 추가 → [개발자→판매자] 판매자에게 구매자 목록 전달(1일 1회) → [판매자→개발자] 계좌이체가 확인된 구매자 목록 전달(1일 1회) → [앱] 계좌이체가 확인된 구매자 대상 주문상태 갱신 → [사용자] 주문상품 수령
 <div>
   <img src="https://user-images.githubusercontent.com/98886487/230829867-2ac7505d-c4af-45b6-8bfc-f2a8f1ebf69b.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230830489-761f1f6a-ced3-42d9-81bf-759fabccd00f.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230830340-f71b5eb3-bdf2-4c1c-b9de-13446bdd2e97.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230830351-d9aca093-4d30-41df-b257-ed86327f6144.png" width="200" height="400" /> 
-</div>   
-
-### 2️⃣ 상품 주문 및 주문 내역 확인
-* 사용자는 앱에서 굿즈를 확인하고, 구매할 수 있습니다. 상품은 현장수령과 택배수령이 가능하며 구매방법은 계좌이체로 이루어 집니다.
-* [앱] 사용자가 앱에서 굿즈 구매 후 계좌이체 완료 → [서버] 구매 정보 DataBase 추가 → [개발자→판매자] 판매자에게 구매자 목록 전달(1일 1회) → [판매자→개발자] 계좌이체가 확인된 구매자 목록 전달(1일 1회) → [앱] 계좌이체가 확인된 구매자 대상 주문상태 갱신 → [사용자] 주문상품 수령
+</div>  
 <br>
 
+### 3️⃣ 장바구니 및 마이페이지
+* 장바구니 상품은 현장수령/택배수령으로 구분해 담을 수 있습니다.
 <div> 
   <img src="https://user-images.githubusercontent.com/98886487/230840519-10da98f1-aa11-4214-b5be-845e4b3f6645.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230840737-49713ea4-a673-4b84-8986-3e27fe273b6e.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230840803-a6f05ac4-e115-4176-a8eb-f1311d9f7c61.png" width="200" height="400" /> 
   <img src="" width="200" height="400" /> 
 </div>
-
-### 3️⃣ 장바구니 및 마이페이지
-* 장바구니 상품은 현장수령/택배수령으로 구분해 담을 수 있습니다.
 <br>
 
+### 4️⃣ 상품 검색 및 로그인 기능
+* 적은 상품 수에서 필수적인 기능은 아니지만 Jetpack Room 라이브러리를 이용하기 위해 검색 기능을 구현해 보았습니다.
+* 회원가입 및 로그인에는 JWT Token이 사용됩니다. 또한, 이메일 인증을 통한 비밀번호 찾기가 가능합니다.
 <div> 
   <img src="https://user-images.githubusercontent.com/98886487/230842675-cfaacfde-46cc-4c43-90cf-2927425565ff.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230842722-a5d2050a-4cfd-4863-872f-ddad782f0ba6.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230843338-b7b7f994-f0ed-4c67-9616-e992d5f2da90.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230843370-b42abbab-3fc5-4ec1-83bd-c9ffdd34b97e.png" width="200" height="400" /> 
 </div>
+<br>
 
-### #️⃣ 상품 검색 및 로그인 기능
-* 적은 상품 수에서 필수적인 기능은 아니지만 Jetpack Room 라이브러리를 이용하기 위해 검색 기능을 구현해 보았습니다.
-* 회원가입 및 로그인에는 JWT Token이 사용됩니다. 또한, 이메일 인증을 통한 비밀번호 찾기가 가능합니다.
-
-### [추가]
+### #️⃣ [추가]
+* '우편번호 검색'에는 Git Pages와 다음에서 제공하는 우편번호 검색 API를 활용했습니다.
 <div> 
   <img src="https://user-images.githubusercontent.com/98886487/230846229-b35cb79a-5496-4ab7-9597-35a7d3a975c7.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230846052-3f47cd22-f118-4e6c-8eab-7dfcd94aa9ef.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230846474-ad0a82d9-3eb6-4eca-9cd6-9bdb25c12182.png" width="200" height="400" /> 
   <img src="https://user-images.githubusercontent.com/98886487/230848092-391eaf4b-27c0-4406-8441-e4ddddcadfd2.png" width="200" height="400" /> 
 </div>
-
-* '우편번호 검색'에는 Git Pages와 다음에서 제공하는 우편번호 검색 API를 활용했습니다.
+<br>
 
 ## 📌 Issue
 ### 서버와 API 통신을 위해 기존의 http → https 통신
